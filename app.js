@@ -1,12 +1,8 @@
 var express = require('express');
 var app = express();
+var server = require('./src/config/server');
 
-require('./src/config/server')(app);
-
+server.server(app);
 app.listen(3000, function() {
-    console.log('Example app listening on port 3000!');
-
-    if (process.send) {
-        process.send('online');
-    }
+    server.logger.log('verbose', 'app listening on port 3000');
 });
