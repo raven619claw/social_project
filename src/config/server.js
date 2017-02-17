@@ -5,16 +5,16 @@ var routes = require(rootPath + '/services/routes.js');
 var chokidar = require('chokidar');
 var markoReload = require('marko/hot-reload');
 var path = require("path");
-var br = require('marko/browser-refresh').enable();
-// markoReload.enable();
-// var watcher = chokidar.watch(rootPath+'/modules/');
+markoReload.enable();
+var watcher = chokidar.watch(rootPath+'/modules/');
+
 module.exports = function(app) {
-    // watcher.on('change', function(filename) {
-    //     if (/\.marko$/.test(filename)) {
-    //         var templatePath = path.join(filename);
-    //         markoReload.handleFileModified(templatePath);
-    //     }
-    // });
+    watcher.on('change', function(filename) {
+        if (/\.marko$/.test(filename)) {
+            var templatePath = path.join(filename);
+            markoReload.handleFileModified(templatePath);
+        }
+    });
     app.use(express.static(rootPath + 'public'));
     app.use('/', routes);
 };

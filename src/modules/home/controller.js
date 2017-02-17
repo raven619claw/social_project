@@ -1,10 +1,11 @@
 var marko = require('marko');
 var template = require.resolve('./index.marko');
-template = marko.load(template);
-var loader = function(){
-	return {};
+
+var loader = function() {
+    return {};
 }
-var render = function(req,res) {
+var render = function(req, res) {
+    template = marko.load(template);
     return template.render(loader(), res);
 };
 
