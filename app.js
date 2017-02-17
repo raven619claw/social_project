@@ -5,8 +5,4 @@ require('./src/config/server')(app);
 
 app.listen(3000, function() {
     console.log('Example app listening on port 3000!');
-
-    if (process.send) {
-        process.send('online');
-    }
 });
