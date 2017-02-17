@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-    <link rel="stylesheet" type="text/css" href="/styles/css/main.css">
-        <title>Marko Templating Engine</title>
-    </head>
-    <body>
-        <h1>
-           hello man how are u ??? 
+<layout-use("../../templates/base.marko") show-header=true>
+    <layout-put into="title">yaah</layout-put>
+    <layout-put into="styles">
+        <link rel="stylesheet" type="text/css" href="/styles/css/main.css">
+    </layout-put>
+    <layout-put into="body">
+         <h1>
+            hello man how are u ??? sa
         </h1>
-        <browser-refresh enabled="true" />
-    </body>
-</html>
+    </layout-put>
+</layout-use>    
