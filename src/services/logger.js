@@ -1,6 +1,6 @@
-var colors = require('colors/safe');
+let colors = require('colors/safe');
 
-var log = function(type, msg) {
+let log = function(type, msg) {
     colors.setTheme({
         silly: 'rainbow',
         input: 'grey',
@@ -13,12 +13,12 @@ var log = function(type, msg) {
         debug: 'blue',
         error: 'red'
     });
-    var date = new Date().toGMTString();
+    let date = new Date().toGMTString();
     if (type == 'error') {
     	console.log(colors.debug('[' + date + '] ') + colors.error(msg));
     }
     if (type == 'info') {
-        console.log(colors.debug('[' + date + '] ') + colors.info(msg));
+        console.log(colors.info('[' + date + '] ') + colors.info(msg));
     }
     if (type == 'warning') {
     	console.log(colors.debug('[' + date + '] ') + colors.yellow(msg));
@@ -27,7 +27,7 @@ var log = function(type, msg) {
     	console.log(colors.debug('[' + date + '] ') + colors.verbose(msg));
     }
     if (type == 'data') {
-    	console.log(colors.debug('[' + date + '] ') + colors.data(msg));
+    	console.log(colors.data('[' + date + '] ') + colors.data(msg));
     }
 
 };

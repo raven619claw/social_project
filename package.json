@@ -16,13 +16,13 @@
     "express": "^4.14.0",
     "express-session": "^1.14.0",
     "glob": "^6.0.4",
+    "lodash": "^4.17.4",
     "marko": "^3.4.2"
   },
   "devDependencies": {
-    "babel-cli": "^6.23.0",
-    "babel-core": "^6.23.1",
     "grunt": "^1.0.1",
     "grunt-contrib-sass": "^1.0.0",
-    "grunt-contrib-watch": "^1.0.0"
+    "grunt-contrib-watch": "^1.0.0",
+    "load-grunt-tasks": "^3.5.2"
   }
 }

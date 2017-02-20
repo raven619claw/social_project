@@ -1,12 +1,12 @@
-var glob = require('glob');
-var path = require("path");
-var rootPath = path.join(__dirname, '../');
+let glob = require('glob');
+let path = require("path");
+let rootPath = path.join(__dirname, '../');
 module.exports = function() {
-    var controllersPath = {};
-    var controllers = glob.sync(rootPath + '/modules/**/controller.js');
-    for (var i = 0; i < controllers.length; i++) {
-    	var substr = controllers[i].slice(0,controllers[i].lastIndexOf("/"));
-        controllersPath[(substr.slice(substr.lastIndexOf("/") + 1))] = require(controllers[i]);
-    }
+    let controllersPath = {};
+    let controllers = glob.sync(rootPath + '/modules/**/controller.js');
+    controllers.forEach((controller) => {
+        let substr = controller.slice(0, controller.lastIndexOf("/"));
+        controllersPath[(substr.slice(substr.lastIndexOf("/") + 1))] = require(controller);
+    });
     return controllersPath;
 };
