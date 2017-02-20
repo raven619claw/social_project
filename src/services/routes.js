@@ -1,9 +1,11 @@
-var express = require('express');
-var router = express.Router();
-var controllers = require('./controllers.js')();
-var logger = require('./logger');
+const express = require('express');
+const router = express.Router();
+const controllers = require('./controllers.js')();
+
+const globalConstants = require('../config/constants.js');
+
 router.use(function(req, res, next){
-	logger.log('data', req.method.toString() +' '+ req.url);
+	globalConstants.logger.log('data', req.method.toString() +' '+ req.url);
 	next();
 });
 
