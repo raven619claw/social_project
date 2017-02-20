@@ -2,7 +2,7 @@
 const glob = require('glob');
 
 //built in globals
-const globalConstants = require('../config/constants.js');
+const globalConstants = require('../config/constants');
 
 module.exports = function() {
     let controllersPath = {};

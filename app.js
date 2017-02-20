@@ -4,7 +4,7 @@ const app = express();
 
 //built in globals
 const server = require('./src/config/server');
-const globalConstants = require('./src/config/constants.js');
+const globalConstants = require('./src/config/constants');
 
 server.server(app);
 app.listen(3000, ()=> {
