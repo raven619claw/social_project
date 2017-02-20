@@ -3,7 +3,6 @@ var express = require('express');
 var path = require("path");
 var chokidar = require('chokidar');
 var markoReload = require('marko/hot-reload');
-var path = require("path");
 
 //built globals
 var rootPath = path.join(__dirname, '../');
