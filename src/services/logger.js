@@ -1,6 +1,7 @@
-let colors = require('colors/safe');
+const colors = require('colors/safe');
+const fs = require('fs');
 
-let log = function(type, msg) {
+const log = (type, msg) => {
     colors.setTheme({
         silly: 'rainbow',
         input: 'grey',
@@ -15,22 +16,36 @@ let log = function(type, msg) {
     });
     let date = new Date().toGMTString();
     if (type == 'error') {
-    	console.log(colors.debug('[' + date + '] ') + colors.error(msg));
+        console.log(colors.debug('[' + date + '] ') + colors.error(msg));
     }
     if (type == 'info') {
         console.log(colors.info('[' + date + '] ') + colors.info(msg));
     }
     if (type == 'warning') {
-    	console.log(colors.debug('[' + date + '] ') + colors.yellow(msg));
+        console.log(colors.debug('[' + date + '] ') + colors.yellow(msg));
     }
     if (type == 'verbose') {
-    	console.log(colors.debug('[' + date + '] ') + colors.verbose(msg));
+        console.log(colors.debug('[' + date + '] ') + colors.verbose(msg));
     }
     if (type == 'data') {
-    	console.log(colors.data('[' + date + '] ') + colors.data(msg));
+        console.log(colors.data('[' + date + '] ') + colors.data(msg));
     }
+    logToFile(date, msg, true);
+};
 
+const logToFile = (date, msg, flag) => {
+    if (flag) {
+        fs.appendFile('logFile.log', '[ ' + date + ' ] ' + ' ' + msg + '\n', (err, fd) => {
+            if (err) {
+                return console.log('unable to write to log file');
+            } else {
+                //return console.log('written to log file');
+            }
+        });
+
+    }
 };
 module.exports = {
-	log: log
+    log,
+    logToFile
 };
