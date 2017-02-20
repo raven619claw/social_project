@@ -1,13 +1,13 @@
 //node modules
 var express = require('express');
 var path = require("path");
-var routes = require(rootPath + '/services/routes.js');
 var chokidar = require('chokidar');
 var markoReload = require('marko/hot-reload');
 var path = require("path");
 
 //built globals
 var rootPath = path.join(__dirname, '../');
+var routes = require(rootPath + '/services/routes.js');
 var logger = require(rootPath + '/services/logger.js');
 var watcher = chokidar.watch(rootPath + '/modules/');
 
