@@ -1,4 +1,7 @@
+//node modules
 const glob = require('glob');
+
+//built in globals
 const globalConstants = require('../config/constants.js');
 
 module.exports = function() {

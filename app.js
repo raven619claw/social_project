@@ -1,7 +1,9 @@
-let express = require('express');
-let app = express();
-let server = require('./src/config/server');
+//node modules
+const express = require('express');
+const app = express();
 
+//built in globals
+const server = require('./src/config/server');
 const globalConstants = require('./src/config/constants.js');
 
 server.server(app);

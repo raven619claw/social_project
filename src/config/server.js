@@ -3,7 +3,7 @@ const express = require('express');
 const chokidar = require('chokidar');
 const markoReload = require('marko/hot-reload');
 
-//built globals
+//built in globals
 const globalConstants = require('../config/constants.js');
 const routes = require(globalConstants.rootPath + '/services/routes.js');
 const watcher = chokidar.watch(globalConstants.rootPath + '/modules/');
