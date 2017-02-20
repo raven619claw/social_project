@@ -7,3 +7,4 @@ src/public/config/environment.json
 .env*
 *sublime*
 .sass-cache/
+*.log
