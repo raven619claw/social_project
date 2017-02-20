@@ -1,12 +1,15 @@
-var marko = require('marko');
-var template = require.resolve('./index.marko');
+const globalConstants = require('../../config/constants');
 
-var loader = function() {
+const templateLoader = require(globalConstants.rootPath+'/services/templateLoader');
+let template = require.resolve('./index.marko');
+template = templateLoader(template);
+
+//function to return any data required for the template
+let loader = function(req) {
     return {};
 }
-var render = function(req, res) {
-    template = marko.load(template);
-    return template.render(loader(), res);
+let render = function(req, res) {
+    return template.renderSync(loader(req), res);
 };
 
 module.exports = render;

@@ -4,8 +4,8 @@ const chokidar = require('chokidar');
 const markoReload = require('marko/hot-reload');
 
 //built in globals
-const globalConstants = require('../config/constants.js');
-const routes = require(globalConstants.rootPath + '/services/routes.js');
+const globalConstants = require('../config/constants');
+const routes = require(globalConstants.rootPath + '/services/routes');
 const watcher = chokidar.watch(globalConstants.rootPath + '/modules/');
 
 markoReload.enable();

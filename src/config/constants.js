@@ -6,6 +6,6 @@ const logger = require('../services/logger');
 const rootPath = path.join(__dirname, '../');
 
 module.exports = {
-	rootPath,
-	logger
+    rootPath,
+    logger
 }
