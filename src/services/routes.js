@@ -16,5 +16,4 @@ router.get('/', function(req, res) {
     controllers.home(req, res);
 });
 
-
 module.exports = router;

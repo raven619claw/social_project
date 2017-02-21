@@ -1,5 +1,6 @@
-<layout-use("../../templates/base/base.marko") show-header=true>
-    <layout-put into="title">social_project</layout-put>
+<layout-use("../../templates/base/base.marko") show-header=true layoutData="${data}">
+<header name="ravi yadav"/>
+    <layout-put into="title">${data.title}</layout-put>
     <layout-put into="styles">
         <link rel="stylesheet" type="text/css" href="/styles/css/main.css">
     </layout-put>
