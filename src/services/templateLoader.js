@@ -1,10 +1,14 @@
-const marko = require('marko');
+const marko = require('marko'),
+path = require('path');
 
-const templateLoader = (template)=>{
-	template = marko.load(template);
-
-	template.renderSync = (data,res)=>{
-		template.render(data,res);
+let templateLoader = (templatePath)=>{
+	
+	filePath = (templatePath + '/index.marko');
+	template = marko.load(filePath);
+	let layoutData = {title:'social_project'};
+	template.renderTemplate = (data,res)=>{
+		layoutData.data = data;
+		template.render(layoutData,res);
 	}
 	return template;
 };
