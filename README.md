@@ -33,3 +33,7 @@ Will try to not use frameworks for front end and get by with vanilla JS
 after i learn will replace all with frameworks
 
 Credit to all ppl who have developed the modules that i will use
+
+# TO RUN
+npm install
+then use nodemon to run server
