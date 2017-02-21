@@ -1,7 +1,7 @@
 const colors = require('colors/safe');
 const fs = require('fs');
 
-const log = (type, msg) => {
+const LOG = (type, msg) => {
     colors.setTheme({
         silly: 'rainbow',
         input: 'grey',
@@ -14,7 +14,8 @@ const log = (type, msg) => {
         debug: 'blue',
         error: 'red'
     });
-    let date = new Date().toGMTString();
+    let date = (new Date()).toString();
+    date = date.slice(0,date.lastIndexOf('GMT')-1);
     if (type == 'error') {
         console.log(colors.debug('[' + date + '] ') + colors.error(msg));
     }
@@ -30,10 +31,10 @@ const log = (type, msg) => {
     if (type == 'data') {
         console.log(colors.data('[' + date + '] ') + colors.data(msg));
     }
-    logToFile(date, msg, true);
+    LOGTOFILE(date, msg, true);
 };
 
-const logToFile = (date, msg, flag) => {
+const LOGTOFILE = (date, msg, flag) => {
     if (flag) {
         fs.appendFile('logFile.log', '[ ' + date + ' ] ' + ' ' + msg + '\n', (err, fd) => {
             if (err) {
@@ -46,6 +47,6 @@ const logToFile = (date, msg, flag) => {
     }
 };
 module.exports = {
-    log,
-    logToFile
+    LOG,
+    LOGTOFILE
 };

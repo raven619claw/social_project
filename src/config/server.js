@@ -2,24 +2,25 @@
 const express = require('express');
 const chokidar = require('chokidar');
 const markoReload = require('marko/hot-reload');
+const path = require("path");
 
 //built in globals
-const globalConstants = require('../config/constants');
-const routes = require(globalConstants.rootPath + '/services/routes');
-const watcher = chokidar.watch(globalConstants.rootPath + '/modules/');
+const GLOBALCONSTANTS = require('../config/constants');
+const routes = require(GLOBALCONSTANTS.ROOTPATH + '/services/routes');
+const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 
 markoReload.enable();
 
 const server = (app) => {
-    app.use(express.static(globalConstants.rootPath + 'public'));
+    app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
+    app.use('/', routes);
+
     watcher.on('change', function(filename) {
         if (/\.marko$/.test(filename)) {
             var templatePath = path.join(filename);
             markoReload.handleFileModified(templatePath);
         }
     });
-
-    app.use('/', routes);
 };
 
 module.exports = {
