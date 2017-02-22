@@ -1,17 +1,13 @@
 const GLOBALCONSTANTS = require('../../config/constants');
-const marko = require('marko');
+let template = require.resolve('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
-
+template = templateLoader(template);
 //function to return any data required for the template
-let loader = function(req) {
-    return {
-    	name:'ravi',
-    	location:'gurgaon'
-    };
+let loader = function(dataObject) {
+	return dataObject;
 }
-let render = function(req, res) {
-	let template = templateLoader(__dirname);
-    return template.renderTemplate(loader(req), res);
+let render = function(req, res, dataObject) {
+    return template.renderTemplate(loader(dataObject), res);
 };
 
 module.exports = render;

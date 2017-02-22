@@ -2,7 +2,9 @@
 const express = require('express');
 const chokidar = require('chokidar');
 const markoReload = require('marko/hot-reload');
+const bodyParser = require('body-parser');
 const path = require("path");
+
 
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
@@ -12,6 +14,8 @@ const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 markoReload.enable();
 
 const server = (app) => {
+    app.use(bodyParser.json()); // for parsing application/json
+    app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
     app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
     app.use('/', routes);
 

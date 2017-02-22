@@ -2,13 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><layout-placeholder name="title"/>asda</title>
+	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
+    <title><layout-placeholder name="title"/></title>
     <layout-placeholder name="styles"/>
 </head>
 <body>
-    <layout-placeholder name="body"/>
-    <div>
-        <layout-placeholder name="footer"/>
+	<headerTemplate data="${data.data}" if(data.showHeader)/>
+	<div class="body-content">
+    	<layout-placeholder name="body"/>
     </div>
 </body>
 </html>
