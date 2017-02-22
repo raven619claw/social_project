@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
     <title><layout-placeholder name="title"/></title>
     <layout-placeholder name="styles"/>
 </head>
 <body>
-	<h2>${data.layoutData.data.name}</h2>
-    <layout-placeholder name="body"/>
-    <div>
-        <footer/>
+	<headerTemplate data="${data.data}" if(data.showHeader)/>
+	<div class="body-content">
+    	<layout-placeholder name="body"/>
     </div>
 </body>
 </html>
