@@ -1,0 +1,30 @@
+<header>
+    <var pageData="${data.data.data}"/>
+    <div class="title">_SOCIAL</div>
+    <div class="loginDetails">
+    <if (!pageData.success)>
+        <form class="loginForm" method="post" action="/">
+            <input type="hidden" name="logintype" value="login">
+            <input class="username" type="text" name="name">
+            <input class="password" type="password" name="password">
+            <input class="submitBtn" type="submit" value="login">
+        </form>
+    </if>
+    <if (pageData)>
+        <if (pageData.success)>
+            <div class="loggedIn">
+                <div class="showUsername">${pageData.name} </div>
+                <form class="loginForm" method="post" action="/">
+                    <input type="hidden" name="logintype" value="logout">
+                    <input class="submitBtn" type="submit" value="logout">
+                </form>
+            </div>
+        </if>
+        <else>
+            <div class="logInFail">
+                ${pageData.name} your userID and password do not match!
+            </div>
+        </else>
+     </if>
+    </div>
+</header>
