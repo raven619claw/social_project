@@ -14,14 +14,14 @@ let userAuth = (userData, sessionObject) => {
         switch (userData.logintype) {
             case 'login':
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user login authentication received');
-                let returnedUserData = userAuthFromDB.getUser(dbSession, userData);
-                returnedUserData.then((userDataReceived)=>{
-                    if(userDataReceived){
-                        userData.success = true;    
-                    }
-                    GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
-                    resolve(userData);
-                });
+                userAuthFromDB.getUser(dbSession, userData)
+                    .then((userDataReceived) => {
+                        if (userDataReceived) {
+                            userData.success = true;
+                        }
+                        GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
+                        resolve(userData);
+                    });
                 break;
             case 'logout':
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user logout authentication received');
@@ -33,6 +33,7 @@ let userAuth = (userData, sessionObject) => {
         }
     });
 };
+
 
 let getSessionObject = (sessionObject, req) => {
     GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user session received');
