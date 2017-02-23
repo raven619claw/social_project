@@ -17,7 +17,9 @@
     "express-session": "^1.15.1",
     "glob": "^6.0.4",
     "lodash": "^4.17.4",
-    "marko": "^3.4.2"
+    "marko": "^3.4.2",
+    "neo4j-driver": "^1.0.5",
+    "node-neo4j": "^2.0.3"
   },
   "devDependencies": {
     "grunt": "^1.0.1",

@@ -22,10 +22,23 @@ router.route('/')
         controllers.home(req, res, userData);
     })
     .post(function(req, res) {
-        let userData = routerHelperObject.userAuth(req.body, sessionObject);
-        sessionObject = routerHelperObject.setSessionObject(sessionObject, userData);
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for POST request');
-        controllers.home(req, res, userData);
+        let userData;
+
+        let userDataPromise = new Promise((resolve, reject) => {
+            routerHelperObject.userAuth(req.body, sessionObject)
+            .then((userData)=>{
+                resolve(userData);    
+            });
+            
+        });
+        userDataPromise.then((result) => {
+            userData = result;
+            sessionObject = routerHelperObject.setSessionObject(sessionObject, userData);
+            GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for POST request');
+            controllers.home(req, res, userData);
+        });
+
+
     });
 
 module.exports = router;
