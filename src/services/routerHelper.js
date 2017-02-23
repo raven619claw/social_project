@@ -3,30 +3,35 @@ const session = require('express-session');
 
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
+const dbSession = require('../services/neo4jConnector');
+const userAuthFromDB = require('../models/getUserAuth');
+
 
 let userAuth = (userData, sessionObject) => {
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user authentication received');
-    userData.success = false;
-    switch (userData.logintype) {
-        case 'login':
-            GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user login authentication received');
-
-            if (userData.name == 'ravi' || userData.name == 'yadav' && userData.password == 'pass') {
-                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged in ' + userData.name);
-
-                userData.success = true;
-            }
-
-            break;
-        case 'logout':
-            GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user logout authentication received');
-            GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged out' + sessionObject.name);
-
-            userData = false;
-            break;
-    }
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
-    return userData;
+    return new Promise((resolve, reject) => {
+        GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user authentication received');
+        userData.success = false;
+        switch (userData.logintype) {
+            case 'login':
+                GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user login authentication received');
+                let returnedUserData = userAuthFromDB.getUser(dbSession, userData);
+                returnedUserData.then((userDataReceived)=>{
+                    if(userDataReceived){
+                        userData.success = true;    
+                    }
+                    GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
+                    resolve(userData);
+                });
+                break;
+            case 'logout':
+                GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user logout authentication received');
+                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged out' + sessionObject.name);
+                userData = false;
+                GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
+                resolve(userData);
+                break;
+        }
+    });
 };
 
 let getSessionObject = (sessionObject, req) => {
