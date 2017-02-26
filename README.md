@@ -37,3 +37,15 @@ Credit to all ppl who have developed the modules that i will use
 # TO RUN
 npm install
 then use nodemon to run server
+
+# TO SETUP DB
+
+install neo4j community edition
+set up and run the db server
+create a node such as
+
+(:USER {name:'user',password:'pass'})
+
+the connection to neo4j is in the db connection file
+change the login credentials there
+will create a common file for db credentials later
