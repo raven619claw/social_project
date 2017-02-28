@@ -27,10 +27,10 @@ The path i'll follow while developing this project is as follows:
   21. set up cache server
   22. set up basic chat interface using socket.io
 
-I have bare minimum knowledge on how to implement all this so i'll learn on the way.
+
 If i have mentioned anything wrong do correct me on how to implement a feature
 Will try to not use frameworks for front end and get by with vanilla JS
-after i learn will replace all with frameworks
+later will replace all with frameworks
 
 Credit to all ppl who have developed the modules that i will use
 
