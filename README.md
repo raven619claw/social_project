@@ -35,17 +35,27 @@ later will replace all with frameworks
 Credit to all ppl who have developed the modules that i will use
 
 # TO RUN
+```
 npm install
-then use nodemon to run server
+```
+then use 
+```
+nodemon
+```
+to run server
 
 # TO SETUP DB
 
 install neo4j community edition
 set up and run the db server
 create a node such as
-
+```
 (:USER {name:'user',password:'pass'})
-
-the connection to neo4j is in the db connection file
-change the login credentials there
+```
+the connection to neo4j is in the neo4jconnector.js file
+change the login credentials there as follows
+replace with your username and password
+```
+var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("USERNAME", "PASSWORD"));
+```
 will create a common file for db credentials later
