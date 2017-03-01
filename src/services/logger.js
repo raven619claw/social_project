@@ -14,10 +14,11 @@ const LOG = (type, msg) => {
         debug: 'blue',
         error: 'red'
     });
+    type = type || 'data';
     let date = (new Date()).toString();
     date = date.slice(0,date.lastIndexOf('GMT')-1);
     if (type == 'error') {
-        console.log(colors.debug('[' + date + '] ') + colors.error(msg));
+        console.log(colors.error('[' + date + '] ') + colors.error(msg));
     }
     if (type == 'info') {
         console.log(colors.info('[' + date + '] ') + colors.info(msg));

@@ -2,7 +2,6 @@
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
 
-
 let sessionObject ={};
 
 sessionObject.getSessionObject = (sessionObject, req) => {

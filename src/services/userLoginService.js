@@ -1,7 +1,7 @@
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
 const dbSession = require('../services/neo4jConnector');
-const userAuthFromDB = require('../models/getUserAuth');
+const userAuthFromDB = require('../models/users/getUserAuth');
 
 
 let userAuth = (userData, sessionObject) => {
