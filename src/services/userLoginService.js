@@ -21,7 +21,8 @@ let userAuth = (userData, sessionObject) => {
                     function(err, httpResponse, body) {
                         body = JSON.parse(body);
                         if (body) {
-                            if (body.user) {
+                            userData.loginStatus = body.loginStatus;
+                            if (body.loginStatus.password) {
                                 userData.success = true;
                             }
                             GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));

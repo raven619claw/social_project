@@ -22,7 +22,7 @@
         </if>
         <else>
             <div class="logInFail">
-                ${pageData.name} your userID and password do not match!
+            ${pageData.loginStatus.user ? pageData.name+ " your password does not match!" : pageData.name+ " your username does not exist!"}
             </div>
         </else>
      </if>
