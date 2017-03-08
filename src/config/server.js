@@ -14,23 +14,33 @@ const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 markoReload.enable();
 
 const server = (app) => {
-    app.use(session({
-        secret: 'keyboard cat',
-        resave: false,
-        saveUninitialized: true,
-        cookie: { }
-    }));
-    app.use(bodyParser.json()); // for parsing application/json
-    app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-    app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
-    app.use('/', routes);
-
     watcher.on('change', function(filename) {
         if (/\.marko$/.test(filename)) {
             var templatePath = path.join(filename);
             markoReload.handleFileModified(templatePath);
         }
     });
+    app.use(session({
+        secret: 'keyboard cat',
+        resave: false,
+        saveUninitialized: true,
+        cookie: {}
+    }));
+    app.use(bodyParser.json()); // for parsing application/json
+    app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+    app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
+    app.use((err, req, res, next) => {
+        if (err instanceof SyntaxError &&
+            err.status >= 400 && err.status < 500 &&
+            err.message.indexOf('JSON')) {
+            GLOBALCONSTANTS.LOGGER.LOG('error', 'JSON format error');
+            res.end('JSON error');
+        } else {
+            next();
+        }
+
+    });
+    app.use('/', routes);
 };
 
 module.exports = {

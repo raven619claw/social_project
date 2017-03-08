@@ -1,8 +1,6 @@
+const request = require('request');
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
-const dbSession = require('../services/neo4jConnector');
-const userAuthFromDB = require('../models/getUserAuth');
-
 
 let userAuth = (userData, sessionObject) => {
     return new Promise((resolve, reject) => {
@@ -11,15 +9,28 @@ let userAuth = (userData, sessionObject) => {
         switch (userData.logintype) {
             case 'login':
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user login authentication received');
-                userAuthFromDB.getUser(dbSession, userData)
-                    .then((userDataReceived) => {
-                        if (userDataReceived) {
-                            userData.success = true;
+                var formData = {
+                    name: userData.name,
+                    password: userData.password
+                };
+
+                request.post({
+                        url: 'http://127.0.0.1:3000/apis/userAuth',
+                        form: formData
+                    },
+                    function(err, httpResponse, body) {
+                        body = JSON.parse(body);
+                        if (body) {
+                            userData.loginStatus = body.loginStatus;
+                            if (body.loginStatus.password) {
+                                userData.success = true;
+                            }
+                            GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
+                            resolve(userData);
+                        } else {
+                            reject(false);
                         }
-                        GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
-                        resolve(userData);
-                    }, (err) => {
-                        reject(err);
+
                     });
                 break;
             case 'logout':
