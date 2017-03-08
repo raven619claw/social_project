@@ -1,10 +1,10 @@
 const GLOBALCONSTANTS = require('../../config/constants');
-
-let userAuth = {};
-userAuth.getUser = (dbSession, userData) => {
+const dbSession = require('../../services/neo4jConnector');
+let dataObject = {};
+dataObject.getUserAuth = (userData) => {
     return new Promise((resolve, reject) => {
         let queryString = "MATCH (user:USER) WHERE user.name={name} AND user.password={password} RETURN user";
-        queryParameters = { name: userData.name, password: userData.password };
+        let queryParameters = { name: userData.username, password: userData.password };
         GLOBALCONSTANTS.LOGGER.LOG('info','dB query for user auth running')
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
         dbSession
@@ -17,11 +17,11 @@ userAuth.getUser = (dbSession, userData) => {
                     resolve(false);
                 },
                 function(err) {
-                    GLOBALCONSTANTS.LOGGER.LOG('error','dB query for user auth failed\n result:'+JSON.stringify(error));
+                    GLOBALCONSTANTS.LOGGER.LOG('error','dB query for user auth failed\n result:'+JSON.stringify(err));
                     dbSession.close();
                     reject(false);
                 });
     });
 };
 
-module.exports = userAuth;
+module.exports = dataObject;

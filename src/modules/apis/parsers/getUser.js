@@ -1,4 +1,3 @@
-const dbSession = require('../../../services/neo4jConnector');
 const getUserModel = require('../../../models/users/getUser.js');
 
 let getUser = function(req, res) {
@@ -8,7 +7,7 @@ let getUser = function(req, res) {
 			name: req.query.name
 		}
 	}
-    getUserModel.getUser(dbSession, users)
+    getUserModel.getUser(users)
         .then((result) => {
         	res.end(JSON.stringify({'users':result}));
             },

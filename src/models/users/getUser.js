@@ -1,7 +1,7 @@
 const GLOBALCONSTANTS = require('../../config/constants');
-
-let userAuth = {};
-userAuth.getUser = (dbSession, data) => {
+const dbSession = require('../../services/neo4jConnector');
+let dataObject = {};
+dataObject.getUser = (data) => {
     return new Promise((resolve, reject) => {
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user retrieval running');
         let queryString = '';
@@ -35,4 +35,4 @@ userAuth.getUser = (dbSession, data) => {
     });
 };
 
-module.exports = userAuth;
+module.exports = dataObject;
