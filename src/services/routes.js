@@ -4,7 +4,7 @@ const router = express.Router();
 const session = require('express-session');
 
 //built in globals
-const sessionGlobal  = require('./sessionService');
+const sessionGlobal = require('./sessionService');
 const GLOBALCONSTANTS = require('../config/constants');
 const userLoginService = require('./userLoginService');
 let controllers;
@@ -36,4 +36,8 @@ router.route('/')
             });
     });
 
+router.all('/apis*', function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url );
+    controllers.apis(req, res);
+});
 module.exports = router;
