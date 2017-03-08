@@ -60,36 +60,6 @@ var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("USERNAME", 
 ```
 will create a common file for db credentials later
 
-# API structure as of now
-
-```
-TYPE:GET /apis/users
-```
-returns list of all users
-
-
-```
-TYPE:GET /apis/users?name=USERNAME
-```
-returns details of user having name USERNAME
-
-```
-TYPE:POST /apis/userAuth
-
-body{
-  'name':USERNAME,
-  'password':PASSWORD
-}
-```
-returns user authentication data and has flag to identify
-
-```
-TYPE:PUT /apis/createUser
-
-body{
-  'name':USERNAME,
-  'password':PASSWORD
-}
-```
-returns user if created or returns existing user if exists and has flag to identify
+# API 
+refer wiki page for API structure https://github.com/raven619claw/social_project/wiki/API-structure
 
