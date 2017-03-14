@@ -8,26 +8,25 @@ const sessionGlobal = require('./sessionService');
 const GLOBALCONSTANTS = require('../config/constants');
 const userLoginService = require('./userLoginService');
 let controllers;
-let sessionObject = false;
+
 router.use(function(req, res, next) {
     GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' ' + req.url);
     controllers = require('./controllers.js')();
-    sessionObject = sessionGlobal.getSessionObject(sessionObject, req);
     next();
 });
 
 router.route('/')
     .get(function(req, res) {
-        let userData = sessionGlobal.getUserDataFromSession(sessionObject);
+        let userData = sessionGlobal.getUserDataFromSession(req.session);
         GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
         controllers.home(req, res, userData);
     })
     .post(function(req, res) {
         let userData;
 
-        userLoginService.userAuth(req.body, sessionObject)
+        userLoginService.userAuth(req.body, req.session)
             .then((userData) => {
-                sessionObject = sessionGlobal.setSessionObject(sessionObject, userData);
+                req.session = sessionGlobal.setSessionObject(req.session, userData);
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for POST request');
                 controllers.home(req, res, userData);
             }, (err) => {

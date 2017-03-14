@@ -1,3 +1,5 @@
+const sessionService = require('../../services/sessionService.js');
+
 var apiRouteHandler = (req, res) => {
     var parsers = require('./parsers.js')();
     switch (req.path) {
@@ -9,6 +11,10 @@ var apiRouteHandler = (req, res) => {
             break;
         case '/apis/userAuth':
             parsers.getUserAuth(req, res);
+            break;
+        case '/apis/user/logout':
+            req.session = sessionService.setSessionObject(req.session, {name:false , success: false});
+            res.end(JSON.stringify({statusCode:'2XX',loginStatus:false}));
             break;
         default:
             res.end('bad request');

@@ -23,6 +23,7 @@ let userAuth = (userData, sessionObject) => {
                         if (body) {
                             userData.loginStatus = body.loginStatus;
                             if (body.loginStatus.password) {
+                                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged in' + userData.name);
                                 userData.success = true;
                             }
                             GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
