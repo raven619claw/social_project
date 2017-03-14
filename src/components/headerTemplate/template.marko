@@ -1,5 +1,28 @@
 <header>
-    <var pageData="${data.data.data}"/>
+    $ var pageData = data.data.data;
+    <div class="title">_SOCIAL</div>
+    <div class="loginDetails">
+        <div class="js-form-action ${pageData.success ? 'hide' : ''}">
+            <input type="hidden" class="js-logintype" name="logintype" value="login">
+            <input class="username js-name" type="text" name="name">
+            <input class="password js-password" type="password" name="password">
+            <input class="submitBtn js-submitLogin" type="submit" value="login">
+        </div>
+
+        <div class="loggedIn js-loggedIn ${pageData.success ? '' : 'hide'}">
+            <div class="showUsername js-showUsername">${pageData.success ? pageData.name : ''}</div>
+            <div>
+                <input class="js-logintype" type="hidden" name="logintype" value="logout">
+                <input class="submitBtn js-submitLogout" type="submit" value="logout">
+            </div>
+        </div>
+        <div class="logInFail js-logInFail">
+            
+        </div>
+    </div>
+</header>
+<!-- <header>
+    $ var pageData = data.data.data;
     <div class="title">_SOCIAL</div>
     <div class="loginDetails">
     <if (!pageData.success)>
@@ -22,9 +45,9 @@
         </if>
         <else>
             <div class="logInFail">
-            ${pageData.loginStatus.user ? pageData.name+ " your password does not match!" : pageData.name+ " your username does not exist!"}
+            ${pageData.name} ${pageData.loginStatus.user ? "your password does not match!" : "your username does not exist!"}
             </div>
         </else>
      </if>
     </div>
-</header>
+</header> -->

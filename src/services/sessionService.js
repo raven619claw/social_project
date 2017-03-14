@@ -4,18 +4,18 @@ const GLOBALCONSTANTS = require('../config/constants');
 
 let sessionObject ={};
 
-sessionObject.getSessionObject = (sessionObject, req) => {
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user session received');
-    if (!sessionObject) {
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'new user session object created');
-        sessionObject = req.session;
-        sessionObject.name = '';
-        sessionObject.loginStatus = false;
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'session value' + JSON.stringify(sessionObject));
-    }
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'session object returned' + JSON.stringify(sessionObject));
-    return sessionObject;
-};
+// sessionObject.getSessionObject = (sessionObject, req) => {
+//     GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user session received');
+//     if (!sessionObject) {
+//         GLOBALCONSTANTS.LOGGER.LOG('data', 'new user session object created');
+//         sessionObject = req.session;
+//         sessionObject.name = '';
+//         sessionObject.loginStatus = false;
+//         GLOBALCONSTANTS.LOGGER.LOG('data', 'session value' + JSON.stringify(sessionObject));
+//     }
+//     GLOBALCONSTANTS.LOGGER.LOG('data', 'session object returned' + JSON.stringify(sessionObject));
+//     return sessionObject;
+// };
 
 sessionObject.setSessionObject = (sessionObject, userData) => {
     GLOBALCONSTANTS.LOGGER.LOG('data', 'request for setting user session received');

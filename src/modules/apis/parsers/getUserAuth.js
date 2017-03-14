@@ -1,5 +1,5 @@
 const getUserAuthModel = require('../../../models/users/getUserAuth.js');
-
+const sessionService = require('../../../services/sessionService.js');
 let getUserAuth = function(req, res) {
     let user={
         username:req.body.name,
@@ -7,6 +7,9 @@ let getUserAuth = function(req, res) {
     }
     getUserAuthModel.getUserAuth(user)
         .then((result) => {
+            if(result.loginStatus.password){
+                sessionService.setSessionObject(req.session, {name:result.user.username , success: true})
+            }
             res.end(JSON.stringify(result));
             },
             (error) => {
