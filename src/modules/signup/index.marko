@@ -1,0 +1,29 @@
+<layout-use("../../templates/base/base.marko") show-header=true data="${data}">
+    <layout-put into="title">${data.title}</layout-put>
+    <layout-put into="styles">
+    </layout-put>
+    <layout-put into="body">
+		<h2 class="ta-c">Sign Up</h2>
+		<div class="signup form">
+			<div class="input-field js-input-name">
+				<div class="input-label">USERNAME:</div>
+				<input type="text" name="username">
+				<div class="error-field js-error-field"></div>
+			</div>
+			<div class="input-field js-input-pass">
+				<div class="input-label">PASSWORD:</div>
+				<input type="password" name="password">
+				<div class="error-field js-error-field"></div>
+			</div>
+			<div class="input-field js-input-pass-confirm">
+				<div class="input-label">CONFIRM PASSWORD:</div>
+				<input type="password" name="password_validate">
+				<div class="error-field js-error-field"></div>
+			</div>
+			<button class="signup-btn js-signup-btn">Sign Up</button>
+		</div>
+    </layout-put>
+        <layout-put into="scripts">
+        <script src="/scripts/signup.js"></script>
+    </layout-put>
+</layout-use>

@@ -1,0 +1,12 @@
+.signup.form {
+    max-width: 300px;
+    margin: 0 auto;
+    background-color: #eee;
+    border-radius: 5px;
+    padding: 15px;
+    .input-field {
+        input {
+            width: calc(100% - 20px);
+        }
+    }
+}
