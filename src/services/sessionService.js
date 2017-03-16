@@ -17,6 +17,7 @@ let sessionObject ={};
 //     return sessionObject;
 // };
 
+//create a proper get function for entire session object
 sessionObject.setSessionObject = (sessionObject, userData) => {
     GLOBALCONSTANTS.LOGGER.LOG('data', 'request for setting user session received');
     sessionObject.name = userData.name || '';

@@ -8,6 +8,9 @@ input[type=password] {
     outline: none;
     padding: 0px 5px;
     color: #666;
+    &.error {
+        border: solid 1px red;
+    }
 }
 
 input[type=submit] {

@@ -1,0 +1,22 @@
+* {
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    font-family: 'Exo 2', sans-serif;
+}
+
+body {
+    padding: 0;
+    margin: 0;
+}
+
+.body-content {
+    margin-top: 50px;
+}
+
+.hide {
+    display: none !important;
+}
+
+.ta-c {
+    text-align: center;
+}
