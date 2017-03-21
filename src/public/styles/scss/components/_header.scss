@@ -42,4 +42,12 @@ header {
         padding-top: 4px;
         height: 100%;
     }
+    .signUpBtn {
+        position: absolute;
+        right: 60px;
+        bottom: 0px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #fff;
+    }
 }

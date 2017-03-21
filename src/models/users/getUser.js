@@ -6,11 +6,17 @@ dataObject.getUser = (data) => {
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user retrieval running');
         let queryString = '';
         let queryParameters = {};
-        if (data.name == undefined || data.name == '') {
-            queryString = "MATCH (user:USER) RETURN user";
+        if (data.username == undefined || data.username == '') {
+            queryString = `MATCH (user:USER) 
+            RETURN user
+            `;
         } else {
-            queryString = "MATCH (user:USER) WHERE user.name={name} RETURN user";
-            queryParameters.name = data.name;
+            queryString = `
+            MATCH (user:USER) 
+            WHERE user.username={username} 
+            RETURN user
+            `;
+            queryParameters.username = data.username;
         }
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
         dbSession

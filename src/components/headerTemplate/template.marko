@@ -1,8 +1,8 @@
 <header>
     $ var pageData = data.data.data;
     <div class="title">_SOCIAL</div>
-    <div class="loginDetails">
-        <div class="js-form-action ${pageData.success ? 'hide' : ''}">
+    <div class="loginDetails js-loginDetails"  id="js-loginDetails">
+        <div class="js-formAction ${pageData.success ? 'hide' : ''}">
             <input type="hidden" class="js-logintype" name="logintype" value="login">
             <input class="username js-name" type="text" name="name">
             <input class="password js-password" type="password" name="password">
@@ -10,7 +10,7 @@
         </div>
 
         <div class="loggedIn js-loggedIn ${pageData.success ? '' : 'hide'}">
-            <div class="showUsername js-showUsername">${pageData.success ? pageData.name : ''}</div>
+            <div class="showUsername js-showUsername">${pageData.success ? pageData.username : ''}</div>
             <div>
                 <input class="js-logintype" type="hidden" name="logintype" value="logout">
                 <input class="submitBtn js-submitLogout" type="submit" value="logout">
@@ -19,35 +19,9 @@
         <div class="logInFail js-logInFail">
             
         </div>
+        <div if(!pageData.success) class="signUpBtn js-signUpBtn" data-open="signup">
+            click here to sign Up
+        </div>
     </div>
+    
 </header>
-<!-- <header>
-    $ var pageData = data.data.data;
-    <div class="title">_SOCIAL</div>
-    <div class="loginDetails">
-    <if (!pageData.success)>
-        <form class="loginForm" method="post" action="/">
-            <input type="hidden" name="logintype" value="login">
-            <input class="username" type="text" name="name">
-            <input class="password" type="password" name="password">
-            <input class="submitBtn" type="submit" value="login">
-        </form>
-    </if>
-    <if (pageData)>
-        <if (pageData.success)>
-            <div class="loggedIn">
-                <div class="showUsername">${pageData.name} </div>
-                <form class="loginForm" method="post" action="/">
-                    <input type="hidden" name="logintype" value="logout">
-                    <input class="submitBtn" type="submit" value="logout">
-                </form>
-            </div>
-        </if>
-        <else>
-            <div class="logInFail">
-            ${pageData.name} ${pageData.loginStatus.user ? "your password does not match!" : "your username does not exist!"}
-            </div>
-        </else>
-     </if>
-    </div>
-</header> -->

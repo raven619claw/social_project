@@ -1,13 +1,21 @@
+var singUpModule = require('../templates/signUp/template');
+var popupObject = require('./modules/popup/scripts/index');
+
 var SELECTORS = {
     INPUTNAME: '.js-input-name',
     INPUTPASSWORD: '.js-input-pass',
     INPUTPASSWORDCONFIRM: '.js-input-pass-confirm',
     INPUTSIGNUPBTN: '.js-signup-btn',
-    INPUTERROR: '.js-error-field'
+    INPUTERROR: '.js-error-field',
+    SIGNUPPARENT: '.js-loginDetails',
+    SIGNUPBTN: '.js-signUpBtn'
 };
-(function() {
+
+$(SELECTORS.SIGNUPBTN).on('click', function() {
+    popupObject.openPopup('.js-closePopup', singUpModule);
     bindEvents();
-})();
+});
+
 
 function bindEvents() {
     $(SELECTORS.INPUTNAME).on('focusout', function() {
@@ -35,7 +43,7 @@ function checkUserName(selector, callback) {
     }
     showError(selector, '');
     $.ajax({
-        url: "http://localhost:3000/apis/checkUser?name=" + selector.find('input').val(),
+        url: "http://localhost:3000/apis/checkUser?username=" + selector.find('input').val(),
         type: "GET",
         success: function(data, textStatus, jqXHR) {
             data = JSON.parse(data);
@@ -117,7 +125,9 @@ function createUser() {
 
 function createUserRequest() {
     var formData = {
-        "name": $(SELECTORS.INPUTNAME).find('input').val(),
+        "username": $(SELECTORS.INPUTNAME).find('input').val(),
+        "email": 'email@email.com',
+        "userType": 'email',
         "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
     };
     $.ajax({
@@ -138,7 +148,7 @@ function createUserRequest() {
 
 function login() {
     var formData = {
-        "name": $(SELECTORS.INPUTNAME).find('input').val(),
+        "username": $(SELECTORS.INPUTNAME).find('input').val(),
         "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
     };
     $.ajax({

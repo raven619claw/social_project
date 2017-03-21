@@ -29,6 +29,7 @@ const server = (app) => {
     app.use(bodyParser.json()); // for parsing application/json
     app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
     app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
+    app.use(express.static(GLOBALCONSTANTS.PROJECTROOTPATH + 'dev'));
     app.use((err, req, res, next) => {
         if (err instanceof SyntaxError &&
             err.status >= 400 && err.status < 500 &&

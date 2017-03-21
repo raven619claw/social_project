@@ -4,23 +4,10 @@
     </layout-put>
     <layout-put into="body">
          HOME TEMPLATE
-         <div class="g-signin2" data-onsuccess="onSignIn"></div>
+         <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
          <a href="#" onclick="signOut();">Sign out</a>
-         <script type="text/javascript">
-         	function onSignIn(googleUser) {
-                var profile = googleUser.getBasicProfile();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                console.log('Name: ' + profile.getName());
-                console.log('Token ID: ' + googleUser.getAuthResponse().id_token);
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            }
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                  console.log('User signed out.');
-                });
-            }
-         </script>
+    </layout-put>
+    <layout-put into="scripts">
+        <script src="/public/scripts/bundles/clientBundle.js"></script>
     </layout-put>
 </layout-use>

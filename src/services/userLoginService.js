@@ -10,7 +10,7 @@ let userAuth = (userData, sessionObject) => {
             case 'login':
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user login authentication received');
                 var formData = {
-                    name: userData.name,
+                    username: userData.username,
                     password: userData.password
                 };
 
@@ -23,7 +23,7 @@ let userAuth = (userData, sessionObject) => {
                         if (body) {
                             userData.loginStatus = body.loginStatus;
                             if (body.loginStatus.password) {
-                                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged in' + userData.name);
+                                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged in' + userData.username);
                                 userData.success = true;
                             }
                             GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
@@ -36,7 +36,7 @@ let userAuth = (userData, sessionObject) => {
                 break;
             case 'logout':
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'request for user logout authentication received');
-                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged out' + sessionObject.name);
+                GLOBALCONSTANTS.LOGGER.LOG('data', 'user logged out' + sessionObject.username);
                 userData = false;
                 GLOBALCONSTANTS.LOGGER.LOG('data', 'returned userData to routes' + JSON.stringify(userData));
                 resolve(userData);
