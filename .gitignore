@@ -1,5 +1,4 @@
 dist/
-dev/
 node_modules/
 src/public/styles/css/
 src/public/config/conf.json
