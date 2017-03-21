@@ -15,9 +15,12 @@ var apiRouteHandler = (req, res) => {
         case '/apis/userAuth':
             parsers.getUserAuth(req, res);
             break;
+        case '/apis/userSocialAuth':
+            parsers.getUserSocialAuth(req, res);
+            break;
         case '/apis/user/logout':
-            req.session = sessionService.setSessionObject(req.session, {name:false , success: false});
-            res.end(JSON.stringify({statusCode:'2XX',loginStatus:false}));
+            req.session = sessionService.setSessionObject(req.session, { username: false, success: false });
+            res.end(JSON.stringify({ statusCode: '2XX', loginStatus: false }));
             break;
         default:
             res.end('bad request');

@@ -1,13 +1,17 @@
 const GLOBALCONSTANTS = require('../../config/constants');
 const dbSession = require('../../services/neo4jConnector');
 let dataObject = {};
-dataObject.checkUser = (data) => {
+dataObject.checkUser = (user) => {
     return new Promise((resolve, reject) => {
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for checking user existance running');
         let queryString = '';
         let queryParameters = {};
-            queryString = "MATCH (user:USER) WHERE user.name={name} RETURN user";
-            queryParameters.name = data.name;
+            queryString = `
+            MATCH (user:USER) 
+            WHERE user.username = {username} 
+            RETURN user
+            `;
+            queryParameters.username = user.username;
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
         dbSession
             .run(queryString, queryParameters)

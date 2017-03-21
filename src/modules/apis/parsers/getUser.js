@@ -4,7 +4,7 @@ let getUser = function(req, res) {
 	let users ={};
 	if(req.query){
 		users ={
-			name: req.query.name
+			username: req.query.username
 		}
 	}
     getUserModel.getUser(users)

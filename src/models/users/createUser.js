@@ -3,8 +3,24 @@ const dbSession = require('../../services/neo4jConnector');
 let dataObject = {};
 dataObject.createUser = (userData) => {
     return new Promise((resolve, reject) => {
-        let queryString = "MERGE (user:USER { name: {name}}) ON CREATE SET user.password= {password} RETURN user";
-        let queryParameters = { name: userData.name, password: userData.password };
+        let queryString = `
+        MERGE ( user:USER { username : {username} } ) 
+        ON CREATE SET user.password = {password} ,
+                      user.firstName = {firstName} ,
+                      user.lastName = {lastName} ,
+                      user.username = {username} ,
+                      user.userType = {userType} ,
+                      user.email = {email}
+        RETURN user
+        `;
+        let queryParameters = { 
+            username : userData.username , 
+            password : userData.password ,
+            firstName : userData.firstName ,
+            lastName : userData.lastName ,
+            email : userData.email ,
+            userType : userData.userType
+        };
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user creation running')
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: ' + JSON.stringify(queryParameters));
         dbSession
