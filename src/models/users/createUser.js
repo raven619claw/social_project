@@ -4,13 +4,14 @@ let dataObject = {};
 dataObject.createUser = (userData) => {
     return new Promise((resolve, reject) => {
         let queryString = `
-        MERGE ( user:USER { username : {username} } ) 
+        MERGE ( user:USER { userId : {userId} } ) 
         ON CREATE SET user.password = {password} ,
                       user.firstName = {firstName} ,
                       user.lastName = {lastName} ,
                       user.username = {username} ,
                       user.userType = {userType} ,
-                      user.email = {email}
+                      user.email = {email},
+                      user.userId = {userId}
         RETURN user
         `;
         let queryParameters = { 
@@ -19,7 +20,8 @@ dataObject.createUser = (userData) => {
             firstName : userData.firstName ,
             lastName : userData.lastName ,
             email : userData.email ,
-            userType : userData.userType
+            userType : userData.userType,
+            userId : userData.userId
         };
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user creation running')
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: ' + JSON.stringify(queryParameters));

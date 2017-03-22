@@ -96,17 +96,18 @@ function socialLogin(type, googleUser) {
     switch (type) {
         case 'google':
             formData = {
-                "type": 'google',
+                "userType": 'google',
                 "email": googleUser.getBasicProfile().getEmail(),
-                "token": googleUser.getAuthResponse().id_token
+                "token": googleUser.getAuthResponse().id_token,
+                "username": googleUser.getBasicProfile().getEmail()
             };
             $.ajax({
                 url: "http://localhost:3000/apis/userSocialAuth",
-                type: "POST",
+                type: "PUT",
                 data: formData,
                 success: function(data, textStatus, jqXHR) {
                     data = JSON.parse(data);
-                    if (data.loginStatus.success) {
+                    if (data.user.username) {
                         showLoggedIn(data.user.username);
                     } else {
 
@@ -127,7 +128,7 @@ function onGoogleSignIn(googleUser) {
     console.log('Token ID: ' + googleUser.getAuthResponse().id_token);
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    // socialLogin('google', googleUser);
+    socialLogin('google', googleUser);
 };
 
 function socialSignOut(type) {

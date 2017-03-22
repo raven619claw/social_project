@@ -1,9 +1,9 @@
 const createUserModel = require('../../../models/users/createUser.js');
-
+const socialLogin = require('../../../services/helpers/googleAuth.js');
 let createUser = function(req, res) {
-    let user = {};
-    if (req.method.toString() == 'PUT') {
+    let callUserModel = (token) => {
         user = {
+            userId: token || req.body.email,
             userType: req.body.userType,
             username: req.body.username,
             email: req.body.email,
@@ -18,10 +18,17 @@ let createUser = function(req, res) {
                 (error) => {
                     console.log(error);
                 });
+    };
+    let user = {};
+    if (req.method.toString() == 'PUT') {
+        if (user.userType != 'email') {
+            socialLogin.verifyGoogleUser(req.body.token, callUserModel);
+        } else {
+            callUserModel();
+        }
     } else {
         res.end('bad request');
     }
-
 };
 
 module.exports = createUser;

@@ -137,7 +137,7 @@ function createUserRequest() {
         success: function(data, textStatus, jqXHR) {
             data = JSON.parse(data);
             if (data.created) {
-                login();
+                loginAfterSignUp();
             }
         },
         error: function(jqXHR, textStatus, errorThrown) {
@@ -146,7 +146,7 @@ function createUserRequest() {
     });
 };
 
-function login() {
+function loginAfterSignUp() {
     var formData = {
         "username": $(SELECTORS.INPUTNAME).find('input').val(),
         "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
