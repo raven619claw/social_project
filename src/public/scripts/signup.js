@@ -1,7 +1,7 @@
-var singUpModule = require('../templates/signUp/template');
-var popupObject = require('./modules/popup/scripts/index');
+const singUpModule = require('../templates/signUp/template');
+const popupObject = require('./modules/popup/scripts/index');
 
-var SELECTORS = {
+const SELECTORS = {
     INPUTNAME: '.js-input-name',
     INPUTPASSWORD: '.js-input-pass',
     INPUTPASSWORDCONFIRM: '.js-input-pass-confirm',

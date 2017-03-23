@@ -1,3 +1,5 @@
+require('babel-polyfill');
+
 module.exports = {
     entry: "./src/public/scripts/signup.js",
     output: {
@@ -9,11 +11,18 @@ module.exports = {
         extensions: ['.js', '.marko']
     },
     module: {
-        loaders: [
-            {
-                test: /\.marko$/,
-                loader: 'marko-loader'
+        loaders: [{
+            test: /\.marko$/,
+            loader: 'marko-loader'
+        }, {
+            test: /\.js$/,
+            loader: 'babel-loader',
+            exclude: '/node_modules',
+            query: {
+                // https://github.com/babel/babel-loader#options
+                cacheDirectory: true,
+                presets: ['es2015', 'stage-2']
             }
-        ]
+        }]
     }
 }
