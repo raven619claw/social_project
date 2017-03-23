@@ -35,13 +35,6 @@ router.route('/')
             });
     });
 
-router.route('/signup')
-    .get(function(req, res) {
-        let userData = sessionGlobal.getUserDataFromSession(req.session);
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering signup module for GET request');
-        controllers.signup(req, res, userData);
-    });
-
 router.all('/apis*', function(req, res) {
     GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     controllers.apis(req, res);

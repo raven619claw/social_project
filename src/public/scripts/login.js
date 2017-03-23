@@ -7,7 +7,8 @@ var SELECTORS = {
     INPUTLOGOUTBTN: '.js-submitLogout',
     VIEWLOGGEDIN: '.js-loggedIn',
     LOGINFAIL: '.js-logInFail',
-    USERNAMEFIELD: '.js-showUsername'
+    USERNAMEFIELD: '.js-showUsername',
+    SOCIALSIGNOUTBTN: '.js-signOut'
 };
 (function() {
     bindEvents();
@@ -25,6 +26,9 @@ function bindEvents() {
     });
     $(SELECTORS.INPUTLOGOUTBTN).on('click', function() {
         logout();
+    });
+    $(SELECTORS.SOCIALSIGNOUTBTN).on('click', function() {
+        socialSignOut('google');
     });
 };
 
