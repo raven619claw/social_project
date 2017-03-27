@@ -7,6 +7,7 @@ const SELECTORS = {
     INPUTPASSWORDCONFIRM: '.js-input-pass-confirm',
     INPUTSIGNUPBTN: '.js-signup-btn',
     INPUTERROR: '.js-error-field',
+    INPUTEMAIL: '.js-input-email',
     SIGNUPPARENT: '.js-loginDetails',
     SIGNUPBTN: '.js-signUpBtn'
 };
@@ -126,7 +127,7 @@ function createUser() {
 function createUserRequest() {
     var formData = {
         "username": $(SELECTORS.INPUTNAME).find('input').val(),
-        "email": 'email@email.com',
+        "email": $(SELECTORS.INPUTEMAIL).find('input').val(),
         "userType": 'email',
         "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
     };
