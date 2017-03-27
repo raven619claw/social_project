@@ -53,7 +53,7 @@ function login() {
             data = JSON.parse(data);
             if (data.loginStatus.password) {
                 showLoggedIn(data.user.username);
-            } else if (data.loginStatus.user) {
+            } else if (data.loginStatus.username) {
                 showError(formData.username + 'your password is wrong');
             } else {
                 showError(formData.username + 'your username is wrong');
