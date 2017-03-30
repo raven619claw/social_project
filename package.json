@@ -20,6 +20,7 @@
     "chokidar": "^1.6.1",
     "colors": "^1.1.2",
     "cookie-parser": "^1.4.3",
+    "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-session": "^1.15.1",
     "glob": "^6.0.4",

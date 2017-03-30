@@ -23,6 +23,10 @@ function bindEvents() {
         checkUserName($(SELECTORS.INPUTNAME), function(flag) {});
     });
 
+    $(SELECTORS.INPUTEMAIL).on('focusout', function() {
+        checkEmail($(SELECTORS.INPUTEMAIL), function(flag) {});
+    });
+
     $(SELECTORS.INPUTPASSWORD).on('focusout', function() {
         validatePassword([$(SELECTORS.INPUTPASSWORD)], 0);
     });
@@ -50,6 +54,31 @@ function checkUserName(selector, callback) {
             data = JSON.parse(data);
             if (data.user) {
                 showError(selector, selector.find('input').val() + ' username already exists');
+            } else {
+                showError(selector, '');
+            }
+            callback(!data.user);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+
+        }
+    });
+};
+
+function checkEmail(selector, callback) {
+    if (!selector.find('input').val()) {
+        showError(selector, 'enter valid email');
+        callback(false);
+        return false;
+    }
+    showError(selector, '');
+    $.ajax({
+        url: "http://localhost:3000/apis/checkUser?email=" + selector.find('input').val(),
+        type: "GET",
+        success: function(data, textStatus, jqXHR) {
+            data = JSON.parse(data);
+            if (data.user) {
+                showError(selector, selector.find('input').val() + ' email already exists');
             } else {
                 showError(selector, '');
             }
@@ -116,11 +145,14 @@ function validatePassword(selector, flag) {
 
 function createUser() {
     checkUserName($(SELECTORS.INPUTNAME), function(flag) {
-        if (flag && validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)) {
-            createUserRequest();
-        } else {
-            validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)
-        }
+        checkEmail($(SELECTORS.INPUTEMAIL), function(flag) {
+            if (flag && validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)) {
+                createUserRequest();
+            } else {
+                validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)
+            }
+        });
+
     });
 };
 

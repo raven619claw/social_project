@@ -8,7 +8,8 @@ var SELECTORS = {
     VIEWLOGGEDIN: '.js-loggedIn',
     LOGINFAIL: '.js-logInFail',
     USERNAMEFIELD: '.js-showUsername',
-    SOCIALSIGNOUTBTN: '.js-signOut'
+    SOCIALSIGNOUTBTN: '.js-signOut',
+    SIGNUPBTN: '.js-signUpBtn'
 };
 (function() {
     bindEvents();
@@ -52,7 +53,7 @@ function login() {
         success: function(data, textStatus, jqXHR) {
             data = JSON.parse(data);
             if (data.loginStatus.password) {
-                showLoggedIn(data.user.username);
+                showLoggedIn();
             } else if (data.loginStatus.username) {
                 showError(formData.username + 'your password is wrong');
             } else {
@@ -70,10 +71,9 @@ function clearInput() {
     $(SELECTORS.INPUTPASSWORD).val('');
 };
 
-function showLoggedIn(username) {
-    $(SELECTORS.LOGINFORM).addClass('hide');
-    $(SELECTORS.VIEWLOGGEDIN).removeClass('hide');
-    $(SELECTORS.USERNAMEFIELD).text(username);
+function showLoggedIn() {
+    window.location = "http://localhost:3000/";
+
 };
 
 function showError(msg) {
@@ -84,15 +84,14 @@ function showError(msg) {
 }
 
 function logout() {
-    $(SELECTORS.LOGINFORM).removeClass('hide');
-    $(SELECTORS.VIEWLOGGEDIN).addClass('hide');
-    $(SELECTORS.USERNAMEFIELD).text('');
+    
     $.ajax({
         url: "http://localhost:3000/apis/user/logout",
         type: "GET",
         success: function(data, textStatus, jqXHR) {},
         error: function(jqXHR, textStatus, errorThrown) {}
     });
+    window.location = "http://localhost:3000/";
 }
 
 function socialLogin(type, googleUser) {

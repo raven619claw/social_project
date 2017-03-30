@@ -3,9 +3,12 @@
     <layout-put into="styles">
     </layout-put>
     <layout-put into="body">
-         HOME TEMPLATE
-         <div class="g-signin2" data-onsuccess="onGoogleSignIn"></div>
-         <a href="#" class="js-signOut">Sign out</a>
+    <if(data.data)>
+        <include("./components/loggedIn.marko",data.data)/>
+    </if>
+    <else>
+        <include("./components/loggedOut.marko")/>
+    </else>
     </layout-put>
     <layout-put into="scripts">
         <script src="/public/scripts/bundles/clientBundle.js"></script>

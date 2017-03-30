@@ -19,7 +19,6 @@ module.exports = {
             loader: 'babel-loader',
             exclude: '/node_modules',
             query: {
-                // https://github.com/babel/babel-loader#options
                 cacheDirectory: true,
                 presets: ['es2015', 'stage-2']
             }
