@@ -38,7 +38,12 @@ Credit to all ppl who have developed the modules that i will use
 ```
 npm install
 ```
-then use 
+
+use
+```
+webpack --progress --watch
+```
+for bundling and then
 ```
 nodemon
 ```
