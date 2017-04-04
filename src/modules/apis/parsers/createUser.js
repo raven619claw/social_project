@@ -1,5 +1,7 @@
 const createUserModel = require('../../../models/users/createUser.js');
 const socialLogin = require('../../../services/helpers/googleAuth.js');
+const sessionService = require('../../../services/sessionService.js');
+
 let createUser = function(req, res) {
     let callUserModel = (token) => {
         user = {
@@ -13,6 +15,10 @@ let createUser = function(req, res) {
         }
         createUserModel.createUser(user)
             .then((result) => {
+                    if (req.path == '/apis/userSocialAuth') {
+                        sessionService.setSessionObject(req.session, { username: result.user.username, success: true })
+                    }
+
                     res.end(JSON.stringify({ 'user': result.user, 'created': result.created }));
                 },
                 (error) => {
