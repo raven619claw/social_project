@@ -1,35 +1,26 @@
 const GLOBALCONSTANTS = require('../../config/constants');
 const dbSession = require('../../services/neo4jConnector');
 let dataObject = {};
-dataObject.getUser = (data) => {
+dataObject.checkUser = (user) => {
     return new Promise((resolve, reject) => {
-        GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user retrieval running');
+        GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for checking user existance running');
         let queryString = '';
         let queryParameters = {};
-        if (data.username == undefined || data.username == '') {
-            queryString = `MATCH (user:USER) 
-            RETURN user
-            `;
-        } else {
             queryString = `
             MATCH (user:USER) 
-            WHERE user.username={username} 
+            WHERE user.username = {username} OR user.email = {email}
             RETURN user
             `;
-            queryParameters.username = data.username;
-        }
+            queryParameters = user;
+            console.log(queryParameters);
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
         dbSession
             .run(queryString, queryParameters)
             .then(function(result) {
                     GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query for user details successfully done\n result:' + JSON.stringify(result));
                     dbSession.close();
-                    if (result && result.records) {
-                        let userDetails = [];
-                        result.records.forEach((user) => {
-                            userDetails.push(user._fields[0].properties)
-                        });
-                        resolve(userDetails)
+                    if (result && result.records && result.records.length > 0) {
+                        resolve(true)
                     }
                     resolve(false);
                 },

@@ -1,0 +1,22 @@
+(user: USER {
+    "username": {
+        "type": "STRING",
+    },
+    "userType": {
+        "type": "STRING",
+        "values": ["email", "social"]
+    },
+    "password": {
+        "type": "STRING"
+    }, //exists only if user is not a social login
+    "email": {
+        "type": "STRING"
+    },
+    "firstName": {
+        "type": "STRING"
+    }, //exists only if user has either filled the user details or has values from soical login
+    "lastName": {
+        "type": "STRING"
+    }, //exists only if user has either filled the user details or has values from soical login
+    "userID":"STRING"//unique userid to correctly identify a user[value would be token in case of social login and emailID in case of email login]
+})

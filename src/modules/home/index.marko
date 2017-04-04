@@ -1,29 +1,15 @@
 <layout-use("../../templates/base/base.marko") show-header=true data="${data}">
     <layout-put into="title">${data.title}</layout-put>
     <layout-put into="styles">
-        <link rel="stylesheet" type="text/css" href="/styles/css/main.css">
-        <script src="https://apis.google.com/js/platform.js" async defer></script>
-
     </layout-put>
     <layout-put into="body">
-         HOME TEMPLATE
-         <div class="g-signin2" data-onsuccess="onSignIn"></div>
-         <a href="#" onclick="signOut();">Sign out</a>
-         <script type="text/javascript">
-         	function onSignIn(googleUser) {
-                var profile = googleUser.getBasicProfile();
-                console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
-                console.log('Name: ' + profile.getName());
-                console.log('Token ID: ' + googleUser.getAuthResponse().id_token);
-                console.log('Image URL: ' + profile.getImageUrl());
-                console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-            }
-            function signOut() {
-                var auth2 = gapi.auth2.getAuthInstance();
-                auth2.signOut().then(function () {
-                  console.log('User signed out.');
-                });
-            }
-         </script>
+    <if(data.data)>
+        <include("./components/loggedIn.marko",data.data)/>
+    </if>
+    <else>
+        <include("./components/loggedOut.marko")/>
+    </else>
+    </layout-put>
+    <layout-put into="scripts">
     </layout-put>
 </layout-use>

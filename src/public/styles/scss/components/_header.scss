@@ -16,8 +16,10 @@ header {
     .loginDetails {
         position: relative;
         margin-right: 15px;
+        padding-top: 5px;
         float: right;
         height: 50px;
+        text-align: right;
     }
     .loggedIn {
         padding-top: 5px;
@@ -41,5 +43,10 @@ header {
         display: inline-block;
         padding-top: 4px;
         height: 100%;
+    }
+    .signUpBtn {
+        cursor: pointer;
+        font-size: 14px;
+        color: #fff;
     }
 }

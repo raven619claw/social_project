@@ -11,17 +11,12 @@ module.exports = function(grunt) {
         sass: { // Task
             server: {
                 options: {
-                    // sourcemap: true,
-                //     sourcemapEmbed: true,
-                //     sourcemapContents: true,
-                //     includePaths: ['.'],
-                //     outputStyle: 'compressed'
                 },
                 files: [{
                     expand: true,
                     cwd: 'src/public/styles/scss/',
                     src: ['*.{scss,sass}', '{,**/}*.{scss,sass}'],
-                    dest: 'src/public/styles/css',
+                    dest: 'dev/public/styles/css',
                     ext: '.css'
                 }]
             }
