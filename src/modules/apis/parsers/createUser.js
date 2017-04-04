@@ -27,7 +27,7 @@ let createUser = function(req, res) {
     };
     let user = {};
     if (req.method.toString() == 'PUT') {
-        if (user.userType != 'email') {
+        if (req.body.userType != 'email') {
             socialLogin.verifyGoogleUser(req.body.token, callUserModel);
         } else {
             callUserModel();
