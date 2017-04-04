@@ -7,7 +7,7 @@ module.exports = {
     load: function() {
         $.getScript("//apis.google.com/js/client.js", function() {
             if (gapi.auth2 && gapi.auth2.getAuthInstance()) {
-                window.auth2 = gapi.auth2.getAuthInstance();
+                auth2 = gapi.auth2.getAuthInstance();
             } else {
                 gapi.load('auth2', function() {
                     gapi.auth2.init({
@@ -16,7 +16,7 @@ module.exports = {
                         redirect_uri: config.gPlusRedirectUri
                     }).then(
                         function() {
-                            window.auth2 = gapi.auth2.getAuthInstance();
+                            auth2 = gapi.auth2.getAuthInstance();
                         },
                         function(error) {
                             console.log(error);
@@ -29,9 +29,7 @@ module.exports = {
         var that = this;
 
         if (auth2) {
-            if (!auth2.isSignedIn.get()) {
-                return auth2.signIn();
-            }
+            return auth2.signIn();
         }
     },
     signOut: function() {

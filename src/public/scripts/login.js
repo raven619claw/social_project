@@ -39,6 +39,7 @@
             logout();
         });
         $(SELECTORS.GLOGINBTN).on('click', function() {
+            let auth2 = gapi.auth2.getAuthInstance();
             if (auth2.isSignedIn.get()) {
                 let googleUser = auth2.currentUser.get();
                 socialLogin('google', googleUser);
@@ -120,7 +121,10 @@
     }
 
     function logout() {
-
+        let auth2 = gapi.auth2.getAuthInstance();
+        if (auth2.isSignedIn.get()) {
+            auth2.signOut()
+        }
         $.ajax({
             url: "http://localhost:3000/apis/user/logout",
             type: "GET",
