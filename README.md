@@ -48,17 +48,15 @@ to run server
 
 install neo4j community edition
 set up and run the db server
-create a node such as
-```
-(:USER {name:'user',password:'pass'})
-```
+
+to create user signup on ```/``` route
+
 the connection to neo4j is in the neo4jconnector.js file
-change the login credentials there as follows
-replace with your username and password
+change the login credentials from .env file
 ```
 var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("USERNAME", "PASSWORD"));
 ```
-will create a common file for db credentials later
+
 
 # API 
 refer wiki page for API structure https://github.com/raven619claw/social_project/wiki/API-structure
