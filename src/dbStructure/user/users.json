@@ -17,5 +17,6 @@
     }, //exists only if user has either filled the user details or has values from soical login
     "lastName": {
         "type": "STRING"
-    } //exists only if user has either filled the user details or has values from soical login
+    }, //exists only if user has either filled the user details or has values from soical login
+    "userID":"STRING"//unique userid to correctly identify a user[value would be token in case of social login and emailID in case of email login]
 })

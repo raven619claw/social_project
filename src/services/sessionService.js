@@ -1,4 +1,3 @@
-
 //built in globals
 const GLOBALCONSTANTS = require('../config/constants');
 

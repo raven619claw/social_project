@@ -3,21 +3,12 @@
     <div class="title">_SOCIAL</div>
     <div class="loginDetails js-loginDetails"  id="js-loginDetails">
         <div class="js-formAction ${pageData.success ? 'hide' : ''}">
-            <input type="hidden" class="js-logintype" name="logintype" value="login">
-            <input class="username js-name" type="text" name="name">
-            <input class="password js-password" type="password" name="password">
-            <input class="submitBtn js-submitLogin" type="submit" value="login">
+            <input class="submitBtn js-openSignInpopup" type="submit" value="login">
         </div>
 
         <div class="loggedIn js-loggedIn ${pageData.success ? '' : 'hide'}">
             <div class="showUsername js-showUsername">${pageData.success ? pageData.username : ''}</div>
-            <div>
-                <input class="js-logintype" type="hidden" name="logintype" value="logout">
                 <input class="submitBtn js-submitLogout" type="submit" value="logout">
-            </div>
-        </div>
-        <div class="logInFail js-logInFail">
-            
         </div>
         <div if(!pageData.success) class="signUpBtn js-signUpBtn" data-open="signup">
             click here to sign Up

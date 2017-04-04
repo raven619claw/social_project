@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <meta name="google-signin-client_id" content="897079810231-n20lmv476ql8a7k6qam4firsg8d3ktcl.apps.googleusercontent.com">
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/public/styles/css/main.css">
         <layout-placeholder name="styles"/>
@@ -10,11 +9,6 @@
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous">
-        </script>
-        <script 
-            src="https://apis.google.com/js/platform.js" 
-            async 
-            defer>
         </script>
         <title>
             <layout-placeholder name="title"/>
@@ -28,6 +22,7 @@
         </div>
         <div class="popup js-popup hide"></div>
     </body>
-    <script src="/scripts/login.js"></script>
+    <script src="/public/scripts/bundles/login.js"></script>
+    <script src="/public/scripts/bundles/signup.js"></script>
     <layout-placeholder name="scripts"/>
 </html>
