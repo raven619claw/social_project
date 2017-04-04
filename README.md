@@ -43,7 +43,7 @@ use
 ```
 webpack --progress --watch
 ```
-for bundling and then
+for bundling and then(in progress removing grunt)
 ```
 nodemon
 ```
