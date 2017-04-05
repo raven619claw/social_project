@@ -123,15 +123,27 @@
     function logout() {
         let auth2 = gapi.auth2.getAuthInstance();
         if (auth2.isSignedIn.get()) {
-            auth2.signOut()
+            auth2.signOut().then(() => {
+                $.ajax({
+                    url: "http://localhost:3000/apis/user/logout",
+                    type: "GET",
+                    success: function(data, textStatus, jqXHR) {
+                        window.location = "http://localhost:3000/";
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {}
+                });
+            });
+        } else {
+
+            $.ajax({
+                url: "http://localhost:3000/apis/user/logout",
+                type: "GET",
+                success: function(data, textStatus, jqXHR) {
+                    window.location = "http://localhost:3000/";
+                },
+                error: function(jqXHR, textStatus, errorThrown) {}
+            });
         }
-        $.ajax({
-            url: "http://localhost:3000/apis/user/logout",
-            type: "GET",
-            success: function(data, textStatus, jqXHR) {},
-            error: function(jqXHR, textStatus, errorThrown) {}
-        });
-        window.location = "http://localhost:3000/";
     }
 
     function socialLogin(type, googleUser) {
