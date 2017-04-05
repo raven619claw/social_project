@@ -9,9 +9,11 @@ var apiRouteHandler = (req, res) => {
         case '/apis/checkUser':
             parsers.checkUser(req, res);
             break;
-        case '/apis/userSocialAuth':
         case '/apis/createUser':
             parsers.createUser(req, res);
+            break;
+        case '/apis/userSocialAuth':
+            parsers.userSocialAuth(req, res);
             break;
         case '/apis/userAuth':
             parsers.getUserAuth(req, res);
