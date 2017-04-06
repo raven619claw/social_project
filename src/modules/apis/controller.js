@@ -1,6 +1,8 @@
+const GLOBALCONSTANTS = require('../../config/constants');
 const sessionService = require('../../services/sessionService.js');
 
 var apiRouteHandler = (req, res) => {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     var parsers = require('./parsers.js')();
     switch (req.path) {
         case '/apis/users':
@@ -28,5 +30,6 @@ var apiRouteHandler = (req, res) => {
     }
 }
 
-
-module.exports = apiRouteHandler;
+module.exports.setup = (router)=>{
+    router.all('/apis*',apiRouteHandler);
+};
