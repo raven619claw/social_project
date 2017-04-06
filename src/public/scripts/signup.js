@@ -23,11 +23,11 @@
 
     function bindEvents() {
         $(SELECTORS.INPUTNAME).on('focusout', function() {
-            checkUserName($(SELECTORS.INPUTNAME), function(flag) {});
+            checkUserName($(SELECTORS.INPUTNAME));
         });
 
         $(SELECTORS.INPUTEMAIL).on('focusout', function() {
-            checkEmail($(SELECTORS.INPUTEMAIL), function(flag) {});
+            checkEmail($(SELECTORS.INPUTEMAIL));
         });
 
         $(SELECTORS.INPUTPASSWORD).on('focusout', function() {
@@ -43,54 +43,57 @@
         });
     };
 
-    function checkUserName(selector, callback) {
-        if (!selector.find('input').val()) {
-            showError(selector, 'enter valid username');
-            callback(false);
-            return false;
-        }
-        showError(selector, '');
-        $.ajax({
-            url: "http://localhost:3000/apis/checkUser?username=" + selector.find('input').val(),
-            type: "GET",
-            success: function(data, textStatus, jqXHR) {
-                data = JSON.parse(data);
-                if (data.user) {
-                    showError(selector, selector.find('input').val() + ' username already exists');
-                } else {
-                    showError(selector, '');
-                }
-                callback(!data.user);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-
+    function checkUserName(selector) {
+        return new Promise((resolve,reject)=>{
+            if (!selector.find('input').val()) {
+                showError(selector, 'enter valid username');
+                reject(false);
             }
+            showError(selector, '');
+            $.ajax({
+                url: "http://localhost:3000/apis/checkUser?username=" + selector.find('input').val(),
+                type: "GET",
+                success: function(data, textStatus, jqXHR) {
+                    data = JSON.parse(data);
+                    if (data.user) {
+                        showError(selector, selector.find('input').val() + ' username already exists');
+                    } else {
+                        showError(selector, '');
+                    }
+                    resolve(!data.user);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(false);
+                }
+            });
         });
     };
 
-    function checkEmail(selector, callback) {
-        if (!selector.find('input').val()) {
-            showError(selector, 'enter valid email');
-            callback(false);
-            return false;
-        }
-        showError(selector, '');
-        $.ajax({
-            url: "http://localhost:3000/apis/checkUser?email=" + selector.find('input').val(),
-            type: "GET",
-            success: function(data, textStatus, jqXHR) {
-                data = JSON.parse(data);
-                if (data.user) {
-                    showError(selector, selector.find('input').val() + ' email already exists');
-                } else {
-                    showError(selector, '');
-                }
-                callback(!data.user);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-
+    function checkEmail(selector) {
+        return new Promise((resolve,reject)=>{
+            if (!selector.find('input').val()) {
+                showError(selector, 'enter valid email');
+                reject(false);
             }
+            showError(selector, '');
+            $.ajax({
+                url: "http://localhost:3000/apis/checkUser?email=" + selector.find('input').val(),
+                type: "GET",
+                success: function(data, textStatus, jqXHR) {
+                    data = JSON.parse(data);
+                    if (data.user) {
+                        showError(selector, selector.find('input').val() + ' email already exists');
+                    } else {
+                        showError(selector, '');
+                    }
+                    resolve(!data.user);
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    reject(false);
+                }
+            });    
         });
+        
     };
 
     function showError(selector, msg) {
@@ -147,15 +150,12 @@
     };
 
     function createUser() {
-        checkUserName($(SELECTORS.INPUTNAME), function(flag) {
-            checkEmail($(SELECTORS.INPUTEMAIL), function(flag) {
-                if (flag && validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)) {
+        checkUserName($(SELECTORS.INPUTNAME)).then(()=>{
+            checkEmail($(SELECTORS.INPUTEMAIL)).then(()=>{
+                if (validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)) {
                     createUserRequest();
-                } else {
-                    validatePassword([$(SELECTORS.INPUTPASSWORD), $(SELECTORS.INPUTPASSWORDCONFIRM)], 1)
                 }
             });
-
         });
     };
 
