@@ -7,22 +7,14 @@ const session = require('express-session');
 const sessionGlobal = require('./sessionService');
 const GLOBALCONSTANTS = require('../config/constants');
 let controllers;
-
+controllers = require('./controllers.js')();
 router.use(function(req, res, next) {
     GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' ' + req.url);
-    controllers = require('./controllers.js')();
     next();
 });
 
-router.route('/')
-    .get(function(req, res) {
-        let userData = sessionGlobal.getUserDataFromSession(req.session);
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
-        controllers.home(req, res, userData);
-    });
-
-router.all('/apis*', function(req, res) {
-    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
-    controllers.apis(req, res);
+Object.keys(controllers).forEach((controller)=>{
+    controllers[controller].setup(router);
 });
+
 module.exports = router;
