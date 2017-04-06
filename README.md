@@ -7,20 +7,20 @@ The path i'll follow while developing this project is as follows:
   1. set up express !DONE
   2. set up marko !DONE
   3. set up grunt watch task for scss !DONE
-  4. structure code for server and client
-  5. include lodash/jquery/zepto
-  6. create dummy pages
-  7. set up url routing
-  8. set up babel
+  4. structure code for server and client !DONE
+  5. include lodash/jquery/zepto !DONE
+  6. create dummy pages !DONE
+  7. set up url routing !DONE
+  8. set up babel !DONE
   9. study commonJS and AMD
-  10. include webpack
-  11. create API parsers for dummy data
-  12. show dummy data
-  13. set up  vue
-  14. include database(sql/mongo/neo4j) for data
-  15. show proper data
-  16. implement ajax 
-  17. set up dot.js for simple modules (maybe not if using vue)
+  10. include webpack !DONE
+  11. create API parsers for dummy data !DONE
+  12. show dummy data !DONE
+  13. set up  vue !NOT DOING
+  14. include database(sql/mongo/neo4j) for data !DONE
+  15. show proper data !DONE
+  16. implement ajax  !DONE
+  17. set up dot.js for simple modules (maybe not if using vue) !USED MARKO
   18. set up tracking interface
   19. set up view for viewing tracking data
   20. minify css/js
