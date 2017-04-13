@@ -4,14 +4,15 @@ let dataObject = {};
 dataObject.createUser = (userData) => {
     return new Promise((resolve, reject) => {
         let queryString = `
-        MERGE ( user:USER { userId : {userId} } ) 
+        MERGE ( user:USER { userId : {userId} } ) - [:USERINFO]->(info:PROFILEINFO)
         ON CREATE SET user.password = {password} ,
-                      user.firstName = {firstName} ,
-                      user.lastName = {lastName} ,
+                      info.firstName = {firstName} ,
+                      info.lastName = {lastName} ,
                       user.username = {username} ,
                       user.userType = {userType} ,
-                      user.email = {email},
+                      info.email = {email},
                       user.userId = {userId}
+
         RETURN user
         `;
         let queryParameters = { 

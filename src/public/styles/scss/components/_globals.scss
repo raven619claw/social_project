@@ -20,3 +20,18 @@ body {
 .ta-c {
     text-align: center;
 }
+
+.btnDefault {
+    display: inline-block;
+    margin: 5px 10px;
+    border: solid 1px #ced0d4;
+    border-radius: 2px;
+    background-color: #f6f7f9;
+    padding: 5px 10px;
+    color: #4b4f56;
+    cursor: pointer;
+    transition: all 100ms ease-in-out;
+    &:hover {
+        background-color: #e9ebee;
+    }
+}

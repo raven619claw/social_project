@@ -19,8 +19,6 @@
         bindEvents();
     });
 
-
-
     function bindEvents() {
         $(SELECTORS.INPUTNAME).on('focusout', function() {
             checkUserName($(SELECTORS.INPUTNAME));
