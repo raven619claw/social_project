@@ -20,6 +20,15 @@ var apiRouteHandler = (req, res) => {
         case '/apis/userAuth':
             parsers.getUserAuth(req, res);
             break;
+        case '/apis/createPost':
+            parsers.createPost(req, res);
+            break;
+        case '/apis/getPost':
+            parsers.getPost(req, res);
+            break;
+        case '/apis/getUserPosts':
+            parsers.getUserPosts(req, res);
+            break;
         case '/apis/user/logout':
             req.session = sessionService.setSessionObject(req.session, { username: false, success: false });
             res.end(JSON.stringify({ statusCode: '2XX', loginStatus: false }));

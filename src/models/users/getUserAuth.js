@@ -19,7 +19,7 @@ dataObject.getUserAuth = (userData) => {
                     dbSession.close();
                     if (result.records[0]) {
                         if (result.records[0]._fields[0]) {
-                            resolve({ user: userData, loginStatus: { username: true, password: true } })
+                            resolve({ user: result.records[0]._fields[0].properties, loginStatus: { username: true, password: true } })
                         } else {
                             resolve({ user: userData, loginStatus: { username: true, password: false } })
                         }

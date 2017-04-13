@@ -3,7 +3,7 @@
     <layout-put into="styles">
     </layout-put>
     <layout-put into="body">
-    <if(data.data)>
+    <if(data.data.userData)>
         <include("./components/loggedIn.marko",data.data)/>
     </if>
     <else>
@@ -11,5 +11,6 @@
     </else>
     </layout-put>
     <layout-put into="scripts">
+        <script src="/public/scripts/bundles/home.js"></script>
     </layout-put>
 </layout-use>

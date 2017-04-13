@@ -1,0 +1,17 @@
+.CreatePostWrap {
+    margin: 0 auto;
+    border: solid 1px #ccc;
+    border-radius: 5px;
+    max-width: 500px;
+    .postContent {
+        input {
+            border: solid 1px #999;
+            width: calc(100% - 30px);
+            margin: 15px;
+            height: 50px;
+        }
+    }
+    .postSubmit {
+        text-align: right;
+    }
+}

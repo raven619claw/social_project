@@ -31,6 +31,7 @@
     "neo4j-driver": "^1.0.5",
     "node-neo4j": "^2.0.3",
     "request": "^2.80.0",
+    "uuid": "^3.0.1",
     "webpack": "^2.2.1"
   },
   "devDependencies": {

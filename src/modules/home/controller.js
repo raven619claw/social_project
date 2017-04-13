@@ -5,17 +5,35 @@ const sessionGlobal = require(GLOBALCONSTANTS.ROOTPATH + '/services/sessionServi
 
 let template = require.resolve('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
-template = templateLoader(template);
 //function to return any data required for the template
-let loader = function(dataObject) {
-    return dataObject;
+let loader = function(req, res) {
+    return new Promise((resolve, reject) => {
+        pageData = {};
+        let userData = sessionGlobal.getUserDataFromSession(req.session);
+        pageData.userData = userData;
+        if (userData.success) {
+            getPostData(userData.user.userId).then((result) => {
+                pageData.userPostData = result.data;
+                resolve(pageData);
+            });
+        } else {
+            resolve(pageData);
+        }
+    });
+
 }
 let render = function(req, res) {
-	GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
-	let userData = sessionGlobal.getUserDataFromSession(req.session);
-    return template.renderTemplate(loader(userData), res);
+    template = templateLoader(template);
+    GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
+
+    return template.renderTemplate(loader, req, res);
 };
 
 module.exports.setup = (router) => {
-	router.route('/').get(render);
+    router.route('/').get(render);
+};
+
+let getPostData = (userID) => {
+    return apiService.get(apiConfig.getUserPost(userID).url)
+
 };
