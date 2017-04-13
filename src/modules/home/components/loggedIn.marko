@@ -1,1 +1,20 @@
-<h2>hi ${data.username}</h2>
+$ var postData = data.userPostData.userPosts;
+<h2>hi ${data.userData.user.username}</h2>
+<if (postData)>
+	<h2>Your posts</h2>
+	<for (post in postData)>
+		<post({
+				post:{
+					date : post.dateCreated,
+					content : post.content,
+					privacy : post.privacy
+				}
+			}
+		)/>
+	</for>
+</if>
+<else>
+	<h2>No posts to show</h2>	
+</else>
+
+<createPost/>

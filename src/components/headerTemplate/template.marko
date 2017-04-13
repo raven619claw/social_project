@@ -1,16 +1,16 @@
-<header>
-    $ var pageData = data.data.data;
+$ var pageData = data.data.data;
+<header data-userid="${pageData.userData ? pageData.userData.user.userId : ''}">
     <div class="title">_SOCIAL</div>
     <div class="loginDetails js-loginDetails"  id="js-loginDetails">
-        <div class="js-formAction ${pageData.success ? 'hide' : ''}">
+        <div class="js-formAction ${pageData.userData.success ? 'hide' : ''}">
             <input class="submitBtn js-openSignInpopup" type="submit" value="login">
         </div>
 
-        <div class="loggedIn js-loggedIn ${pageData.success ? '' : 'hide'}">
-            <div class="showUsername js-showUsername">${pageData.success ? pageData.username : ''}</div>
+        <div class="loggedIn js-loggedIn ${pageData.userData.success ? '' : 'hide'}">
+            <div class="showUsername js-showUsername">${pageData.userData.success ? pageData.userData.user.username : ''}</div>
                 <input class="submitBtn js-submitLogout" type="submit" value="logout">
         </div>
-        <div if(!pageData.success) class="signUpBtn js-signUpBtn" data-open="signup">
+        <div if(!pageData.userData.success) class="signUpBtn js-signUpBtn" data-open="signup">
             click here to sign Up
         </div>
     </div>

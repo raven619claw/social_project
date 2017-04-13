@@ -7,12 +7,11 @@ dataObject.checkUser = (user) => {
         let queryString = '';
         let queryParameters = {};
             queryString = `
-            MATCH (user:USER) 
-            WHERE user.username = {username} OR user.email = {email}
+            MATCH (user:USER)-[:USERINFO]->(profileInfo:PROFILEINFO)
+            WHERE user.username = {username} OR profileInfo.email = {email}
             RETURN user
             `;
             queryParameters = user;
-            console.log(queryParameters);
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
         dbSession
             .run(queryString, queryParameters)

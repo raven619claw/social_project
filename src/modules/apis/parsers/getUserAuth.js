@@ -8,7 +8,7 @@ let getUserAuth = function(req, res) {
     getUserAuthModel.getUserAuth(user)
         .then((result) => {
             if(result.loginStatus.password){
-                sessionService.setSessionObject(req.session, {username:result.user.username , success: true})
+                sessionService.setSessionObject(req.session, {user:result.user , success: true})
             }
             res.end(JSON.stringify(result));
             },
