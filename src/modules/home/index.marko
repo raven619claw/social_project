@@ -1,16 +1,16 @@
-<layout-use("../../templates/base/base.marko") show-header=true data="${data}">
-    <layout-put into="title">${data.title}</layout-put>
-    <layout-put into="styles">
-    </layout-put>
-    <layout-put into="body">
+<include("../../templates/base/base.marko") show-header=true data="${data}">
+    <@title>
+        ${data.title}
+    </@title>
+    <@body>
     <if(data.data.userData)>
         <include("./components/loggedIn.marko",data.data)/>
     </if>
     <else>
         <include("./components/loggedOut.marko")/>
     </else>
-    </layout-put>
-    <layout-put into="scripts">
+    </@body>
+    <@scripts>
         <script src="/public/scripts/bundles/home.js"></script>
-    </layout-put>
-</layout-use>
+    </@scripts>
+</include>

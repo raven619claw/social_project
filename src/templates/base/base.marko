@@ -4,25 +4,25 @@
         <meta charset="UTF-8">
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/public/styles/css/main.css">
-        <layout-placeholder name="styles"/>
+        <include(input.styles)/>
         <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
             integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
             crossorigin="anonymous">
         </script>
         <title>
-            <layout-placeholder name="title"/>
+            <include(input.title)/>
         </title>
         
     </head>
     <body>
         <headerTemplate data="${data.data}" if(data.showHeader)/>
         <div class="body-content">
-            <layout-placeholder name="body"/>
+            <include(input.body)/>
         </div>
         <div class="popup js-popup hide"></div>
     </body>
     <script src="/public/scripts/bundles/login.js"></script>
     <script src="/public/scripts/bundles/signup.js"></script>
-    <layout-placeholder name="scripts"/>
+    <include(input.scripts)/>
 </html>
