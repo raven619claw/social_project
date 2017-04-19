@@ -6,9 +6,11 @@ let templateLoader = (template) => {
     let layoutData = { title: 'social_project' };
     template.renderTemplate = (dataFn, req, res) => {
         dataFn(req, res).then((result) => {
-        	console.log(result)
+        	console.log(result,'in loader')
             layoutData.data = result;
             template.render(layoutData, res);
+        }).catch((error)=>{
+        	console.log('error!!',error)
         });
 
     }

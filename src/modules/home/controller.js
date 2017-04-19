@@ -11,7 +11,6 @@ let loader = function(req, res) {
         pageData = {};
         let userData = sessionGlobal.getUserDataFromSession(req.session);
         pageData.userData = userData;
-        console.log(userData);
         if (userData.success) {
             console.log(userData);
             getPostData(userData.user.userId).then((result) => {
@@ -22,7 +21,6 @@ let loader = function(req, res) {
             });
         } else {
             resolve(pageData);
-            console.log(pageData);
         }
     });
 
