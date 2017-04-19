@@ -5,7 +5,6 @@ src/public/styles/css/
 src/public/config/conf.json
 src/public/config/environment.json
 *.marko.js
-.env*
 *sublime*
 .sass-cache/
 *.log
