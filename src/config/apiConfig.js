@@ -6,6 +6,7 @@ apiConfig = {
         }
     },
     getUserPost(userid) {
+        console.log(userid,'in apiConfig');
         return {
             method: 'GET',
             url: `/getUserPosts?userid=${userid}`

@@ -37,7 +37,6 @@ module.exports.setup = (router) => {
 };
 
 let getPostData = (userID) => {
-    console.log(userID,'in get post')
     return apiService.get(apiConfig.getUserPost(userID).url)
 
 };
