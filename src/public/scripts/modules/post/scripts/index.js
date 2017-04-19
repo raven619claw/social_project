@@ -1,3 +1,6 @@
+import ajaxHelper from '../../helpers/scripts/ajaxHelper.js';
+import Utils from '../../helpers/scripts/utils.js';
+
 (() => {
     let SELECTORS = {
         'PARENT': '.js-postParent',
@@ -24,16 +27,12 @@
                 "privacyFlag": 2,
                 "medium": "desktop"
             };
-            $.ajax({
-                url: "http://localhost:3000/apis/createPost",
-                type: "PUT",
-                data: formData,
-                success: function(data, textStatus, jqXHR) {
-                    window.location = "http://localhost:3000/";
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
+            let url = '/apis/createPost';
+            ajaxHelper.PUT(url, formData).then((response) => {
+                console.log(response);
+                window.location = Utils.BASE_URL;
+            }).catch((error) => {
+                console.log(error);
             });
         } else {
             $(SELECTORS.PARENT).find(SELECTORS.ERROR).removeClass('hide');

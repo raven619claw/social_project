@@ -15,14 +15,14 @@ dataObject.createUser = (userData) => {
 
         RETURN user
         `;
-        let queryParameters = { 
-            username : userData.username , 
-            password : userData.password ,
-            firstName : userData.firstName ,
-            lastName : userData.lastName ,
-            email : userData.email ,
-            userType : userData.userType,
-            userId : userData.userId
+        let queryParameters = {
+            username: userData.username,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            userType: userData.userType,
+            userId: userData.userId
         };
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user creation running')
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: ' + JSON.stringify(queryParameters));

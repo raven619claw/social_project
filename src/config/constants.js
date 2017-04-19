@@ -5,9 +5,11 @@ const path = require("path");
 const LOGGER = require('../services/logger');
 const ROOTPATH = path.join(__dirname, '../');
 const PROJECTROOTPATH = path.join(__dirname, '../../');
+const APPCONFIG = require('./config.js');
 
 module.exports = {
     ROOTPATH,
     LOGGER,
-    PROJECTROOTPATH
+    PROJECTROOTPATH,
+    APPCONFIG
 }

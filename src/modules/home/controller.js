@@ -15,6 +15,8 @@ let loader = function(req, res) {
             getPostData(userData.user.userId).then((result) => {
                 pageData.userPostData = result.data;
                 resolve(pageData);
+            }).catch((error)=>{
+                GLOBALCONSTANTS.LOGGER.LOG('error', error);
             });
         } else {
             resolve(pageData);
