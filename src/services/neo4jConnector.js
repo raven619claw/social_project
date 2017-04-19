@@ -6,7 +6,7 @@ const GLOBALCONSTANTS = require('../config/constants');
 let DB_HOST= GLOBALCONSTANTS.APPCONFIG.DB_HOST;
 let DB_USERNAME = GLOBALCONSTANTS.APPCONFIG.DB_USERNAME;
 let DB_PASSWORD= GLOBALCONSTANTS.APPCONFIG.DB_PASSWORD;
-
+console.log(DB_HOST,DB_PASSWORD,DB_USERNAME);
 var driver = neo4j.driver(DB_HOST, neo4j.auth.basic(DB_USERNAME, DB_PASSWORD));
 var dbSession = driver.session();
 
