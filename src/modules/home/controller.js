@@ -12,9 +12,9 @@ let loader = function(req, res) {
         let userData = sessionGlobal.getUserDataFromSession(req.session);
         pageData.userData = userData;
         if (userData.success) {
-            console.log(userData);
             getPostData(userData.user.userId).then((result) => {
                 pageData.userPostData = result.data;
+                console.log(result,'error');
                 resolve(pageData);
             }).catch((error)=>{
                 GLOBALCONSTANTS.LOGGER.LOG('error', error);
@@ -37,6 +37,7 @@ module.exports.setup = (router) => {
 };
 
 let getPostData = (userID) => {
+    console.log(userID,'in get post')
     return apiService.get(apiConfig.getUserPost(userID).url)
 
 };
