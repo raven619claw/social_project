@@ -1,1 +1,1 @@
-web: node app.js
+web: ENVIRONMENT=heroku node app.js
