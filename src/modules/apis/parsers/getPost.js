@@ -6,10 +6,10 @@ let getPost = function(req, res) {
     let postID = req.query.postid;
     getPostModel.getPost(postID)
         .then((result) => {
-                res.end(JSON.stringify({ 'post': result }));
+                res.status(200).send(JSON.stringify({ 'post': result }));
             },
             (error) => {
-                console.log(error);
+                res.status(500).send(error);
             });
 };
 

@@ -14,10 +14,10 @@ let createPost = function(req, res) {
     };
     createPostModel.createPost(postData)
         .then((result) => {
-                res.end(JSON.stringify({ 'postID': result }));
+                res.status(200).send(JSON.stringify({ 'postID': result }));
             },
             (error) => {
-                console.log(error);
+                res.status(500).send(error);
             });
 };
 

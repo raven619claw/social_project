@@ -9,10 +9,10 @@ let getUserPosts = function(req, res) {
 	}
     getUserPostsModel.getUserPosts(user)
         .then((result) => {
-        	res.end(JSON.stringify({'userPosts':result}));
+        	res.status(200).send(JSON.stringify({'userPosts':result}));
             },
             (error) => {
-            	console.log(error);
+            	res.status(500).send(error);
             });
 };
 

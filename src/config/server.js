@@ -7,7 +7,9 @@ const path = require("path");
 const session = require('express-session');
 
 //built in globals
-const GLOBALCONSTANTS = require('../config/constants');
+require('./dbConfig.js')
+const GLOBALCONSTANTS = require('./constants');
+
 const routes = require(GLOBALCONSTANTS.ROOTPATH + '/services/routes');
 const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 

@@ -16,10 +16,10 @@ let userSocialAuth = function(req, res) {
         userSocialAuthModel.socialAuth(user)
             .then((result) => {
                     sessionService.setSessionObject(req.session, { user: result.user, success: true })
-                    res.end(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                    res.status(200).send(JSON.stringify({ 'user': result.user, 'created': result.created }));
                 },
                 (error) => {
-                    console.log(error);
+                    res.status(500).send(error);
                 });
     };
     let user = {};
@@ -28,7 +28,7 @@ let userSocialAuth = function(req, res) {
         socialLogin.verifyGoogleUser(req.body.token, callUserModel);
 
     } else {
-        res.end('bad request');
+        res.status(400).send('bad request');
     }
 };
 

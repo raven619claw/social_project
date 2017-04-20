@@ -13,12 +13,10 @@ let createUser = function(req, res) {
     }
     createUserModel.createUser(user)
         .then((result) => {
-
-
-                res.end(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                res.status(200).send(JSON.stringify({ 'user': result.user, 'created': result.created }));
             },
             (error) => {
-                console.log(error);
+                res.status(500).send(error)
             });
 };
 

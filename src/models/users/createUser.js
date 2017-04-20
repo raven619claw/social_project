@@ -38,7 +38,11 @@ dataObject.createUser = (userData) => {
                 function(err) {
                     GLOBALCONSTANTS.LOGGER.LOG('error', 'dB query for user creation failed\n result:' + JSON.stringify(err));
                     dbSession.close();
-                    reject(false);
+                    reject({
+                        created:false,
+                        errorCode: err.signature,
+                        errorMsg:'User Not Created'
+                    });
                 });
     });
 };

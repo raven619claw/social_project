@@ -31,10 +31,10 @@ var apiRouteHandler = (req, res) => {
             break;
         case '/apis/user/logout':
             req.session = sessionService.setSessionObject(req.session, { username: false, success: false });
-            res.end(JSON.stringify({ statusCode: '2XX', loginStatus: false }));
+            res.status(200).send(JSON.stringify({ statusCode: '2XX', loginStatus: false }));
             break;
         default:
-            res.end('bad request');
+            res.status(400).send('bad request');
             break;
     }
 }

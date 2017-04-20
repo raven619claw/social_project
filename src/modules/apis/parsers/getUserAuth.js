@@ -10,10 +10,10 @@ let getUserAuth = function(req, res) {
             if(result.loginStatus.password){
                 sessionService.setSessionObject(req.session, {user:result.user , success: true})
             }
-            res.end(JSON.stringify(result));
+            res.status(200).send(JSON.stringify(result));
             },
             (error) => {
-                res.end(JSON.stringify(false));
+                res.status(500).send(error);
             });
 };
 

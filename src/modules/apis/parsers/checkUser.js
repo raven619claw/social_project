@@ -13,10 +13,10 @@ let checkUser = function(req, res) {
     }
     checkUserModel.checkUser(user)
         .then((result) => {
-                res.end(JSON.stringify({ 'user': result }));
+                res.status(200).send(JSON.stringify({ 'user': result }));
             },
             (error) => {
-                console.log(error);
+                res.status(500).send(error);
             });
 };
 
