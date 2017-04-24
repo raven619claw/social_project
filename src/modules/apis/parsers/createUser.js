@@ -1,9 +1,11 @@
+let uuidV1 = require('uuid/v1');
+
 const createUserModel = require('../../../models/users/createUser.js');
 
 let createUser = function(req, res) {
     let user = {};
     user = {
-        userId: req.body.email,
+        userId: uuidV1(),
         userType: req.body.userType,
         username: req.body.username,
         email: req.body.email,
