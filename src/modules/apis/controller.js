@@ -29,6 +29,15 @@ var apiRouteHandler = (req, res) => {
         case '/apis/getUserPosts':
             parsers.getUserPosts(req, res);
             break;
+        case '/apis/sendFriendRequest':
+            parsers.sendFriendRequest(req, res);
+            break;
+        case '/apis/acceptFriendRequest':
+            parsers.acceptFriendRequest(req, res);
+            break;
+        case '/apis/getFriendData':
+            parsers.getFriendData(req, res);
+            break;
         case '/apis/user/logout':
             req.session = sessionService.setSessionObject(req.session, { username: false, success: false });
             res.status(200).send(JSON.stringify({ statusCode: '2XX', loginStatus: false }));
@@ -39,6 +48,6 @@ var apiRouteHandler = (req, res) => {
     }
 }
 
-module.exports.setup = (router)=>{
-    router.all('/apis*',apiRouteHandler);
+module.exports.setup = (router) => {
+    router.all('/apis*', apiRouteHandler);
 };
