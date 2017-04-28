@@ -38,6 +38,9 @@ var apiRouteHandler = (req, res) => {
         case '/apis/getFriendData':
             parsers.getFriendData(req, res);
             break;
+        case '/apis/getUserSuggestions':
+            parsers.getUserSuggestions(req, res);
+            break;
         case '/apis/user/logout':
             req.session = sessionService.setSessionObject(req.session, { username: false, success: false });
             res.status(200).send(JSON.stringify({ statusCode: '2XX', loginStatus: false }));

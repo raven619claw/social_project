@@ -10,6 +10,12 @@ apiConfig = {
             method: 'GET',
             url: `/getUserPosts?userid=${userid}`
         }
+    },
+    getUserSuggestions() {
+        return {
+            method: 'POST',
+            url: `/getUserSuggestions`
+        }
     }
 
 };

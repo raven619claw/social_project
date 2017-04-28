@@ -1,20 +1,23 @@
 $ var postData = data.userPostData.userPosts;
-<h2>hi ${data.userData.user.username}</h2>
-<if (postData)>
-	<h2>Your posts</h2>
-	<for (post in postData)>
-		<post({
-				post:{
-					date : post.dateCreated,
-					content : post.content,
-					privacy : post.privacy
-				}
-			}
-		)/>
-	</for>
-</if>
-<else>
-	<h2>No posts to show</h2>	
-</else>
+$ var userSuggestions = data.userSuggestionsData;
 
-<createPost/>
+
+<section class="leftContent"></section>
+<section class="mainContent">
+	<h2>hi ${data.userData.user.username}</h2>
+	<if (postData)>
+		<h2>Your posts</h2>
+		<post({ postData })/>
+	</if>
+	<else>
+		<h2>No posts to show</h2>	
+	</else>
+
+	<createPost/>
+</section>
+<section class="rightContent">
+	<if (userSuggestions)>
+		<h2>Ge to know people</h2>
+			<userSuggestions(userSuggestions.users)/>
+	</if>
+</section>
