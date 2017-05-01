@@ -7,7 +7,7 @@ dataObject.getFriendData = (userData) => {
         let queryString = `
         MATCH (userFrom:USER { userId:{userFrom} })-[prop:FRIEND]-(userTo:USER)
         WHERE prop.status=~ {status} AND userTo.userId =~ {userTo}
-        RETURN userTo,prop.status
+        RETURN userTo,prop
         `;
         let queryParameters = {
             userFrom: userData.userFrom,
@@ -23,10 +23,15 @@ dataObject.getFriendData = (userData) => {
                     dbSession.close();
                     let userDetails=[];
                     result.records.forEach((user) => {
+                        console.log(user.get('prop').properties)
                             let propertiesToPush={
-                                username:user._fields[user._fieldLookup["userTo"]].properties.username,
-                                userId:user._fields[user._fieldLookup["userTo"]].properties.userId,
-                                status:user._fields[user._fieldLookup["prop.status"]],
+                                username:user.get('userTo').properties.username,
+                                userId:user.get('userTo').properties.userId,
+                                status:user.get('prop').properties.status,
+                                requestData:{
+                                    from:user.get('prop').properties.from,
+                                    to:user.get('prop').properties.to
+                                }
                             }
                             userDetails.push(propertiesToPush)
                         });

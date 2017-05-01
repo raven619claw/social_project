@@ -1,5 +1,6 @@
 $ var postData = data.userPostData.userPosts;
 $ var userSuggestions = data.userSuggestionsData;
+$ var pendingRequests = data.pendingRequests;
 
 
 <section class="leftContent"></section>
@@ -16,8 +17,20 @@ $ var userSuggestions = data.userSuggestionsData;
 	<createPost/>
 </section>
 <section class="rightContent">
+	<if (pendingRequests)>
+		<h2>Pending Requests</h2>
+			<userInteractions({
+				'users':pendingRequests.users,
+				'action':'acceptRequest',
+				'btnText':'Accept Request'
+			})/>
+	</if>
 	<if (userSuggestions)>
 		<h2>Ge to know people</h2>
-			<userSuggestions(userSuggestions.users)/>
+			<userInteractions({
+				'users':userSuggestions.users,
+				'action':'sendRequest',
+				'btnText':'send Friend Request'
+			})/>
 	</if>
 </section>

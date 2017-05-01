@@ -5,9 +5,9 @@ dataObject.acceptFriendRequest = (userData) => {
     return new Promise((resolve, reject) => {
 
         let queryString = `
-        MATCH (userFrom:USER { userId:{userFrom} }),(userTo:USER { userId:{userTo} })
-        MERGE (userFrom)-[prop:FRIEND]->(userTo)        
-        ON MATCH SET prop.status='accepted'
+        MATCH (userFrom:USER { userId:{userFrom} })-[prop:FRIEND]-(userTo:USER { userId:{userTo} })
+        WHERE prop.from = {userFrom}      
+        SET prop.status='accepted'
         RETURN userFrom,userTo,prop
         `;
         let queryParameters = {

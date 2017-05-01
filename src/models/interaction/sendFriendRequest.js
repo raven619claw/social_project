@@ -6,8 +6,8 @@ dataObject.sendFriendRequest = (userData) => {
 
         let queryString = `
         MATCH (userFrom:USER { userId:{userFrom} }),(userTo:USER { userId:{userTo} })
-        MERGE (userFrom)-[prop:FRIEND]->(userTo)        
-        ON CREATE SET prop.status='pending'
+        MERGE (userFrom)-[prop:FRIEND]-(userTo)        
+        ON CREATE SET prop.status='pending',prop.from ={userFrom},prop.to={userTo}
         RETURN userFrom,userTo,prop
         `;
         let queryParameters = {

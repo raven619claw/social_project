@@ -16,7 +16,12 @@ let loader = function(req, res) {
                 pageData.userPostData = result.data;
                 getUserSuggestions(userData.user.userId).then((result) => {
                     pageData.userSuggestionsData = result.data;
-                    resolve(pageData);
+                    getFriendData(userData.user.userId, null, 'pending').then((result) => {
+                        pageData.pendingRequests = result.data;
+                        resolve(pageData);
+                    }).catch((error) => {
+                        GLOBALCONSTANTS.LOGGER.LOG('error', error);
+                    });
                 }).catch((error) => {
                     GLOBALCONSTANTS.LOGGER.LOG('error', error);
                 });
@@ -47,5 +52,15 @@ let getPostData = (userID) => {
 let getUserSuggestions = (userID) => {
     return apiService.post(apiConfig.getUserSuggestions().url, {
         userFrom: userID
+    })
+};
+
+let getFriendData = (userFrom, userTo, status) => {
+    userTo = userTo || '';
+    status = status || '';
+    return apiService.post(apiConfig.getFriendData().url, {
+        userFrom,
+        userTo,
+        status
     })
 };

@@ -16,6 +16,12 @@ apiConfig = {
             method: 'POST',
             url: `/getUserSuggestions`
         }
+    },
+    getFriendData() {
+        return {
+            method: 'POST',
+            url: `/getFriendData`
+        }
     }
 
 };
