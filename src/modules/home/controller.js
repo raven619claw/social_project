@@ -14,8 +14,19 @@ let loader = function(req, res) {
         if (userData.success) {
             getPostData(userData.user.userId).then((result) => {
                 pageData.userPostData = result.data;
-                resolve(pageData);
-            }).catch((error)=>{
+                getUserSuggestions(userData.user.userId).then((result) => {
+                    pageData.userSuggestionsData = result.data;
+                    getFriendData(userData.user.userId, null, 'pending').then((result) => {
+                        pageData.pendingRequests = result.data;
+                        resolve(pageData);
+                    }).catch((error) => {
+                        GLOBALCONSTANTS.LOGGER.LOG('error', error);
+                    });
+                }).catch((error) => {
+                    GLOBALCONSTANTS.LOGGER.LOG('error', error);
+                });
+
+            }).catch((error) => {
                 GLOBALCONSTANTS.LOGGER.LOG('error', error);
             });
         } else {
@@ -37,5 +48,19 @@ module.exports.setup = (router) => {
 
 let getPostData = (userID) => {
     return apiService.get(apiConfig.getUserPost(userID).url)
+};
+let getUserSuggestions = (userID) => {
+    return apiService.post(apiConfig.getUserSuggestions().url, {
+        userFrom: userID
+    })
+};
 
+let getFriendData = (userFrom, userTo, status) => {
+    userTo = userTo || '';
+    status = status || '';
+    return apiService.post(apiConfig.getFriendData().url, {
+        userFrom,
+        userTo,
+        status
+    })
 };
