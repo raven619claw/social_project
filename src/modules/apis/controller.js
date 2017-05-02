@@ -29,6 +29,9 @@ var apiRouteHandler = (req, res) => {
         case '/apis/getUserPosts':
             parsers.getUserPosts(req, res);
             break;
+        case '/apis/getHomePosts':
+            parsers.getHomePosts(req, res);
+            break;
         case '/apis/sendFriendRequest':
             parsers.sendFriendRequest(req, res);
             break;

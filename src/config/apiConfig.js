@@ -11,6 +11,12 @@ apiConfig = {
             url: `/getUserPosts?userid=${userid}`
         }
     },
+    getHomePost(userid) {
+        return {
+            method: 'GET',
+            url: `/getHomePosts?userid=${userid}`
+        }
+    },
     getUserSuggestions() {
         return {
             method: 'POST',

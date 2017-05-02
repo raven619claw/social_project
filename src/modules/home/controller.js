@@ -13,7 +13,10 @@ let loader = function(req, res) {
         pageData.userData = userData;
         if (userData.success) {
             getPostData(userData.user.userId).then((result) => {
-                pageData.userPostData = result.data;
+                pageData.userPostData = [];
+                result.data.posts.forEach((post)=>{
+                    pageData.userPostData.push(post)
+                });
                 getUserSuggestions(userData.user.userId).then((result) => {
                     pageData.userSuggestionsData = result.data;
                     getFriendData(userData.user.userId, null, 'pending').then((result) => {
@@ -47,7 +50,7 @@ module.exports.setup = (router) => {
 };
 
 let getPostData = (userID) => {
-    return apiService.get(apiConfig.getUserPost(userID).url)
+    return apiService.get(apiConfig.getHomePost(userID).url)
 };
 let getUserSuggestions = (userID) => {
     return apiService.post(apiConfig.getUserSuggestions().url, {
