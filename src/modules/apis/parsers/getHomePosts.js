@@ -9,7 +9,7 @@ let getHomePosts = function(req, res) {
 	}
     getHomePostsModel.getHomePosts(user)
         .then((result) => {
-        	res.status(200).send(JSON.stringify({'posts':result}));
+            res.status(200).json({ 'posts': result });
             },
             (error) => {
             	res.status(500).send(error);

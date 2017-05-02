@@ -16,7 +16,7 @@ let userSocialAuth = function(req, res) {
         userSocialAuthModel.socialAuth(user)
             .then((result) => {
                     sessionService.setSessionObject(req.session, { user: result.user, success: true })
-                    res.status(200).send(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                    res.status(200).json({ 'user': result.user, 'created': result.created });
                 },
                 (error) => {
                     res.status(500).send(error);
