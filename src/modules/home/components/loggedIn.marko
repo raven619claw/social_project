@@ -1,36 +1,42 @@
 $ var postData = data.userPostData.userPosts;
 $ var userSuggestions = data.userSuggestionsData;
 $ var pendingRequests = data.pendingRequests;
+<include("../../../templates/base/baseLoggedIn.marko")>
 
+	<@leftContent class="leftContent">
+		<h2>Tab Options</h2>
+		<div class="tabs">
+			<div class="tab btnDefault">View Friends</div>	
+		</div>
 
-<section class="leftContent"></section>
-<section class="mainContent">
-	<h2>hi ${data.userData.user.username}</h2>
-	<if (postData)>
-		<h2>Your posts</h2>
-		<post({ postData })/>
-	</if>
-	<else>
-		<h2>No posts to show</h2>	
-	</else>
+	</@leftContent>
+	<@mainContent class="mainContent">
+		<if (postData)>
+			<h2>All posts</h2>
+			<post({ postData })/>
+		</if>
+		<else>
+			<h2>No posts to show</h2>	
+		</else>
 
-	<createPost/>
-</section>
-<section class="rightContent">
-	<if (pendingRequests)>
-		<h2>Pending Requests</h2>
-			<userInteractions({
-				'users':pendingRequests.users,
-				'action':'acceptRequest',
-				'btnText':'Accept Request'
-			})/>
-	</if>
-	<if (userSuggestions)>
-		<h2>Ge to know people</h2>
-			<userInteractions({
-				'users':userSuggestions.users,
-				'action':'sendRequest',
-				'btnText':'send Friend Request'
-			})/>
-	</if>
-</section>
+		<createPost/>
+	</@mainContent>
+	<@rightContent class="rightContent">
+		<if (pendingRequests)>
+			<h2>Pending Requests</h2>
+				<userInteractions({
+					'users':pendingRequests.users,
+					'action':'acceptRequest',
+					'btnText':'Accept Request'
+				})/>
+		</if>
+		<if (userSuggestions)>
+			<h2>Ge to know people</h2>
+				<userInteractions({
+					'users':userSuggestions.users,
+					'action':'sendRequest',
+					'btnText':'send Friend Request'
+				})/>
+		</if>
+</@rightContent>
+</include>

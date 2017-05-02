@@ -17,6 +17,5 @@ module.exports = function() {
     parsers.forEach((parser) => {
         parsersPath[parser.slice((parser.lastIndexOf("/") + 1), -5)] = "./" + parser.slice((parser.lastIndexOf("src")));
     });
-    // console.log(parsersPath);
     return parsersPath;
 };
