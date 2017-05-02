@@ -15,7 +15,7 @@ let createUser = function(req, res) {
     }
     createUserModel.createUser(user)
         .then((result) => {
-                res.status(200).send(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                res.status(200).json({ 'user': result.user, 'created': result.created });
             },
             (error) => {
                 res.status(500).send(error)

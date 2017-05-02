@@ -1,7 +1,8 @@
 <for (post in data.postData)>
 	<div class="postContainer">
-		<div class="postDate">${post.dateCreated}</div>
-		<div class="postContent">${post.content}</div>
-		<div class="visiblePrivacy">${post.privacy}</div>
+		<div class="postUser">${post.userDetails.username}</div>
+		<div class="postDate">${post.postData.dateCreated}</div>
+		<div class="postContent">${post.postData.content}</div>
+		<div class="visiblePrivacy">${post.postData.privacy}</div>
 	</div>
 </for>

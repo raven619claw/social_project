@@ -23,7 +23,6 @@ dataObject.getFriendData = (userData) => {
                     dbSession.close();
                     let userDetails=[];
                     result.records.forEach((user) => {
-                        console.log(user.get('prop').properties)
                             let propertiesToPush={
                                 username:user.get('userTo').properties.username,
                                 userId:user.get('userTo').properties.userId,

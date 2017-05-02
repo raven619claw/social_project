@@ -35,10 +35,15 @@ body {
         background-color: #e9ebee;
     }
 }
+.leftContent {
+    display: inline-block;
+    width: 20%;
+    vertical-align: top;
+}
 
 .mainContent {
     display: inline-block;
-    width: 70%;
+    width: 50%;
     vertical-align: top;
 }
 
