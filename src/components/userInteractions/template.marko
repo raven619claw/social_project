@@ -4,7 +4,7 @@ $ var action = data.action;
 	)>
 		<div class="userContainer">
 			<div class="username">${user.username}</div>
-			<div class="btnDefault sendRequest js-${action}" data-userid="${user.userId}">${data.btnText}</div>
+			<div if(action) class="btnDefault sendRequest js-${action}" data-userid="${user.userId}">${data.btnText}</div>
 		</div>
 	</for>
 </div>
