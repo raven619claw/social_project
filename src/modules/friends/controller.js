@@ -23,11 +23,11 @@ let loader = function(req, res) {
         let pageData = {};
         pageData.userData = {};
         pageData.userData.user = {};
-        let userData = sessionGlobal.getUserDataFromSession(req.session);
+        let userData = sessionGlobal.getUserDataFromSession(req.session) || {};
         pageData.userData = userData;
         getUserDetails(req.params.entity).then((result) => {
-            pageData.userData.user.userId = pageData.userData.user && pageData.userData.user.userId || result.data.users[0].userId;
-
+            pageData.userData.user = pageData.userData.user || {};
+            pageData.userData.user.userId =  pageData.userData.user.userId || result.data.users[0].userId;
             getFriendData(result.data.users[0].userId, null, 'accepted').then((result) => {
                 pageData.friends = result.data;
                 resolve(pageData);
