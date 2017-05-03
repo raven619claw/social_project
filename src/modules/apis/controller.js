@@ -35,6 +35,9 @@ var apiRouteHandler = (req, res) => {
         case '/apis/sendFriendRequest':
             parsers.sendFriendRequest(req, res);
             break;
+        case '/apis/unFriend':
+            parsers.unFriend(req, res);
+            break;
         case '/apis/acceptFriendRequest':
             parsers.acceptFriendRequest(req, res);
             break;

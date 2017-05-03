@@ -5,6 +5,18 @@ const sessionGlobal = require(GLOBALCONSTANTS.ROOTPATH + '/services/sessionServi
 
 let template = require.resolve('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
+
+let render = function(req, res) {
+    template = templateLoader(template);
+    GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
+
+    return template.renderTemplate(loader, req, res);
+};
+
+module.exports.setup = (router) => {
+    router.route('/').get(render);
+};
+
 //function to return any data required for the template
 let loader = function(req, res) {
     return new Promise((resolve, reject) => {
@@ -37,16 +49,6 @@ let loader = function(req, res) {
         }
     });
 
-}
-let render = function(req, res) {
-    template = templateLoader(template);
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering home module for GET request');
-
-    return template.renderTemplate(loader, req, res);
-};
-
-module.exports.setup = (router) => {
-    router.route('/').get(render);
 };
 
 let getPostData = (userID) => {
@@ -59,6 +61,7 @@ let getUserSuggestions = (userID) => {
 };
 
 let getFriendData = (userFrom, userTo, status) => {
+    userFrom = userFrom || '';
     userTo = userTo || '';
     status = status || '';
     return apiService.post(apiConfig.getFriendData().url, {
