@@ -1,4 +1,5 @@
 $ var friends = data.data.friends;
+$ var action = data.data.userData.success && 'unfriend'
 <include("../../templates/base/base.marko") show-header=true data="${data}">
     <@title>
         ${data.title}
@@ -12,7 +13,7 @@ $ var friends = data.data.friends;
             <h2>Friend list</h2>
     			<userInteractions({
                     'users':friends.users,
-                    'action':'unfriend',
+                    'action': action,
                     'btnText':'UnFriend'
                 })/>
     		</@mainContent>
