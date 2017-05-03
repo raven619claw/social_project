@@ -11,6 +11,12 @@ apiConfig = {
             url: `/getUserPosts?userid=${userid}`
         }
     },
+    getUser(username) {
+        return {
+            method: 'GET',
+            url: `/users?username=${username}`
+        }
+    },
     getHomePost(userid) {
         return {
             method: 'GET',
