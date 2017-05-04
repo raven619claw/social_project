@@ -1,8 +1,12 @@
-const userSocialAuthModel = require('../../../models/users/userSocialAuth.js');
 const socialLogin = require('../../../services/helpers/googleAuth.js');
 const sessionService = require('../../../services/sessionService.js');
+const GLOBALCONSTANTS = require('../../../config/constants');
+
+const userSocialAuthModel = require('../../../models/users/userSocialAuth.js');
+
 
 let userSocialAuth = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let callUserModel = (token) => {
         user = {
             userId: token,
@@ -32,4 +36,6 @@ let userSocialAuth = function(req, res) {
     }
 };
 
-module.exports = userSocialAuth;
+module.exports.setup = (router) => {
+    router.route('/apis/userSocialAuth').all(userSocialAuth);
+};

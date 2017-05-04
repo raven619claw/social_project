@@ -8,13 +8,13 @@ let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoade
 
 let render = function(req, res) {
     template = templateLoader(template);
-    GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering friends module for GET request');
+    GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering profile module for GET request');
 
     return template.renderTemplate(loader, req, res);
 };
 
 module.exports.setup = (router) => {
-    router.route('/:entity/friends').get(render);
+    router.route('/:entity').get(render);
 };
 
 //function to return any data required for the template
@@ -27,12 +27,18 @@ let loader = function(req, res) {
         pageData.userData = userData;
         getUserDetails(req.params.entity).then((result) => {
             pageData.userData.user = pageData.userData.user || {};
-            if (req.params.entity == pageData.userData.user.username) {
+            if(req.params.entity == pageData.userData.user.username){
                 pageData.userData.currentUser = true;
+            }else{
+                pageData.userData.viewedUser = result.data.users[0];
             }
             pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
-            getFriendData(result.data.users[0].userId, null, 'accepted').then((result) => {
-                pageData.friends = result.data;
+            pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;
+            getPostData(userData.user.userId).then((result) => {
+                pageData.userPostData = [];
+                result.data.userPosts.forEach((post) => {
+                    pageData.userPostData.push(post)
+                });
                 resolve(pageData);
             }).catch((error) => {
                 GLOBALCONSTANTS.LOGGER.LOG('error', error);
@@ -47,13 +53,6 @@ let getUserDetails = (username) => {
     return apiService.get(apiConfig.getUser(username).url)
 };
 
-let getFriendData = (userFrom, userTo, status) => {
-    userFrom = userFrom || '';
-    userTo = userTo || '';
-    status = status || '';
-    return apiService.post(apiConfig.getFriendData().url, {
-        userFrom,
-        userTo,
-        status
-    })
+let getPostData = (userID) => {
+    return apiService.get(apiConfig.getUserPost(userID).url)
 };

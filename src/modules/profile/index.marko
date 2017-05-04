@@ -1,0 +1,35 @@
+$ var pageData = data.data;
+$ var postData = pageData.userPostData;
+
+<include("../../templates/base/base.marko") show-header=true data="${data}">
+    <@title>
+        ${pageData.title}
+    </@title>
+    <@body>
+        <include("../../templates/base/baseContent.marko")>
+            <@leftContent class="leftContent">
+                <h2>Tab Options</h2>
+                <div class="tabs">
+                    <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>    
+                </div>
+            </@leftContent>
+            <@mainContent class="mainContent">
+                <if (postData)>
+                    <h2>All posts</h2>
+                    <post({ postData })/>
+                </if>
+                <else>
+                    <h2>No posts to show</h2>   
+                </else>
+
+                <createPost if(pageData.userData.currentUser)/>
+            </@mainContent>
+            <@rightContent class="rightContent">
+                <div>right side content</div>
+        </@rightContent>
+        </include>
+    </@body>
+    <@scripts>
+        <script src="/public/scripts/bundles/profile.js"></script>
+    </@scripts>
+</include>

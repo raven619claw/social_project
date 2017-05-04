@@ -1,5 +1,6 @@
 $ var friends = data.data.friends;
-$ var action = data.data.userData.success && 'unfriend'
+$ console.log(data.data.userData)
+$ var action = data.data.userData.currentUser && 'unfriend'
 <include("../../templates/base/base.marko") show-header=true data="${data}">
     <@title>
         ${data.title}
