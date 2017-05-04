@@ -1,6 +1,6 @@
 <for (post in data.postData)>
 	<div class="postContainer">
-		<div class="postUser">${post.userDetails.username}</div>
+		<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
 		<div class="postDate">${post.postData.dateCreated}</div>
 		<div class="postContent">${post.postData.content}</div>
 		<div class="visiblePrivacy">${post.postData.privacy}</div>

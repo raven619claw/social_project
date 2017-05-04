@@ -6,7 +6,7 @@ dataObject.getUserSuggestions = (userData) => {
 
         let queryString = `
         MATCH (userFrom:USER {userId:{userFrom}}),(userTo:USER)
-        WHERE NOT (userFrom)-[:FRIEND]->(userTo) AND userFrom.userId <> userTo.userId
+        WHERE NOT (userFrom)-[:FRIEND]-(userTo) AND userFrom.userId <> userTo.userId
         RETURN userTo
         `;
         let queryParameters = {

@@ -3,7 +3,7 @@ $ var action = data.action;
 	<for (user in data.users
 	)>
 		<div class="userContainer">
-			<div class="username">${user.username}</div>
+			<div class="username"><a href="/${user.username}">${user.username}</a></div>
 			<div if(action) class="btnDefault sendRequest js-${action}" data-userid="${user.userId}">${data.btnText}</div>
 		</div>
 	</for>
