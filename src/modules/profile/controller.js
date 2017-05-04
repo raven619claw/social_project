@@ -27,9 +27,13 @@ let loader = function(req, res) {
         pageData.userData = userData;
         getUserDetails(req.params.entity).then((result) => {
             pageData.userData.user = pageData.userData.user || {};
+            if(req.params.entity == pageData.userData.user.username){
+                pageData.userData.currentUser = true;
+            }else{
+                pageData.userData.viewedUser = result.data.users[0];
+            }
             pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
             pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;
-            console.log(pageData.userData)
             getPostData(userData.user.userId).then((result) => {
                 pageData.userPostData = [];
                 result.data.userPosts.forEach((post) => {

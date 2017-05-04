@@ -27,7 +27,10 @@ let loader = function(req, res) {
         pageData.userData = userData;
         getUserDetails(req.params.entity).then((result) => {
             pageData.userData.user = pageData.userData.user || {};
-            pageData.userData.user.userId =  pageData.userData.user.userId || result.data.users[0].userId;
+            if (req.params.entity == pageData.userData.user.username) {
+                pageData.userData.currentUser = true;
+            }
+            pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
             getFriendData(result.data.users[0].userId, null, 'accepted').then((result) => {
                 pageData.friends = result.data;
                 resolve(pageData);

@@ -1,5 +1,6 @@
 $ var pageData = data.data;
 $ var postData = pageData.userPostData;
+
 <include("../../templates/base/base.marko") show-header=true data="${data}">
     <@title>
         ${pageData.title}
@@ -9,7 +10,7 @@ $ var postData = pageData.userPostData;
             <@leftContent class="leftContent">
                 <h2>Tab Options</h2>
                 <div class="tabs">
-                    <div class="tab btnDefault"><a href="/${pageData.userData.user.username}/friends">View Friends</a></div>    
+                    <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>    
                 </div>
             </@leftContent>
             <@mainContent class="mainContent">
@@ -21,7 +22,7 @@ $ var postData = pageData.userPostData;
                     <h2>No posts to show</h2>   
                 </else>
 
-                <createPost if(pageData.userData.success)/>
+                <createPost if(pageData.userData.currentUser)/>
             </@mainContent>
             <@rightContent class="rightContent">
                 <div>right side content</div>
