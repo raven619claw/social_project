@@ -1,6 +1,10 @@
+const GLOBALCONSTANTS = require('../../../config/constants');
+const sessionService = require('../../../services/sessionService.js');
+
 const unFriendModel = require('../../../models/interaction/unFriend.js');
 
 let unFriend = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let postData = {
         userFrom: req.body.userFrom,
         userTo: req.body.userTo
@@ -14,4 +18,6 @@ let unFriend = function(req, res) {
             });
 };
 
-module.exports = unFriend;
+module.exports.setup = (router) => {
+    router.route('/apis/unFriend').all(unFriend);
+};

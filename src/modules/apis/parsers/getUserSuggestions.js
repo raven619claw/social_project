@@ -1,6 +1,10 @@
+const GLOBALCONSTANTS = require('../../../config/constants');
+const sessionService = require('../../../services/sessionService.js');
+
 const getUserSuggestionsModel = require('../../../models/interaction/getUserSuggestions.js');
 
 let getUserSuggestions = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let postData = {
         userFrom: req.body.userFrom
     };
@@ -13,4 +17,6 @@ let getUserSuggestions = function(req, res) {
             });
 };
 
-module.exports = getUserSuggestions;
+module.exports.setup = (router) => {
+    router.route('/apis/getUserSuggestions').all(getUserSuggestions);
+};

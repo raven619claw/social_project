@@ -1,6 +1,10 @@
+const GLOBALCONSTANTS = require('../../../config/constants');
+const sessionService = require('../../../services/sessionService.js');
+
 const getUserPostsModel = require('../../../models/users/getUserPosts.js');
 
 let getUserPosts = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
 	let users ={};
 	if(req.query){
 		user ={
@@ -17,4 +21,6 @@ let getUserPosts = function(req, res) {
             });
 };
 
-module.exports = getUserPosts;
+module.exports.setup = (router) => {
+    router.route('/apis/getUserPosts').all(getUserPosts);
+};
