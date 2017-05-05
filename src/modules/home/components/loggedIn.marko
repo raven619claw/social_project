@@ -1,3 +1,4 @@
+import {getAction} from '../helpers/getAction.js';
 $ var postData = data.userPostData;
 $ var userSuggestions = data.userSuggestionsData;
 $ var pendingRequests = data.pendingRequests;
@@ -25,9 +26,9 @@ $ var pendingRequests = data.pendingRequests;
 		<if (pendingRequests)>
 			<h2>Pending Requests</h2>
 				<userInteractions({
+					'currentUserId': data.userData.user.userId,
 					'users':pendingRequests.users,
-					'action':'acceptRequest',
-					'btnText':'Accept Request'
+					'method':getAction
 				})/>
 		</if>
 		<if (userSuggestions)>
