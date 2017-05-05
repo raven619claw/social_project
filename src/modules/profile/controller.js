@@ -7,6 +7,8 @@ let template = require.resolve('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
 
 let render = function(req, res) {
+    if(req.params.entity == 'favicon.ico')
+        return;
     template = templateLoader(template);
     GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering profile module for GET request');
 
