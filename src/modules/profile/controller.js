@@ -31,6 +31,7 @@ let loader = function(req, res) {
             pageData.userData.user = pageData.userData.user || {};
             if(req.params.entity == pageData.userData.user.username){
                 pageData.userData.currentUser = true;
+                pageData.userData.viewedUser = result.data.users[0];
             }else{
                 pageData.userData.viewedUser = result.data.users[0];
             }
