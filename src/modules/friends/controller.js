@@ -27,8 +27,11 @@ let loader = function(req, res) {
         pageData.userData = userData;
         getUserDetails(req.params.entity).then((result) => {
             pageData.userData.user = pageData.userData.user || {};
-            if (req.params.entity == pageData.userData.user.username) {
+            if(req.params.entity == pageData.userData.user.username){
                 pageData.userData.currentUser = true;
+                pageData.userData.viewedUser = result.data.users[0];
+            }else{
+                pageData.userData.viewedUser = result.data.users[0];
             }
             pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
             getFriendData(result.data.users[0].userId, null, 'accepted').then((result) => {

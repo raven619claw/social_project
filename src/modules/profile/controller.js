@@ -35,7 +35,7 @@ let loader = function(req, res) {
             }else{
                 pageData.userData.viewedUser = result.data.users[0];
             }
-            pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
+            // pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
             pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;
             getPostData(userData.user.userId).then((result) => {
                 pageData.userPostData = [];

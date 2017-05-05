@@ -14,7 +14,14 @@ $ var postData = pageData.userPostData;
             </@leftContent>
             <@mainContent class="mainContent">
                 <if (postData)>
-                    <h2>All posts</h2>
+                $ var postTitle;
+                <if (pageData.userData.viewedUser.username==pageData.userData.user.username && pageData.userData.success)>
+                    $ postTitle = 'your posts';
+                </if>
+                <else>
+                    $ postTitle = pageData.userData.viewedUser.username + '\'s posts';
+                </else>
+                    <h2>${postTitle}</h2>
                     <post({ postData })/>
                 </if>
                 <else>

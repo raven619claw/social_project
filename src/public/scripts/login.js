@@ -108,7 +108,7 @@ import Utils from './modules/helpers/scripts/utils.js';
     };
 
     function showLoggedIn() {
-        window.location = Utils.BASE_URL;
+        window.location = Utils.CURRENT_URL;
 
     };
 
@@ -125,7 +125,7 @@ import Utils from './modules/helpers/scripts/utils.js';
             auth2.signOut().then(() => {
                 let url = '/apis/user/logout';
                 ajaxHelper.GET(url, {}).then((response) => {
-                    window.location = Utils.BASE_URL;
+                    window.location = Utils.CURRENT_URL;
                 }).catch((error) => {
                     console.log(error);
                 });
@@ -133,7 +133,7 @@ import Utils from './modules/helpers/scripts/utils.js';
         } else {
             let url = '/apis/user/logout';
             ajaxHelper.GET(url, {}).then((response) => {
-                window.location = Utils.BASE_URL;
+                window.location = Utils.CURRENT_URL;
             }).catch((error) => {
                 console.log(error);
             });
