@@ -8,7 +8,8 @@ dataObject.getHomePosts = (data) => {
         let queryParameters = {};
 
         queryString = `
-            MATCH (user:USER {userId : { userid } })-[]-(entity)-[:POSTED]-(post:POST)
+            MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)
+            WHERE prop.status = 'accepted'
             RETURN post,entity
             `;
         queryParameters.userid = data.userid;
