@@ -7,7 +7,7 @@ let template = require.resolve('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
 
 let render = function(req, res) {
-    if(req.params.entity == 'favicon.ico')
+    if (req.params.entity == 'favicon.ico')
         return;
     template = templateLoader(template);
     GLOBALCONSTANTS.LOGGER.LOG('data', 'rendering profile module for GET request');
@@ -20,36 +20,28 @@ module.exports.setup = (router) => {
 };
 
 //function to return any data required for the template
-let loader = function(req, res) {
-    return new Promise((resolve, reject) => {
-        let pageData = {};
-        pageData.userData = {};
-        pageData.userData.user = {};
-        let userData = sessionGlobal.getUserDataFromSession(req.session) || {};
-        pageData.userData = userData;
-        getUserDetails(req.params.entity).then((result) => {
-            pageData.userData.user = pageData.userData.user || {};
-            if(req.params.entity == pageData.userData.user.username){
-                pageData.userData.currentUser = true;
-                pageData.userData.viewedUser = result.data.users[0];
-            }else{
-                pageData.userData.viewedUser = result.data.users[0];
-            }
-            // pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
-            pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;
-            getPostData(userData.user.userId).then((result) => {
-                pageData.userPostData = [];
-                result.data.userPosts.forEach((post) => {
-                    pageData.userPostData.push(post)
-                });
-                resolve(pageData);
-            }).catch((error) => {
-                GLOBALCONSTANTS.LOGGER.LOG('error', error);
-            });
-        }).catch((error) => {
-            GLOBALCONSTANTS.LOGGER.LOG('error', error);
-        });
+let loader = async function(req, res) {
+    let pageData = {};
+    pageData.userData = {};
+    pageData.userData.user = {};
+    let userData = sessionGlobal.getUserDataFromSession(req.session) || {};
+    pageData.userData = userData;
+    let result = await getUserDetails(req.params.entity);
+    pageData.userData.user = pageData.userData.user || {};
+    if (req.params.entity == pageData.userData.user.username) {
+        pageData.userData.currentUser = true;
+        pageData.userData.viewedUser = result.data.users[0];
+    } else {
+        pageData.userData.viewedUser = result.data.users[0];
+    }
+    // pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
+    pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;    
+    result = await getPostData(result.data.users[0].userId);
+    pageData.userPostData = [];
+    result.data.userPosts.forEach((post) => {
+        pageData.userPostData.push(post)
     });
+    return pageData;
 };
 
 let getUserDetails = (username) => {
