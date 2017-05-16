@@ -1,8 +1,9 @@
 $ var action = data.action;
+$ var result = null;
 <div class="js-userSuggestions">
 	<for (user in data.users)>
 		<if (data.method)>
-			$ var result = data.method(data.currentUserId,user);
+			$ result = data.method(data.currentUserId,user);
 			$ data.btnText = result.btnText;
 			$ action = result.action;
 		</if>

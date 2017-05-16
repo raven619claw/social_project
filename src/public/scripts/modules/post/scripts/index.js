@@ -21,7 +21,7 @@ import Utils from '../../helpers/scripts/utils.js';
             $(SELECTORS.PARENT).find(SELECTORS.ERROR).addClass('hide');
             let formData = {
                 "userId": $(SELECTORS.USERID).data('userid'),
-                "dateCreated": (new Date).toDateString(),
+                "dateCreated": (new Date).getTime(),
                 "content": $(SELECTORS.PARENT).find(SELECTORS.INPUT).val(),
                 "media": [],
                 "privacyFlag": 2,

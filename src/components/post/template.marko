@@ -1,7 +1,7 @@
 <for (post in data.postData)>
 	<div class="postContainer">
 		<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
-		<div class="postDate">${post.postData.dateCreated}</div>
+		<div class="postDate">${new Date(post.postData.dateCreated).toDateString()}</div>
 		<div class="postContent">${post.postData.content}</div>
 		<div class="visiblePrivacy">${post.postData.privacy}</div>
 	</div>

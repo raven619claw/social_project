@@ -1,9 +1,11 @@
+require('marko/node-require');
+
 const GLOBALCONSTANTS = require('../../config/constants');
 const apiConfig = require('../../config/apiConfig');
 const apiService = require('../../services/apiService');
 const sessionGlobal = require(GLOBALCONSTANTS.ROOTPATH + '/services/sessionService');
 
-let template = require.resolve('./index.marko');
+let template = require('./index.marko');
 let templateLoader = require(GLOBALCONSTANTS.ROOTPATH + '/services/templateLoader');
 
 let render = function(req, res) {
