@@ -7,7 +7,8 @@ import Utils from '../../helpers/scripts/utils.js';
         'INPUT': '.js-postMsg',
         'SUBMIT': '.js-submitPost',
         'ERROR': '.js-error',
-        'USERID': 'header'
+        'USERID': 'header',
+        'PRIVACY': '.js-select'
     };
 
     bindEvents();
@@ -24,8 +25,8 @@ import Utils from '../../helpers/scripts/utils.js';
                 "dateCreated": (new Date).getTime(),
                 "content": $(SELECTORS.PARENT).find(SELECTORS.INPUT).val(),
                 "media": [],
-                "privacyFlag": 2,
-                "medium": "desktop"
+                "privacyFlag": $(SELECTORS.PARENT).find(SELECTORS.PRIVACY).val(),
+                "medium": Utils.isMobile() ? 'mobile' : 'desktop'
             };
             let url = '/apis/createPost';
             ajaxHelper.PUT(url, formData).then((response) => {

@@ -1,5 +1,7 @@
+import {getPrivacyValue} from './helpers/getPrivacyValue.js';
 $ var pageData = data.data;
 $ var postData = pageData.userPostData;
+$ postData.getPrivacyValue = getPrivacyValue;
 <include("../../templates/base/base.marko") show-header=true data="${data}">
     <@title>
         ${pageData.title}

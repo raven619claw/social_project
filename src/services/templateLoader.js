@@ -2,14 +2,15 @@
 const marko = require('marko');
 
 let templateLoader = (template) => {
-    // template = marko.load(template);
+    template = marko.load(template);
     let layoutData = { title: 'social_project' };
     template.renderTemplate = async(dataFn, req, res) => {
         try {
             // this parse may fail
             let result = await dataFn(req, res);
             layoutData.data = result;
-            res.marko(template, layoutData);
+            template.render(layoutData, res);
+            // res.marko(template, layoutData);
         } catch (err) {
             console.log(err)
         }
