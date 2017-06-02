@@ -1,8 +1,12 @@
-const userSocialAuthModel = require('../../../models/users/userSocialAuth.js');
 const socialLogin = require('../../../services/helpers/googleAuth.js');
 const sessionService = require('../../../services/sessionService.js');
+const GLOBALCONSTANTS = require('../../../config/constants');
+
+const userSocialAuthModel = require('../../../models/users/userSocialAuth.js');
+
 
 let userSocialAuth = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let callUserModel = (token) => {
         user = {
             userId: token,
@@ -16,10 +20,10 @@ let userSocialAuth = function(req, res) {
         userSocialAuthModel.socialAuth(user)
             .then((result) => {
                     sessionService.setSessionObject(req.session, { user: result.user, success: true })
-                    res.end(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                    res.status(200).json({ 'user': result.user, 'created': result.created });
                 },
                 (error) => {
-                    console.log(error);
+                    res.status(500).send(error);
                 });
     };
     let user = {};
@@ -28,8 +32,10 @@ let userSocialAuth = function(req, res) {
         socialLogin.verifyGoogleUser(req.body.token, callUserModel);
 
     } else {
-        res.end('bad request');
+        res.status(400).send('bad request');
     }
 };
 
-module.exports = userSocialAuth;
+module.exports.setup = (router) => {
+    router.route('/apis/userSocialAuth').all(userSocialAuth);
+};

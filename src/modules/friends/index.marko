@@ -1,0 +1,44 @@
+$ var pageData = data.data;
+$ var friends = pageData.friends;
+$ var action = pageData.userData.currentUser && 'unfriend'
+
+<include("../../templates/base/base.marko") show-header=true data="${data}">
+    <@title>
+        ${data.title}
+    </@title>
+    <@body>
+    	<include("../../templates/base/baseContent.marko")>
+    		<@leftContent class="leftContent">
+                <h2>Tab Options</h2>
+                <div class="tabs">
+                    <div class="tab btnDefault">
+                        <a href="/${pageData.userData.viewedUser.username}/">
+                            View Profile
+                        </a>
+                    </div>  
+                </div>
+            </@leftContent>
+    		<@mainContent class="mainContent">
+            $ var friendTitle;
+            <if (pageData.userData.viewedUser.username==pageData.userData.user.username && pageData.userData.success)>
+                $ friendTitle = 'your friends';
+            </if>
+            <else>
+                $ friendTitle = pageData.userData.viewedUser.username + '\'s friends';
+            </else>
+            <h2>${friendTitle}</h2>
+    			<userInteractions({
+                    'users':friends.users,
+                    'action': action,
+                    'btnText':'UnFriend'
+                })/>
+    		</@mainContent>
+    		<@rightContent class="rightContent">
+    			<div>right side content</div>
+    	</@rightContent>
+    	</include>
+    </@body>
+    <@scripts>
+        <script src="/public/scripts/bundles/profile.js"></script>
+    </@scripts>
+</include>

@@ -1,3 +1,6 @@
+import ajaxHelper from './modules/helpers/scripts/ajaxHelper.js';
+import Utils from './modules/helpers/scripts/utils.js';
+
 (function() {
 
     const singUpModule = require('../templates/signUp/template');
@@ -48,21 +51,22 @@
                 reject(false);
             }
             showError(selector, '');
-            $.ajax({
-                url: "http://localhost:3000/apis/checkUser?username=" + selector.find('input').val(),
-                type: "GET",
-                success: function(data, textStatus, jqXHR) {
-                    data = JSON.parse(data);
-                    if (data.user) {
-                        showError(selector, selector.find('input').val() + ' username already exists');
-                    } else {
-                        showError(selector, '');
-                    }
-                    resolve(!data.user);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    reject(false);
+            let url = '/apis/checkUser';
+            let params = {
+                username : selector.find('input').val()
+            };
+
+            ajaxHelper.GET(url,params).then((response) => {
+                let data = response.data;
+                if (data.user) {
+                    showError(selector, selector.find('input').val() + ' username already exists');
+                } else {
+                    showError(selector, '');
                 }
+                resolve(!data.user);
+            }).catch((error) => {
+                console.log(error);
+                reject(false);
             });
         });
     };
@@ -74,22 +78,24 @@
                 reject(false);
             }
             showError(selector, '');
-            $.ajax({
-                url: "http://localhost:3000/apis/checkUser?email=" + selector.find('input').val(),
-                type: "GET",
-                success: function(data, textStatus, jqXHR) {
-                    data = JSON.parse(data);
-                    if (data.user) {
-                        showError(selector, selector.find('input').val() + ' email already exists');
-                    } else {
-                        showError(selector, '');
-                    }
-                    resolve(!data.user);
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    reject(false);
+
+            let url = '/apis/checkUser';
+            let params = {
+                email : selector.find('input').val()
+            };
+
+            ajaxHelper.GET(url,params).then((response) => {
+                let data = response.data;
+                if (data.user) {
+                    showError(selector, selector.find('input').val() + ' email already exists');
+                } else {
+                    showError(selector, '');
                 }
-            });    
+                resolve(!data.user);
+            }).catch((error) => {
+                console.log(error);
+                reject(false);
+            });
         });
         
     };
@@ -164,19 +170,14 @@
             "userType": 'email',
             "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
         };
-        $.ajax({
-            url: "http://localhost:3000/apis/createUser",
-            type: "PUT",
-            data: formData,
-            success: function(data, textStatus, jqXHR) {
-                data = JSON.parse(data);
-                if (data.created) {
+        let url = '/apis/createUser';
+        ajaxHelper.PUT(url, formData).then((response) => {
+            let data = response.data;
+            if (data.created) {
                     loginAfterSignUp();
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-
-            }
+        }).catch((error) => {
+            console.log(error);
         });
     };
 
@@ -185,17 +186,15 @@
             "username": $(SELECTORS.INPUTNAME).find('input').val(),
             "password": $(SELECTORS.INPUTPASSWORD).find('input').val()
         };
-        $.ajax({
-            url: "http://localhost:3000/apis/userAuth",
-            type: "POST",
-            data: formData,
-            success: function(data, textStatus, jqXHR) {
-                data = JSON.parse(data);
-                window.location = "http://localhost:3000/"
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-
+        let url = '/apis/userAuth';
+        ajaxHelper.PUT(url, formData).then((response) => {
+            let data = response.data;
+            if(data){
+                window.location = Utils.BASE_URL;    
             }
+            
+        }).catch((error) => {
+            console.log(error);
         });
     };
 

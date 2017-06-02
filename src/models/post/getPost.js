@@ -7,9 +7,9 @@ dataObject.getPost = (postID) => {
         let queryString = '';
         let queryParameters = {};
         queryString = `
-            MATCH (post:POST) 
+            MATCH (post:POST)-[]-(user) 
             WHERE post.id={id} 
-            RETURN post
+            RETURN post,user
             `;
         queryParameters = {
             id: postID
@@ -20,7 +20,21 @@ dataObject.getPost = (postID) => {
             .then(function(result) {
                     GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query for get post  successfully done\n result:' + JSON.stringify(result));
                     dbSession.close();
-                    resolve(result.records[0]._fields[0].properties);
+                    if (result && result.records) {
+                        let postDetails = [];
+                        result.records.forEach((data) => {
+                            let resultData = {
+                                postData: data.get('post').properties,
+                                userDetails: {
+                                    username: data.get('user').properties.username,
+                                    userId: data.get('user').properties.userId,
+                                }
+
+                            };
+                            postDetails.push(resultData);
+                        });
+                        resolve(postDetails)
+                    }
                 },
                 function(err) {
                     GLOBALCONSTANTS.LOGGER.LOG('error', 'dB query get post  failed\n result:' + JSON.stringify(err));

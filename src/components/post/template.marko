@@ -1,5 +1,9 @@
-<div class="postContainer">
-	<div class="postDate">${input.post.date}</div>
-	<div class="postContent">${input.post.content}</div>
-	<div class="visiblePrivacy">${input.post.privacy}</div>
-</div>
+<for (post in data.postData)>
+	<div class="postContainer">
+		<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
+		<div class="postDate">${new Date(post.postData.dateCreated).toDateString()}</div>
+		<div class="postContent">${post.postData.content}</div>
+		<div class="visiblePrivacy" if(data.postData.getPrivacyValue)>visible to ${data.postData.getPrivacyValue(post.postData.privacy)}</div>
+		<div class="sentFrom">posted from: ${post.postData.medium}</div>
+	</div>
+</for>

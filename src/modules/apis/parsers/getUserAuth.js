@@ -1,6 +1,10 @@
-const getUserAuthModel = require('../../../models/users/getUserAuth.js');
+const GLOBALCONSTANTS = require('../../../config/constants');
 const sessionService = require('../../../services/sessionService.js');
+
+const getUserAuthModel = require('../../../models/users/getUserAuth.js');
+
 let getUserAuth = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let user={
         username:req.body.username,
         password:req.body.password
@@ -10,11 +14,13 @@ let getUserAuth = function(req, res) {
             if(result.loginStatus.password){
                 sessionService.setSessionObject(req.session, {user:result.user , success: true})
             }
-            res.end(JSON.stringify(result));
+            res.status(200).json(result);
             },
             (error) => {
-                res.end(JSON.stringify(false));
+                res.status(500).send(error);
             });
 };
 
-module.exports = getUserAuth;
+module.exports.setup = (router) => {
+    router.route('/apis/userAuth').all(getUserAuth);
+};

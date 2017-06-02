@@ -9,7 +9,7 @@ dataObject.getUserPosts = (data) => {
 
         queryString = `
             MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)
-            RETURN post
+            RETURN post,user
             `;
         queryParameters.userid = data.userid;
 
@@ -21,8 +21,16 @@ dataObject.getUserPosts = (data) => {
                     dbSession.close();
                     if (result && result.records) {
                         let postDetails = [];
-                        result.records.forEach((post) => {
-                            postDetails.push(post._fields[0].properties)
+                        result.records.forEach((data) => {
+                            let resultData = {
+                                postData: data.get('post').properties,
+                                userDetails: {
+                                    username: data.get('user').properties.username,
+                                    userId: data.get('user').properties.userId,
+                                }
+
+                            };
+                            postDetails.push(resultData);
                         });
                         resolve(postDetails)
                     }

@@ -1,6 +1,8 @@
 {
     "ignore": [
-        "*.marko.js"
+        "*.marko.js",
+        "src/public",
+        "dev/*.*"
     ]
 
 }

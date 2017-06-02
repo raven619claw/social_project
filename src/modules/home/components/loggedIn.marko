@@ -1,20 +1,52 @@
-$ var postData = data.userPostData.userPosts;
-<h2>hi ${data.userData.user.username}</h2>
-<if (postData)>
-	<h2>Your posts</h2>
-	<for (post in postData)>
-		<post({
-				post:{
-					date : post.dateCreated,
-					content : post.content,
-					privacy : post.privacy
-				}
-			}
-		)/>
-	</for>
-</if>
-<else>
-	<h2>No posts to show</h2>	
-</else>
+import {getAction} from '../helpers/getAction.js';
+$ var postData = data.userPostData;
+$ var userSuggestions = data.userSuggestionsData;
+$ var pendingRequests = data.pendingRequests;
+<include("../../../templates/base/baseContent.marko")>
 
-<createPost/>
+	<@leftContent class="leftContent">
+		<h2>Tab Options</h2>
+		<div class="tabs">
+			<div class="tab btnDefault">
+				<a href="/${data.userData.user.username}/friends">
+					View Friends
+				</a>
+			</div>	
+			<div class="tab btnDefault">
+				<a href="/${data.userData.user.username}/">
+					View Profile
+				</a>
+			</div>	
+		</div>
+
+	</@leftContent>
+	<@mainContent class="mainContent">
+		<if (postData)>
+			<h2>All posts</h2>
+			<post({ postData })/>
+		</if>
+		<else>
+			<h2>No posts to show</h2>	
+		</else>
+
+		<createPost/>
+	</@mainContent>
+	<@rightContent class="rightContent">
+		<if (pendingRequests)>
+			<h2>Pending Requests</h2>
+				<userInteractions({
+					'currentUserId': data.userData.user.userId,
+					'users':pendingRequests.users,
+					'method':getAction
+				})/>
+		</if>
+		<if (userSuggestions)>
+			<h2>Ge to know people</h2>
+				<userInteractions({
+					'users':userSuggestions.users,
+					'action':'sendRequest',
+					'btnText':'send Friend Request'
+				})/>
+		</if>
+</@rightContent>
+</include>

@@ -1,3 +1,6 @@
+import ajaxHelper from './modules/helpers/scripts/ajaxHelper.js';
+import Utils from './modules/helpers/scripts/utils.js';
+
 (function() {
     const SocialLogin = require('./modules/gSignIn/scripts/index');
     const signInModule = require('../templates/signIn/template');
@@ -83,23 +86,19 @@
             "password": $(SELECTORS.INPUTPASSWORD).val()
         };
         // clearInput();
-        $.ajax({
-            url: "http://localhost:3000/apis/userAuth",
-            type: "POST",
-            data: formData,
-            success: function(data, textStatus, jqXHR) {
-                data = JSON.parse(data);
-                if (data.loginStatus.password) {
-                    showLoggedIn();
-                } else if (data.loginStatus.username) {
-                    showError(formData.username + 'your password is wrong');
-                } else {
-                    showError(formData.username + 'your username is wrong');
-                }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
+        let url = '/apis/userAuth';
+        ajaxHelper.POST(url, formData).then((response) => {
+            let data = response.data;
 
+            if (data.loginStatus.password) {
+                showLoggedIn();
+            } else if (data.loginStatus.username) {
+                showError(formData.username + 'your password is wrong');
+            } else {
+                showError(formData.username + 'your username is wrong');
             }
+        }).catch((error) => {
+            console.log(error);
         });
     };
 
@@ -109,7 +108,7 @@
     };
 
     function showLoggedIn() {
-        window.location = "http://localhost:3000/";
+        window.location = Utils.CURRENT_URL;
 
     };
 
@@ -124,24 +123,19 @@
         let auth2 = gapi.auth2.getAuthInstance();
         if (auth2.isSignedIn.get()) {
             auth2.signOut().then(() => {
-                $.ajax({
-                    url: "http://localhost:3000/apis/user/logout",
-                    type: "GET",
-                    success: function(data, textStatus, jqXHR) {
-                        window.location = "http://localhost:3000/";
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {}
+                let url = '/apis/user/logout';
+                ajaxHelper.GET(url, {}).then((response) => {
+                    window.location = Utils.CURRENT_URL;
+                }).catch((error) => {
+                    console.log(error);
                 });
             });
         } else {
-
-            $.ajax({
-                url: "http://localhost:3000/apis/user/logout",
-                type: "GET",
-                success: function(data, textStatus, jqXHR) {
-                    window.location = "http://localhost:3000/";
-                },
-                error: function(jqXHR, textStatus, errorThrown) {}
+            let url = '/apis/user/logout';
+            ajaxHelper.GET(url, {}).then((response) => {
+                window.location = Utils.CURRENT_URL;
+            }).catch((error) => {
+                console.log(error);
             });
         }
     }
@@ -156,21 +150,16 @@
                     "token": googleUser.getAuthResponse().id_token,
                     "username": googleUser.getBasicProfile().getEmail()
                 };
-                $.ajax({
-                    url: "http://localhost:3000/apis/userSocialAuth",
-                    type: "PUT",
-                    data: formData,
-                    success: function(data, textStatus, jqXHR) {
-                        data = JSON.parse(data);
-                        if (data.user.username) {
-                            showLoggedIn(data.user.username);
-                        } else {
-
-                        }
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
+                let url = '/apis/userSocialAuth';
+                ajaxHelper.PUT(url, formData).then((response) => {
+                    let data = response.data;
+                    if (data.user.username) {
+                        showLoggedIn(data.user.username);
+                    } else {
 
                     }
+                }).catch((error) => {
+                    console.log(error);
                 });
                 break;
         };

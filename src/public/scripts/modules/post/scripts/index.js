@@ -1,10 +1,14 @@
+import ajaxHelper from '../../helpers/scripts/ajaxHelper.js';
+import Utils from '../../helpers/scripts/utils.js';
+
 (() => {
     let SELECTORS = {
         'PARENT': '.js-postParent',
         'INPUT': '.js-postMsg',
         'SUBMIT': '.js-submitPost',
         'ERROR': '.js-error',
-        'USERID': 'header'
+        'USERID': 'header',
+        'PRIVACY': '.js-select'
     };
 
     bindEvents();
@@ -18,22 +22,18 @@
             $(SELECTORS.PARENT).find(SELECTORS.ERROR).addClass('hide');
             let formData = {
                 "userId": $(SELECTORS.USERID).data('userid'),
-                "dateCreated": (new Date).toDateString(),
+                "dateCreated": (new Date).getTime(),
                 "content": $(SELECTORS.PARENT).find(SELECTORS.INPUT).val(),
                 "media": [],
-                "privacyFlag": 2,
-                "medium": "desktop"
+                "privacyFlag": $(SELECTORS.PARENT).find(SELECTORS.PRIVACY).val(),
+                "medium": Utils.isMobile() ? 'mobile' : 'desktop'
             };
-            $.ajax({
-                url: "http://localhost:3000/apis/createPost",
-                type: "PUT",
-                data: formData,
-                success: function(data, textStatus, jqXHR) {
-                    window.location = "http://localhost:3000/";
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-
-                }
+            let url = '/apis/createPost';
+            ajaxHelper.PUT(url, formData).then((response) => {
+                console.log(response);
+                window.location = Utils.CURRENT_URL;
+            }).catch((error) => {
+                console.log(error);
             });
         } else {
             $(SELECTORS.PARENT).find(SELECTORS.ERROR).removeClass('hide');

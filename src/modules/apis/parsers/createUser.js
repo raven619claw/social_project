@@ -1,9 +1,15 @@
+let uuidV1 = require('uuid/v1');
+
+const GLOBALCONSTANTS = require('../../../config/constants');
+const sessionService = require('../../../services/sessionService.js');
+
 const createUserModel = require('../../../models/users/createUser.js');
 
 let createUser = function(req, res) {
+    GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
     let user = {};
     user = {
-        userId: req.body.email,
+        userId: uuidV1(),
         userType: req.body.userType,
         username: req.body.username,
         email: req.body.email,
@@ -13,13 +19,13 @@ let createUser = function(req, res) {
     }
     createUserModel.createUser(user)
         .then((result) => {
-
-
-                res.end(JSON.stringify({ 'user': result.user, 'created': result.created }));
+                res.status(200).json({ 'user': result.user, 'created': result.created });
             },
             (error) => {
-                console.log(error);
+                res.status(500).send(error)
             });
 };
 
-module.exports = createUser;
+module.exports.setup = (router) => {
+    router.route('/apis/createUser').all(createUser);
+};

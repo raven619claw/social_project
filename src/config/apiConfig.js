@@ -10,6 +10,30 @@ apiConfig = {
             method: 'GET',
             url: `/getUserPosts?userid=${userid}`
         }
+    },
+    getUser(username) {
+        return {
+            method: 'GET',
+            url: `/users?username=${username}`
+        }
+    },
+    getHomePost(userid) {
+        return {
+            method: 'GET',
+            url: `/getHomePosts?userid=${userid}`
+        }
+    },
+    getUserSuggestions() {
+        return {
+            method: 'POST',
+            url: `/getUserSuggestions`
+        }
+    },
+    getFriendData() {
+        return {
+            method: 'POST',
+            url: `/getFriendData`
+        }
     }
 
 };

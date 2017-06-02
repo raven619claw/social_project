@@ -1,0 +1,15 @@
+$ var action = data.action;
+$ var result = null;
+<div class="js-userSuggestions">
+	<for (user in data.users)>
+		<if (data.method)>
+			$ result = data.method(data.currentUserId,user);
+			$ data.btnText = result.btnText;
+			$ action = result.action;
+		</if>
+		<div class="userContainer">
+			<div class="username"><a href="/${user.username}">${user.username}</a></div>
+			<div if(action) class="btnDefault sendRequest js-${action}" data-userid="${user.userId}">${data.btnText}</div>
+		</div>
+	</for>
+</div>

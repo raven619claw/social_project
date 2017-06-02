@@ -8,6 +8,6 @@ const server = require('./src/config/server');
 const GLOBALCONSTANTS = require('./src/config/constants');
 
 server.server(app);
-app.listen(process.env.APP_PORT, ()=> {
-    GLOBALCONSTANTS.LOGGER.LOG('verbose', 'app listening on port '+process.env.APP_PORT);
+app.listen(GLOBALCONSTANTS.APPCONFIG.PORT, ()=> {
+    GLOBALCONSTANTS.LOGGER.LOG('verbose', 'app listening on port '+GLOBALCONSTANTS.APPCONFIG.PORT);
 });

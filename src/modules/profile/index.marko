@@ -1,0 +1,43 @@
+import {getPrivacyValue} from './helpers/getPrivacyValue.js';
+$ var pageData = data.data;
+$ var postData = pageData.userPostData;
+$ postData.getPrivacyValue = getPrivacyValue;
+<include("../../templates/base/base.marko") show-header=true data="${data}">
+    <@title>
+        ${pageData.title}
+    </@title>
+    <@body>
+        <include("../../templates/base/baseContent.marko")>
+            <@leftContent class="leftContent">
+                <h2>Tab Options</h2>
+                <div class="tabs">
+                    <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>    
+                </div>
+            </@leftContent>
+            <@mainContent class="mainContent">
+                <if (postData)>
+                $ var postTitle;
+                <if (pageData.userData.viewedUser.username==pageData.userData.user.username && pageData.userData.success)>
+                    $ postTitle = 'your posts';
+                </if>
+                <else>
+                    $ postTitle = pageData.userData.viewedUser.username + '\'s posts';
+                </else>
+                    <h2>${postTitle}</h2>
+                    <post({ postData })/>
+                </if>
+                <else>
+                    <h2>No posts to show</h2>   
+                </else>
+
+                <createPost if(pageData.userData.currentUser)/>
+            </@mainContent>
+            <@rightContent class="rightContent">
+                <div>right side content</div>
+        </@rightContent>
+        </include>
+    </@body>
+    <@scripts>
+        <script src="/public/scripts/bundles/profile.js"></script>
+    </@scripts>
+</include>

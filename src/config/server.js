@@ -5,9 +5,14 @@ const markoReload = require('marko/hot-reload');
 const bodyParser = require('body-parser');
 const path = require("path");
 const session = require('express-session');
+const markoExpress = require('marko/express');
+const busboy = require('connect-busboy');
 
 //built in globals
-const GLOBALCONSTANTS = require('../config/constants');
+require('./dbConfig.js')
+const GLOBALCONSTANTS = require('./constants');
+
+const upload = require(GLOBALCONSTANTS.ROOTPATH + '/services/helpers/awsBlobUpload.js');
 const routes = require(GLOBALCONSTANTS.ROOTPATH + '/services/routes');
 const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 
@@ -26,8 +31,10 @@ const server = (app) => {
         saveUninitialized: true,
         cookie: {}
     }));
+    app.use(markoExpress());
     app.use(bodyParser.json()); // for parsing application/json
     app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+    app.use(busboy());
     app.use(express.static(GLOBALCONSTANTS.ROOTPATH + 'public'));
     app.use(express.static(GLOBALCONSTANTS.PROJECTROOTPATH + 'dev'));
     app.use((err, req, res, next) => {

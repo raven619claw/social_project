@@ -15,14 +15,14 @@ dataObject.createUser = (userData) => {
 
         RETURN user
         `;
-        let queryParameters = { 
-            username : userData.username , 
-            password : userData.password ,
-            firstName : userData.firstName ,
-            lastName : userData.lastName ,
-            email : userData.email ,
-            userType : userData.userType,
-            userId : userData.userId
+        let queryParameters = {
+            username: userData.username,
+            password: userData.password,
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            email: userData.email,
+            userType: userData.userType,
+            userId: userData.userId
         };
         GLOBALCONSTANTS.LOGGER.LOG('info', 'dB query for user creation running')
         GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: ' + JSON.stringify(queryParameters));
@@ -38,7 +38,11 @@ dataObject.createUser = (userData) => {
                 function(err) {
                     GLOBALCONSTANTS.LOGGER.LOG('error', 'dB query for user creation failed\n result:' + JSON.stringify(err));
                     dbSession.close();
-                    reject(false);
+                    reject({
+                        created:false,
+                        errorCode: err.signature,
+                        errorMsg:'User Not Created'
+                    });
                 });
     });
 };
