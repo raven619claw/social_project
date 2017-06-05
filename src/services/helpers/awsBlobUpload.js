@@ -3,8 +3,8 @@ var aws = require('aws-sdk'),
     multerS3 = require('multer-s3');
 
 aws.config.update({
-    secretAccessKey: 'qgCFZ4+b3Rd7Es/kWLuSKpKZS/9aEIRkd5dIXrAI',
-    accessKeyId: 'AKIAIAI5ONRBJZZSNYSQ',
+    secretAccessKey: process.env.AWS_S3_SECRET_ACCESS_KEY,
+    accessKeyId: process.env.AWS_S3_ACCESS_KEY_ID,
     signatureVersion: 'v4'
 });
 
@@ -18,8 +18,7 @@ var upload = multer({
         metadata: function(req, file, cb) {
             cb(null, { fieldName: file.fieldname });
         },
-        key: function(req, file, cb) {
-            console.log(file);
+        key: function(req, file, cb) { 
             cb(null, Date.now() + file.originalname); //use Date.now() for unique file keys
         }
     })
