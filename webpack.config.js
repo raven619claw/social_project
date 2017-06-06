@@ -14,7 +14,7 @@ module.exports = {
         path: __dirname,
         filename: "./dev/public/scripts/bundles/[name].js"
     },
-    devtool: 'eval',
+    devtool: 'inline-source-map',
     resolve: {
         extensions: ['.js', '.marko']
     },

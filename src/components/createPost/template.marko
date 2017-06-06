@@ -1,8 +1,8 @@
 <div class="CreatePostWrap js-postParent">
 	<div class="postContent">
 		<input type="text" name="" class="js-postMsg">
+		<div class="js-error hide">please fill field</div>
 	</div>
-	<div class="js-error hide">please fill field</div>
 	<div class="privacySelect">
 		<div data-module='dropdown'>
 			<script type="text/x-config">
@@ -12,6 +12,10 @@
             </script>
 		</div>
 	</div>
+	<div class="uploadMedia js-uploadMedia">
+		<input type="file" name="media" class="js-media" />
+	</div>
+	<div class="js-mediaWrap"></div>
 	<div class="postSubmit">
 		<div class="btnDefault js-submitPost">Submit</div>
 	</div>
