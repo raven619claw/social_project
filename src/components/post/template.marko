@@ -3,7 +3,7 @@
 		<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
 		<div class="postDate">${new Date(post.postData.dateCreated).toDateString()}</div>
 		<div class="postContent">${post.postData.content}</div>
-		<img if(post.postData.media.length) for(media in post.postData.media) class="postMedia" src="${post.postData.media[0]}"/>
+		<img if(post.postData.media.length) for(media in post.postData.media) data-url="${media}" class="postMedia js-openMediaImg" src="${media}"/>
 		<div class="visiblePrivacy" if(data.postData.getPrivacyValue)>visible to ${data.postData.getPrivacyValue(post.postData.privacy)}</div>
 		<div class="sentFrom">posted from: ${post.postData.medium}</div>
 	</div>

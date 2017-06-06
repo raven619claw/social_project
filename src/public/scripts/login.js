@@ -1,10 +1,10 @@
 import ajaxHelper from './modules/helpers/scripts/ajaxHelper.js';
 import Utils from './modules/helpers/scripts/utils.js';
+import popupObject from './modules/popup/scripts/index';
 
 (function() {
     const SocialLogin = require('./modules/gSignIn/scripts/index');
     const signInModule = require('../templates/signIn/template');
-    const popupObject = require('./modules/popup/scripts/index');
     SocialLogin.load();
 
     var SELECTORS = {
