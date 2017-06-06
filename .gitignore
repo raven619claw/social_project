@@ -8,4 +8,4 @@ src/public/config/environment.json
 *sublime*
 .sass-cache/
 *.log
-.env
+.env*
