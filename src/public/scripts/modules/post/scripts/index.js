@@ -34,6 +34,10 @@ import Utils from '../../helpers/scripts/utils.js';
         }
     };
 
+    function splitFileName(URL) {
+        return URL.substring(URL.lastIndexOf('/')+1);
+    };
+
     function uploadMedia() {
         let formData = new FormData();
         if (!$(this).prop('files').length) {
@@ -50,7 +54,7 @@ import Utils from '../../helpers/scripts/utils.js';
             let mediaFiles = response.data.data.files;
             mediaFiles.forEach((file) => {
                 $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).append('<img data-url="' + file.URL + '" class="postMedia js-removeMedia" src="' + file.URL + '">');
-                mediaURL.push(file.URL);
+                mediaURL.push(splitFileName(file.URL));
             });
             $(SELECTORS.PARENT).find(SELECTORS.REMOVE_MEDIA).off('click');
             $(SELECTORS.PARENT).find(SELECTORS.REMOVE_MEDIA).on('click', removeMedia);

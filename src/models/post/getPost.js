@@ -1,5 +1,6 @@
 const GLOBALCONSTANTS = require('../../config/constants');
 const dbSession = require('../../services/neo4jConnector');
+const completeAWSUrl = require('../../services/helpers/completeAWSUrl');
 let dataObject = {};
 dataObject.getPost = (postID) => {
     return new Promise((resolve, reject) => {
@@ -31,6 +32,7 @@ dataObject.getPost = (postID) => {
                                 }
 
                             };
+                            resultData.postData.media = completeAWSUrl(resultData.postData.media);
                             postDetails.push(resultData);
                         });
                         resolve(postDetails)
