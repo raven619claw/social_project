@@ -11,10 +11,17 @@ dataObject.getHomePosts = (data) => {
         queryString = `
             MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)
             WHERE prop.status = 'accepted'
-            RETURN post,entity
-            UNION
+            WITH collect({entity:entity, post: post}) as row1
+            
             MATCH (entity:USER {userId : { userid } })-[:POSTED]->(post:POST)
+            WITH row1 + collect({entity:entity, post: post}) as allRows
+
+            UNWIND allRows as row
+            WITH row.entity as entity,row.post as post
+
             RETURN post,entity
+            
+            ORDER BY post.dateCreated DESC
             `;
         queryParameters.userid = data.userid;
 

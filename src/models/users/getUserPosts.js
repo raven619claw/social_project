@@ -11,6 +11,7 @@ dataObject.getUserPosts = (data) => {
         queryString = `
             MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)
             RETURN post,user
+            ORDER BY post.dateCreated DESC
             `;
         queryParameters.userid = data.userid;
 

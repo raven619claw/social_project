@@ -23,6 +23,7 @@ import Utils from '../../helpers/scripts/utils.js';
             this.val = null;
         });
         $(SELECTORS.PARENT).find(SELECTORS.MEDIA).on('change', uploadMedia);
+        $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).on('click', SELECTORS.REMOVE_MEDIA, removeMedia);
     };
 
     function removeMedia() {
@@ -35,7 +36,7 @@ import Utils from '../../helpers/scripts/utils.js';
     };
 
     function splitFileName(URL) {
-        return URL.substring(URL.lastIndexOf('/')+1);
+        return URL.substring(URL.lastIndexOf('/') + 1);
     };
 
     function uploadMedia() {
@@ -56,8 +57,6 @@ import Utils from '../../helpers/scripts/utils.js';
                 $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).append('<img data-url="' + file.URL + '" class="postMedia js-removeMedia" src="' + file.URL + '">');
                 mediaURL.push(splitFileName(file.URL));
             });
-            $(SELECTORS.PARENT).find(SELECTORS.REMOVE_MEDIA).off('click');
-            $(SELECTORS.PARENT).find(SELECTORS.REMOVE_MEDIA).on('click', removeMedia);
         }).catch((error) => {
             console.log(error);
         });
