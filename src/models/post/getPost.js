@@ -8,9 +8,9 @@ dataObject.getPost = (postID) => {
         let queryString = '';
         let queryParameters = {};
         queryString = `
-            MATCH (post:POST)-[]-(user) 
+            MATCH (media)-[:MEDIA]-(post:POST)-[]-(user) 
             WHERE post.id={id} 
-            RETURN post,user
+            RETURN post,user,media
             `;
         queryParameters = {
             id: postID
@@ -24,8 +24,10 @@ dataObject.getPost = (postID) => {
                     if (result && result.records) {
                         let postDetails = [];
                         result.records.forEach((data) => {
+                            let postData = data.get('post').properties;
+                            postData.media = data.get('media').properties
                             let resultData = {
-                                postData: data.get('post').properties,
+                                postData: postData,
                                 userDetails: {
                                     username: data.get('user').properties.username,
                                     userId: data.get('user').properties.userId,

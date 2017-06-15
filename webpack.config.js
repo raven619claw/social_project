@@ -1,6 +1,7 @@
 require('babel-polyfill');
 const path = require("path");
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const extractSass = new ExtractTextPlugin({
     filename: "./dev/public/styles/css/[name].css",
     disable: false
@@ -49,6 +50,17 @@ module.exports = {
         }]
     },
     plugins: [
-        extractSass
+        extractSass,
+        new CopyWebpackPlugin([
+            // Copy directory contents to {output}/to/directory/
+            { from: './src/public/images', to: './dev/public/images' },
+        ], {
+            ignore: [],
+
+            // By default, we only copy modified files during
+            // a watch or webpack-dev-server build. Setting this
+            // to `true` copies all files.
+            copyUnmodified: true
+        })
     ]
 }

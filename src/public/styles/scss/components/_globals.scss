@@ -9,17 +9,23 @@ body {
     margin: 0;
 }
 
-a{
+a {
     color: inherit;
     text-decoration: none;
-    &:hover{
+    &:hover {
         color: inherit;
     }
-    &:visited{
+    &:visited {
         color: inherit;
         text-decoration: none;
     }
 }
+
+img {
+    height: 100%;
+    width: 100%;
+}
+
 .body-content {
     margin-top: 50px;
 }
@@ -32,6 +38,11 @@ a{
     text-align: center;
 }
 
+.dummyAvatar {
+    background-image: url('/public/images/user_avatar.png');
+    background-size: contain;
+}
+
 .btnDefault {
     display: inline-block;
     margin: 5px 10px;
@@ -40,12 +51,19 @@ a{
     background-color: #f6f7f9;
     padding: 5px 10px;
     color: #4b4f56;
+    font-size: 14px;
     cursor: pointer;
+    line-height: 1;
     transition: all 100ms ease-in-out;
     &:hover {
         background-color: #e9ebee;
     }
+    &.btnHalf {
+        margin: 0 3%;
+        width: 44%;
+    }
 }
+
 .leftContent {
     display: inline-block;
     width: 20%;

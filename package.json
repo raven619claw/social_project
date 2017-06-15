@@ -49,6 +49,7 @@
     "webpack": "^2.2.1"
   },
   "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
     "grunt": "^1.0.1",
     "grunt-contrib-sass": "^1.0.0",
     "grunt-contrib-watch": "^1.0.0",

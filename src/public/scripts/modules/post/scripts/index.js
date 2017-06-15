@@ -29,7 +29,7 @@ import Utils from '../../helpers/scripts/utils.js';
     function removeMedia() {
         let URL = $(this).data('url');
         $(this).remove();
-        let index = mediaURL.indexOf(URL);
+        let index = mediaURL.indexOf(splitFileName(URL));
         if (index > -1) {
             mediaURL.splice(index, 1);
         }

@@ -6,10 +6,15 @@ $ postData.getPrivacyValue = getPrivacyValue;
     <@title>
         ${pageData.title}
     </@title>
+    <@styles>
+        <link rel="stylesheet" type="text/css" href="/public/styles/css/profile.css">
+    </@styles>
+    
     <@body>
         <include("../../templates/base/baseContent.marko")>
             <@leftContent class="leftContent">
                 <h2>Tab Options</h2>
+                <profilePhoto({userData:pageData.userData})/>
                 <div class="tabs">
                     <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>    
                 </div>
