@@ -49,6 +49,9 @@ nodemon
 ```
 to run server
 
+## UPDATE .ENV FILE
+create .env file from sample.env and update the required vars
+
 # TO SETUP DB
 
 install neo4j community edition
