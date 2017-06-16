@@ -12,12 +12,17 @@ dataObject.createPost = (postData) => {
             {
                 dateCreated:{dateCreated},
                 content:{content},
-                media:{media},
                 privacy:{privacyFlag},
                 medium:{medium},
                 id:{id}
 
             })
+            FOREACH (media in {media} | 
+                MERGE (post)-[:MEDIA]->(:MEDIA {
+                    url:media,
+                    isProfilePhoto:false
+                })<-[:MEDIA]-(user)
+            )
             RETURN user,post
             `;
         queryParameters = {

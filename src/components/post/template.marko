@@ -1,9 +1,13 @@
 <for (post in data.postData)>
 	<div class="postContainer">
-		<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
+		<div class="userDetailsWrap">
+			<div class="userPhoto dummyAvatar"><img src="${post.userDetails.userProfileImg}"></div>
+			<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
+		</div>
+		
 		<div class="postDate">${new Date(post.postData.dateCreated).toDateString()}</div>
 		<div class="postContent">${post.postData.content}</div>
-		<img if(post.postData.media.length) for(media in post.postData.media) class="postMedia" src="${post.postData.media[0]}"/>
+		<img if(post.postData.media.length) for(media in post.postData.media) data-url="${media.url}" class="postMedia js-openMediaImg" src="${media.url}"/>
 		<div class="visiblePrivacy" if(data.postData.getPrivacyValue)>visible to ${data.postData.getPrivacyValue(post.postData.privacy)}</div>
 		<div class="sentFrom">posted from: ${post.postData.medium}</div>
 	</div>

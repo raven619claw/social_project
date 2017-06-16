@@ -1,5 +1,6 @@
 const GLOBALCONSTANTS = require('../../config/constants');
 const dbSession = require('../../services/neo4jConnector');
+const completeAWSUrl = require('../../services/helpers/completeAWSUrl');
 let dataObject = {};
 dataObject.getUserPosts = (data) => {
     return new Promise((resolve, reject) => {
@@ -8,8 +9,9 @@ dataObject.getUserPosts = (data) => {
         let queryParameters = {};
 
         queryString = `
-            MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)
-            RETURN post,user
+            MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)-[:MEDIA]-(media)
+            RETURN post,user,collect(media) as media
+            ORDER BY post.dateCreated DESC
             `;
         queryParameters.userid = data.userid;
 
@@ -22,14 +24,16 @@ dataObject.getUserPosts = (data) => {
                     if (result && result.records) {
                         let postDetails = [];
                         result.records.forEach((data) => {
+                            let postData = data.get('post').properties;
+                            postData.media = data.get('media');
                             let resultData = {
-                                postData: data.get('post').properties,
+                                postData: postData,
                                 userDetails: {
                                     username: data.get('user').properties.username,
                                     userId: data.get('user').properties.userId,
                                 }
-
                             };
+                            resultData.postData.media = completeAWSUrl(resultData.postData.media);
                             postDetails.push(resultData);
                         });
                         resolve(postDetails)

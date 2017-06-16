@@ -10,9 +10,10 @@ import Utils from '../../helpers/scripts/utils.js';
         'USERID': 'header',
         'PRIVACY': '.js-select',
         'MEDIA': '.js-media',
-        'MEDIA_WRAP': '.js-mediaWrap'
+        'MEDIA_WRAP': '.js-mediaWrap',
+        'REMOVE_MEDIA': '.js-removeMedia'
     };
-    let mediaURL=[];
+    let mediaURL = [];
 
     bindEvents();
 
@@ -22,11 +23,28 @@ import Utils from '../../helpers/scripts/utils.js';
             this.val = null;
         });
         $(SELECTORS.PARENT).find(SELECTORS.MEDIA).on('change', uploadMedia);
+        $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).on('click', SELECTORS.REMOVE_MEDIA, removeMedia);
+    };
+
+    function removeMedia() {
+        let URL = $(this).data('url');
+        $(this).remove();
+        let index = mediaURL.indexOf(splitFileName(URL));
+        if (index > -1) {
+            mediaURL.splice(index, 1);
+        }
+    };
+
+    function splitFileName(URL) {
+        return URL.substring(URL.lastIndexOf('/') + 1);
     };
 
     function uploadMedia() {
         let formData = new FormData();
-        formData.append('file',$(this).prop('files')[0]);
+        if (!$(this).prop('files').length) {
+            return;
+        }
+        formData.append('file', $(this).prop('files')[0]);
         let options = {
             headers: {
                 'Content-Type': undefined
@@ -35,9 +53,9 @@ import Utils from '../../helpers/scripts/utils.js';
         let url = '/apis/uploadBlob';
         ajaxHelper.POST(url, formData, options).then((response) => {
             let mediaFiles = response.data.data.files;
-            mediaFiles.forEach((file)=>{
-                $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).append('<img class="postMedia" src="'+file.URL+'">');
-                mediaURL.push(file.URL); 
+            mediaFiles.forEach((file) => {
+                $(SELECTORS.PARENT).find(SELECTORS.MEDIA_WRAP).append('<img data-url="' + file.URL + '" class="postMedia js-removeMedia" src="' + file.URL + '">');
+                mediaURL.push(splitFileName(file.URL));
             });
         }).catch((error) => {
             console.log(error);
