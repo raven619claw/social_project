@@ -1,7 +1,9 @@
 <for (post in data.postData)>
 	<div class="postContainer">
 		<div class="userDetailsWrap">
-			<div class="userPhoto dummyAvatar"><img src="${post.userDetails.userProfileImg}"></div>
+			<div class="userPhoto dummyAvatar">
+				<img src="${post.userDetails.profilePhoto ? post.userDetails.profilePhoto.url : ''}">
+			</div>
 			<div class="postUser"><a href="/${post.userDetails.username}">${post.userDetails.username}</a></div>
 		</div>
 		

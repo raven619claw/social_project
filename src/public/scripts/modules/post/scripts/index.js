@@ -45,6 +45,7 @@ import Utils from '../../helpers/scripts/utils.js';
             return;
         }
         formData.append('file', $(this).prop('files')[0]);
+        formData.append('userid', $(SELECTORS.USERID).data('userid'));
         let options = {
             headers: {
                 'Content-Type': undefined

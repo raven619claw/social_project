@@ -18,10 +18,8 @@ dataObject.createPost = (postData) => {
 
             })
             FOREACH (media in {media} | 
-                MERGE (post)-[:MEDIA]->(:MEDIA {
-                    url:media,
-                    isProfilePhoto:false
-                })<-[:MEDIA]-(user)
+                MERGE (userInner:USER)-[:MEDIA]->(mediaFile:MEDIA {id:split(media,'_')[0]})
+                CREATE (post)-[:MEDIA]->(mediaFile)
             )
             RETURN user,post
             `;

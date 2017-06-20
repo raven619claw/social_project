@@ -9,18 +9,23 @@ dataObject.getHomePosts = (data) => {
         let queryParameters = {};
 
         queryString = `
-            MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)-[:MEDIA]-(media)
+            MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)
             WHERE prop.status = 'accepted'
-            WITH collect({entity:entity, post: post, media: media}) as row1
+            OPTIONAL MATCH (post)-[:MEDIA]-(media)
+            OPTIONAL MATCH (entity)-[:MEDIA]-(profilePhoto:MEDIA {isProfilePhoto:true})
+
+            WITH collect({entity:entity, post: post, media: media,profilePhoto: profilePhoto}) as row1
             
-            MATCH (entity:USER {userId : { userid } })-[:POSTED]->(post:POST)-[:MEDIA]-(media)
-            WITH row1 + collect({entity:entity, post: post, media: media}) as allRows
+            MATCH (entity:USER {userId : { userid } })-[:POSTED]->(post:POST)
+            OPTIONAL MATCH (post)-[:MEDIA]-(media)
+            OPTIONAL MATCH (entity)-[:MEDIA]-(profilePhoto:MEDIA {isProfilePhoto:true})
+
+            WITH row1 + collect({entity:entity, post: post, media: media,profilePhoto: profilePhoto}) as allRows
 
             UNWIND allRows as row
-            WITH row.entity as entity,row.post as post,row.media as media
+            WITH row.entity as entity,row.post as post,row.media as media,row.profilePhoto as profilePhoto
             
-            
-            RETURN post,entity,collect(media) as media
+            RETURN post,entity,profilePhoto,collect(media) as media
             
             ORDER BY post.dateCreated DESC
             `;
@@ -42,6 +47,7 @@ dataObject.getHomePosts = (data) => {
                                 userDetails: {
                                     username: data.get('entity').properties.username,
                                     userId: data.get('entity').properties.userId,
+                                    profilePhoto: completeAWSUrl([data.get('profilePhoto')])
                                 }
                             };
                             resultData.postData.media = completeAWSUrl(resultData.postData.media);

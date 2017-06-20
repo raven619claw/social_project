@@ -6,6 +6,7 @@ const createPostModel = require('../../../models/post/createPost.js');
 
 let createPost = function(req, res) {
     GLOBALCONSTANTS.LOGGER.LOG('data', req.method.toString() + ' API request received at ' + req.url);
+    let mediaIds = [];
     let postData = {
         userId: req.body.userId,
         dateCreated: req.body.dateCreated,

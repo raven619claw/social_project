@@ -1,3 +1,4 @@
+const completeAWSUrl = require('../../services/helpers/completeAWSUrl');
 const GLOBALCONSTANTS = require('../../config/constants');
 const dbSession = require('../../services/neo4jConnector');
 let dataObject = {};
@@ -12,13 +13,17 @@ dataObject.getUser = (data) => {
             `;
         } else {
             queryString = `
-            MATCH (user:USER) 
-            WHERE user.username={username} 
-            RETURN user
+            MATCH (user:USER {
+                username: {username}
+            })
+            OPTIONAL MATCH (user)-[:MEDIA]-(media:MEDIA {
+                isProfilePhoto: true
+            })
+            RETURN user,media
             `;
             queryParameters.username = data.username;
         }
-        GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: '+JSON.stringify(queryParameters));
+        GLOBALCONSTANTS.LOGGER.LOG('data', 'dB query run: ' + queryString + ' with parameters: ' + JSON.stringify(queryParameters));
         dbSession
             .run(queryString, queryParameters)
             .then(function(result) {
@@ -26,8 +31,12 @@ dataObject.getUser = (data) => {
                     dbSession.close();
                     if (result && result.records) {
                         let userDetails = [];
-                        result.records.forEach((user) => {
-                            userDetails.push(user._fields[0].properties)
+                        result.records.forEach((data, index) => {
+                            userDetails.push(data._fields[0].properties)
+                            if (data._fields[1]) {
+                                userDetails[index].profilePhoto = data._fields[1].properties;
+                                userDetails[index].profilePhoto = completeAWSUrl([data._fields[1]]);
+                            }
                         });
                         resolve(userDetails)
                     }
