@@ -3,7 +3,7 @@ $ var userData = data.userData;
 	<div class="profilePhoto dummyAvatar">
 		<img src="${userData.viewedUser.profilePhoto ? userData.viewedUser.profilePhoto.url : ''}" class="profileImg js-profilePhotoEl">
 	</div>
-	<div if(userData.success) class="">
+	<div if(userData.currentUser) class="">
 		<label for="profilePhoto" class="btnDefault btnHalf js-changePhoto">change photo</label>
 		<input id="profilePhoto" type="file" name="media" class="js-media hide" />
 		<div class="btnDefault btnHalf js-removePhoto">remove photo</div>
