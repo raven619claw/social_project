@@ -8,6 +8,12 @@ Utils.isMobile = () => {
     })(navigator.userAgent || navigator.vendor || window.opera);
     return check;
 };
+Utils.isLoggedIn = () => {
+    if ($('.js-userDetails').data('userid')) {
+        return true;
+    }
+    return false;
+};
 
 
 module.exports = Utils;

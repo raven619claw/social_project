@@ -14,6 +14,7 @@ const GLOBALCONSTANTS = require('./constants');
 
 const upload = require(GLOBALCONSTANTS.ROOTPATH + '/services/helpers/awsBlobUpload.js');
 const routes = require(GLOBALCONSTANTS.ROOTPATH + '/services/routes');
+
 const watcher = chokidar.watch(GLOBALCONSTANTS.ROOTPATH);
 
 markoReload.enable();

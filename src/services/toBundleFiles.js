@@ -11,9 +11,15 @@ module.exports = function() {
     parsers.forEach((parser) => {
         parsersPath[parser.slice((parser.lastIndexOf("/") + 1), -3)] = "./" + parser.slice((parser.lastIndexOf("src")));
     });
-    
+
     //load all SCSS files
     parsers = glob.sync(GLOBALCONSTANTS.ROOTPATH + '/public/styles/scss/*.scss');
+    parsers.forEach((parser) => {
+        parsersPath[parser.slice((parser.lastIndexOf("/") + 1), -5)] = "./" + parser.slice((parser.lastIndexOf("src")));
+    });
+
+    //load all SASS files
+    parsers = glob.sync(GLOBALCONSTANTS.ROOTPATH + '/public/styles/scss/*.sass');
     parsers.forEach((parser) => {
         parsersPath[parser.slice((parser.lastIndexOf("/") + 1), -5)] = "./" + parser.slice((parser.lastIndexOf("src")));
     });

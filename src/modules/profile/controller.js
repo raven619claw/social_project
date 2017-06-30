@@ -31,8 +31,6 @@ let loader = async function(req, res) {
     pageData.userData = userData;
     let result = await getUserDetails(req.params.entity);
     pageData.userData.user = pageData.userData.user || {};
-    console.log(pageData.userData)
-    console.log(result.data)
     if (req.params.entity == pageData.userData.user.username) {
         pageData.userData.currentUser = true;
         pageData.userData.viewedUser = result.data.users[0];
