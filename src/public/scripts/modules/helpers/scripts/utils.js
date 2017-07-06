@@ -14,6 +14,11 @@ Utils.isLoggedIn = () => {
     }
     return false;
 };
-
+Utils.getConfig = (el) => {
+    if ($(el).find('script')) {
+        return JSON.parse($(el).find('script').html().replace(/\s/g, ''));
+    }
+    return {};
+};
 
 module.exports = Utils;

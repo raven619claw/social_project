@@ -1,6 +1,7 @@
 let moduleLoader = {};
 
 import commonModules from './commonModules.js';
+import Utils from './utils.js';
 
 moduleLoader.startModules = (moduleList) => {
     let moduleName, moduleFn;
@@ -10,7 +11,7 @@ moduleLoader.startModules = (moduleList) => {
         let moduleEl = $('body').find('[data-module="' + moduleName + '"]');
         if (moduleEl.length) {
             moduleEl.toArray().forEach((el) => {
-                let config = moduleLoader.getConfig(el);
+                let config = Utils.getConfig(el);
                 moduleFn.init(el, config);
             });
 
@@ -33,13 +34,6 @@ moduleLoader.stopModules = (moduleList) => {
         }
     });
 
-};
-
-moduleLoader.getConfig = (el) => {
-    if ($(el).find('script')) {
-        return JSON.parse($(el).find('script').html().replace(/\s/g,''));
-    }
-    return {};
 };
 
 moduleLoader.init = () => {

@@ -33,7 +33,7 @@ dataObject.getUserPosts = (data) => {
                                 userDetails: {
                                     username: data.get('user').properties.username,
                                     userId: data.get('user').properties.userId,
-                                    profilePhoto: completeAWSUrl([data.get('profilePhoto')])
+                                    profilePhoto: data.get('profilePhoto') && completeAWSUrl([data.get('profilePhoto')]) || null
                                 }
                             };
                             resultData.postData.media = completeAWSUrl(resultData.postData.media);

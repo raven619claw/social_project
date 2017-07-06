@@ -1,7 +1,6 @@
 $ var pageData = data.data;
 $ var friends = pageData.friends;
 $ var action = pageData.userData.currentUser && 'unfriend'
-
 <include("../../templates/base/base.marko") show-header=true data="${data}">
     <@title>
         ${data.title}
@@ -16,6 +15,9 @@ $ var action = pageData.userData.currentUser && 'unfriend'
                             View Profile
                         </a>
                     </div>  
+                    <if (pageData.userData.viewedUser.username!=pageData.userData.user.username && pageData.userData.success)>
+                        <div class="tab btnDefault js-open-chat" data-chatuserid="${pageData.userData.viewedUser.userId}" data-chatusername="${pageData.userData.viewedUser.username}"><span>open chat</span></div>    
+                    </if>
                 </div>
             </@leftContent>
     		<@mainContent class="mainContent">

@@ -28,7 +28,7 @@ dataObject.createPost = (postData) => {
             dateCreated: postData.dateCreated,
             content: postData.content,
             media: postData.media,
-            privacyFlag: postData.privacyFlag,
+            privacyFlag: postData.privacyFlag || 2,
             medium: postData.medium,
             id: postData.id
         };
