@@ -9,14 +9,14 @@ dataObject.getHomePosts = (data) => {
         let queryParameters = {};
 
         queryString = `
-            MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)
-            WHERE prop.status = 'accepted'
+            MATCH (entity:USER {userId : { userid } })-[:POSTED]->(post:POST)
             OPTIONAL MATCH (post)-[:MEDIA]-(media)
             OPTIONAL MATCH (entity)-[:MEDIA]-(profilePhoto:MEDIA {isProfilePhoto:true})
 
             WITH collect({entity:entity, post: post, media: media,profilePhoto: profilePhoto}) as row1
-            
-            MATCH (entity:USER {userId : { userid } })-[:POSTED]->(post:POST)
+
+            MATCH (user:USER {userId : { userid } })-[prop:FRIEND]-(entity)-[:POSTED]-(post:POST)
+            WHERE prop.status = 'accepted'
             OPTIONAL MATCH (post)-[:MEDIA]-(media)
             OPTIONAL MATCH (entity)-[:MEDIA]-(profilePhoto:MEDIA {isProfilePhoto:true})
 
