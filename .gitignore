@@ -7,5 +7,6 @@ src/public/config/environment.json
 *.marko.js
 *sublime*
 .sass-cache/
+mongoDbData
 *.log
-.env*
+.env
