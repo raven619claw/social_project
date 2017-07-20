@@ -10,3 +10,5 @@ src/public/config/environment.json
 mongoDbData
 *.log
 .env
+.DS_Store
+dump.rdb

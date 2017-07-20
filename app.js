@@ -2,7 +2,7 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
-const socket = require('socket.io');
+
 
 //built in globals
 const server = require('./src/config/server');
@@ -13,4 +13,4 @@ server.server(app);
 let httpServerObj = app.listen(GLOBALCONSTANTS.APPCONFIG.PORT, () => {
     GLOBALCONSTANTS.LOGGER.LOG('verbose', 'app listening on port ' + GLOBALCONSTANTS.APPCONFIG.PORT);
 });
-socketService.setup(httpServerObj, socket);
+socketService.setup(httpServerObj);

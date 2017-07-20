@@ -76,7 +76,6 @@ import Utils from '../../helpers/scripts/utils.js';
             };
             let url = '/apis/createPost';
             ajaxHelper.PUT(url, formData).then((response) => {
-                console.log(response);
                 window.location = Utils.CURRENT_URL;
             }).catch((error) => {
                 console.log(error);

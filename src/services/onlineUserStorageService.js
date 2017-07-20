@@ -4,24 +4,65 @@ const GLOBALCONSTANTS = require('../config/constants');
 
 let dataObject = {};
 dataObject.listOfUsers = {};
-dataObject.getUser = function(userID, socketID) {
-    if (userID)
-        return this.listOfUsers[userID];
-    if (socketID)
-        return _.findKey(this.listOfUsers, socketID);
+dataObject.listOfRoomUsers = {};
+dataObject.getUser = function(userId, socketId) {
+    if (userId)
+        return this.listOfUsers[userId] || [];
+    if (socketId) {
+        for (var user in this.listOfUsers) {
+            if (this.listOfUsers[user].indexOf(socketId) > -1) {
+                return user
+            }
+        }
+        return null
+    }
+
 };
-dataObject.addUser = function(userID, socketID) {
-	GLOBALCONSTANTS.LOGGER.LOG('verbose', 'addding user : '+userID+' with socketID : '+socketID);
-    this.listOfUsers[userID] = socketID;
-    console.log(dataObject.listOfUsers)
+dataObject.addUser = function(userId, socketId) {
+    GLOBALCONSTANTS.LOGGER.LOG('verbose', 'addding user : ' + userId + ' with socketId : ' + socketId);
+    if (this.listOfUsers[userId] instanceof Array) {
+        this.listOfUsers[userId].push(socketId);
+    } else {
+        this.listOfUsers[userId] = [socketId];
+    }
     return;
 };
-dataObject.removeUser = function(userID, socketID) {
-	GLOBALCONSTANTS.LOGGER.LOG('verbose', 'removing user : '+userID+' with socketID : '+this.listOfUsers[userID]);
-    if (userID)
-        delete this.listOfUsers[userID]
-    if (socketID)
-        delete this.listOfUsers[socketID]
+dataObject.removeUser = function(socketId, userId) {
+
+    if (userId)
+        delete this.listOfUsers[userId]
+    if (socketId)
+        for (var user in this.listOfUsers) {
+            if (this.listOfUsers[user].indexOf(socketId) > -1) {
+                GLOBALCONSTANTS.LOGGER.LOG('verbose', 'removing user : ' + user + ' with socketId : ' + socketId);
+                this.listOfUsers[user].splice(this.listOfUsers[user].indexOf(socketId), 1)
+            }
+        }
+    return;
+};
+
+dataObject.getRoomUsers = function(roomID) {
+    if (roomID)
+        return this.listOfRoomUsers[roomID] || [];
+};
+
+dataObject.addUserToRoomList = function(roomID, userId) {
+    if (this.listOfRoomUsers[roomID] instanceof Array) {
+        this.listOfRoomUsers[roomID].push(userId);
+    } else {
+        this.listOfRoomUsers[roomID] = [userId];
+    }
+};
+dataObject.removeUserFromRoomList = function(userId, roomID) {
+    if (!userId && roomID)
+        delete this.listOfRoomUsers[roomID]
+    if (userId && roomID)
+        for (var room in this.listOfRoomUsers) {
+            if (this.listOfRoomUsers[room].indexOf(userId) > -1) {
+                GLOBALCONSTANTS.LOGGER.LOG('verbose', 'removing user : ' + user + ' from room: ' + roomID + ' with socketId : ' + socketId);
+                this.listOfRoomUsers[room].splice(this.listOfRoomUsers[room].indexOf(userId), 1)
+            }
+        }
     return;
 };
 
