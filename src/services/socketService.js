@@ -1,14 +1,18 @@
 const socket = require('socket.io');
-const redis = require('socket.io-redis');
 const md5 = require('md5');
-
+const redis = require('redis').createClient;
+const adapter = require('socket.io-redis');
 const GLOBALCONSTANTS = require('../config/constants');
+const pub = redis(GLOBALCONSTANTS.APPCONFIG.REDIS_PORT, GLOBALCONSTANTS.APPCONFIG.REDIS_HOST, { auth_pass: GLOBALCONSTANTS.APPCONFIG.REDIS_PASSWORD });
+const sub = redis(GLOBALCONSTANTS.APPCONFIG.REDIS_PORT, GLOBALCONSTANTS.APPCONFIG.REDIS_HOST, { auth_pass: GLOBALCONSTANTS.APPCONFIG.REDIS_PASSWORD });
+
 const onlineUserStorageService = require('./onlineUserStorageService');
-const mongoDbService = require('./mongoDbService');
+const mongoDbService = require('./mongoDBService');
+
 let ioWrapper = {};
 ioWrapper.setup = (app) => {
     let io = socket(app);
-    io.adapter(redis({ host: GLOBALCONSTANTS.APPCONFIG.REDIS_HOST, port: GLOBALCONSTANTS.APPCONFIG.REDIS_PORT }));
+    io.adapter(adapter({ pubClient: pub, subClient: sub }));
     io.on('connection', (socket) => {
         GLOBALCONSTANTS.LOGGER.LOG('verbose', 'socket connection made ' + socket.id);
         if (socket.handshake.query.userid)

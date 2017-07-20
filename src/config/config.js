@@ -6,8 +6,9 @@ config.ENV = env;
 switch (env) {
     case 'heroku':
         config.PORT = process.env.PORT;
-        config.REDIS_PORT = process.env.HEROKU_REDIS_PORT;
-        config.REDIS_HOST = process.env.HEROKU_REDIS_HOST;
+        config.REDIS_PORT = process.env.REDIS_PORT;
+        config.REDIS_HOST = process.env.REDIS_HOST;
+        config.REDIS_PASSWORD = process.env.REDIS_PASSWORD;
         config.BASE_URL = process.env.HEROKU_BASE_URL;
         config.HOST = process.env.HEROKU_BASE_URL;
         config.DB_HOST = process.env.GRAPHENEDB_BOLT_URL;
@@ -19,6 +20,7 @@ switch (env) {
         config.PORT = process.env.PORT;
         config.REDIS_PORT = process.env.REDIS_PORT;
         config.REDIS_HOST = process.env.REDIS_HOST;
+        config.REDIS_PASSWORD = process.env.REDIS_PASSWORD;
         config.HOST = process.env.BASE_URL + ':' + process.env.PORT;
         config.BASE_URL = process.env.BASE_URL;
         config.DB_HOST = process.env.DB_HOST;

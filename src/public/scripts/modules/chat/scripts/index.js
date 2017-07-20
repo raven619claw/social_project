@@ -147,7 +147,7 @@ $('body').on('click', '.js-open-chat', function(e) {
         users: [$(SELECTORS.USERID).data('userid'), $(this).data('chatuserid')],
         origin: true,
         origin_user: $(SELECTORS.USERID).data('userid'),
-        chat_usernames: $(this).data('chatusername')
+        chat_username: $(this).data('chatusername')
     });
 });
 
