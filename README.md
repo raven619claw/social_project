@@ -53,7 +53,7 @@ to run server
 create .env file from sample.env and update the required vars
 
 # TO SETUP DB
-
+## 1.Neo4J
 install neo4j community edition
 set up and run the db server
 
@@ -64,7 +64,15 @@ change the login credentials from .env file
 ```
 var driver = neo4j.driver("bolt://localhost:7687", neo4j.auth.basic("USERNAME", "PASSWORD"));
 ```
+## 2.MongoDb
+This app requires mongodb for storing chat data
+use any online mongodb service to connect or install mongoDb on local system and update credentials in .env file
+and run the local instance
 
+## 3.Redis
+This app requires redis for socket.io use 
+use any online redis service to connect or install redis on local system and update credentials in .env file
+and run the local instance
 
 # API 
 refer wiki page for API structure https://github.com/raven619claw/social_project/wiki/API-structure
