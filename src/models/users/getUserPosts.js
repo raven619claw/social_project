@@ -9,8 +9,10 @@ dataObject.getUserPosts = (data) => {
         let queryParameters = {};
 
         queryString = `
-            MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)-[:MEDIA]-(media)
-            RETURN post,user,collect(media) as media
+            MATCH (user:USER {userId : { userid } })-[:POSTED]->(post:POST)
+            OPTIONAL MATCH (post)-[:MEDIA]-(media)
+            OPTIONAL MATCH (user)-[:MEDIA]-(profilePhoto:MEDIA {isProfilePhoto:true})
+            RETURN post,user,profilePhoto,collect(media) as media
             ORDER BY post.dateCreated DESC
             `;
         queryParameters.userid = data.userid;
@@ -31,6 +33,7 @@ dataObject.getUserPosts = (data) => {
                                 userDetails: {
                                     username: data.get('user').properties.username,
                                     userId: data.get('user').properties.userId,
+                                    profilePhoto: data.get('profilePhoto') && completeAWSUrl([data.get('profilePhoto')]) || null
                                 }
                             };
                             resultData.postData.media = completeAWSUrl(resultData.postData.media);

@@ -1,11 +1,11 @@
 $ var userData = data.userData;
-<div class="profilePhotoWrapper">
+<div class="profilePhotoWrapper js-profilePhoto">
 	<div class="profilePhoto dummyAvatar">
-		<img src="${userData.viewedUser.userProfileImg}" class="profileImg">
+		<img src="${userData.viewedUser.profilePhoto ? userData.viewedUser.profilePhoto.url : ''}" class="profileImg js-profilePhotoEl">
 	</div>
-	<div class="hide">
-		<label for="profilePhoto" class="btnDefault btnHalf">change photo</label>
+	<div if(userData.currentUser) class="">
+		<label for="profilePhoto" class="btnDefault btnHalf js-changePhoto">change photo</label>
 		<input id="profilePhoto" type="file" name="media" class="js-media hide" />
-		<div class="btnDefault btnHalf">remove photo</div>
+		<div class="btnDefault btnHalf js-removePhoto">remove photo</div>
 	</div>
 </div>

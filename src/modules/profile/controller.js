@@ -38,7 +38,7 @@ let loader = async function(req, res) {
         pageData.userData.viewedUser = result.data.users[0];
     }
     // pageData.userData.user.userId = pageData.userData.user.userId || result.data.users[0].userId;
-    pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;    
+    pageData.userData.user.username = pageData.userData.user.username || result.data.users[0].username;
     result = await getPostData(result.data.users[0].userId);
     pageData.userPostData = [];
     result.data.userPosts.forEach((post) => {

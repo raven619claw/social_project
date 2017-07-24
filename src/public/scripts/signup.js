@@ -199,3 +199,5 @@ import Utils from './modules/helpers/scripts/utils.js';
     };
 
 })();
+
+module.exports = {};

@@ -18,8 +18,8 @@ var upload = multer({
         metadata: function(req, file, cb) {
             cb(null, { fieldName: file.fieldname });
         },
-        key: function(req, file, cb) { 
-            cb(null, Date.now() + file.originalname); //use Date.now() for unique file keys
+        key: function(req, file, cb) {
+            cb(null, Date.now() + '_' + file.originalname); //use Date.now() for unique file keys
         }
     })
 });

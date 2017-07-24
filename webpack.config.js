@@ -32,7 +32,7 @@ module.exports = {
                 presets: ['es2015', 'stage-2']
             }
         }, {
-            test: /\.scss$/,
+            test: /\.(sass|scss)$/,
             use: extractSass.extract({
                 use: [{
                     loader: "css-loader",
@@ -43,7 +43,7 @@ module.exports = {
                     loader: "sass-loader",
                     options: {
                         sourceMap: true,
-                        includePaths: ["./src/public/styles/scss"]
+                        includePaths: ["./src/public/styles/scss","./src/public/styles/sass"]
                     }
                 }]
             })

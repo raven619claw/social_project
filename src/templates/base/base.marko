@@ -2,8 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+        <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         <link href="https://fonts.googleapis.com/css?family=Exo+2" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="/public/styles/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/public/styles/css/bulma.css">
         <include(input.styles)/>
         <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -21,9 +24,16 @@
             <include(input.body)/>
         </div>
         <div class="popup js-popup hide"></div>
+        <div class="js-chatWrapper">
+            <div data-module='chat'>
+                <script type="text/x-config">
+                    {
+                    }
+                </script>
+            </div>
+        </div>
     </body>
-    <script src="/public/scripts/bundles/login.js"></script>
-    <script src="/public/scripts/bundles/signup.js"></script>
     <script src="/public/scripts/bundles/app.js"></script>
+    
     <include(input.scripts)/>
 </html>

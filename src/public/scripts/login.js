@@ -166,3 +166,5 @@ import popupObject from './modules/popup/scripts/index';
     };
 
 })();
+
+module.exports = {};

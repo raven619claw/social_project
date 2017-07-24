@@ -7,7 +7,7 @@ $ postData.getPrivacyValue = getPrivacyValue;
         ${pageData.title}
     </@title>
     <@styles>
-        <link rel="stylesheet" type="text/css" href="/public/styles/css/profile.css">
+        <link rel="stylesheet" type="text/css" href="/public/styles/css/profilePage.css">
     </@styles>
     
     <@body>
@@ -15,8 +15,11 @@ $ postData.getPrivacyValue = getPrivacyValue;
             <@leftContent class="leftContent">
                 <h2>Tab Options</h2>
                 <profilePhoto({userData:pageData.userData})/>
-                <div class="tabs">
-                    <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>    
+                <div class="tabsWrap">
+                    <div class="tab btnDefault"><a href="/${pageData.userData.viewedUser.username}/friends">View Friends</a></div>  
+                    <if (pageData.userData.viewedUser.username!=pageData.userData.user.username && pageData.userData.success)>
+                        <div class="tab btnDefault js-open-chat" data-chatuserid="${pageData.userData.viewedUser.userId}"  data-chatusername="${pageData.userData.viewedUser.username}"><span>open chat</span></div>    
+                    </if>
                 </div>
             </@leftContent>
             <@mainContent class="mainContent">
