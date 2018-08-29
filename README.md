@@ -1,4 +1,4 @@
-# social_project
+# social_project(NOT ACTIVE)
 Project to build a social network application
 This is a dev project to learn and use different frameworks and technology
 The path i'll follow while developing this project is as follows:
